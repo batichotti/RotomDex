@@ -1,1 +1,3 @@
-There are several ways to contribute to RotomDex:
+# contributing to RotomDex
+
+Thank you for taking the time to contribute; every little bit helps! This project is entirely open-source and unmonetized - community contributions are what keep it alive!
