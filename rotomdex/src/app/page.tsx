@@ -1,4 +1,6 @@
 import type { Pokemon } from '@/types/pokemon' // Importar tipo Pokemon de src/types/pokemon.ts
+import PokemonFilters from '@/components/PokemonFilters'
+import { Suspense } from 'react'
 
 // Função para capitalizar strings
 function capitalize(str: string){
@@ -15,13 +17,27 @@ function getSecondaryType(p: Pokemon){
 }
 
 // Funcão principal: Home
-export default async function Home(){
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/pokemon`) // Carrega todo o /pokemon do backend 
-  const pokemon: Pokemon[] = await res.json()
+export default async function Home({ searchParams }: { searchParams: Promise<Record<string, string>> }){
+  const filters = await searchParams;
+  const query = new URLSearchParams(); 
+
+  if (filters.type)    query.set('type',    filters.type);
+  if (filters.type2)   query.set('type2',   filters.type2);
+  if (filters.orderBy) query.set('orderBy', filters.orderBy);
+  if (filters.order)   query.set('order',   filters.order);
+
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/pokemon?${query}`, {cache: 'no-store'}); // Carrega todo o /pokemon do backend 
+  const pokemon: Pokemon[] = await res.json();
 
   return(
     <main style={{padding: '1rem'}}>
-      <h1>RotomDex</h1>                            
+      <h1>RotomDex</h1>              
+
+      {/* Suspense necessário porque PokemonFilters usa useSearchParams */}
+      <Suspense fallback={<div>Carregando filtros...</div>}>
+        <PokemonFilters />
+      </Suspense>
+
       <p>Pokémon Catalogados: {pokemon.length}</p>
       
       <ul style={{listStyle: 'none', padding: '0.5rem'}}> {/*Abre a lista, remove os bullet points e adiciona espaçamento*/}
