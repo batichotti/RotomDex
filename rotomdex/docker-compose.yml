@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ../../RotomDex-API/rotomdex-api
+    ports:
+      - "3001:3001"
+
+  frontend:
+    build: .
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
