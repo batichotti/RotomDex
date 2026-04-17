@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'RotomDex | Competitve Pokédex',
+  title: 'RotomDex | A Competitve Pokédex',
   description: 'Competitive Pokédex',
 }
 
