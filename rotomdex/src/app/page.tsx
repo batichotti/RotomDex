@@ -23,20 +23,18 @@ export default async function Home({ searchParams }: { searchParams: Promise<Rec
 
   if (filters.type)    query.set('type',    filters.type);
   if (filters.type2)   query.set('type2',   filters.type2);
-  if (filters.orderBy) query.set('orderBy', filters.orderBy);
-  if (filters.order)   query.set('order',   filters.order);
+  query.set('orderBy', filters.orderBy ?? 'id')   // sempre envia, padrão 'id'
+  query.set('order',   filters.order   ?? 'ASC')  // sempre envia, padrão 'ASC' 
 
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/pokemon?${query}`, {cache: 'no-store'}); // Carrega todo o /pokemon do backend 
   const pokemon: Pokemon[] = await res.json();
 
   return(
-    <main style={{padding: '1rem'}}>
+    <div style={{padding: '1rem'}}>
       <h1>RotomDex</h1>              
 
       {/* Suspense necessário porque PokemonFilters usa useSearchParams */}
-      <Suspense fallback={<div>Carregando filtros...</div>}>
-        <PokemonFilters />
-      </Suspense>
+      <Suspense> <PokemonFilters/> </Suspense>
 
       <p>Pokémon Catalogados: {pokemon.length}</p>
       
@@ -51,6 +49,6 @@ export default async function Home({ searchParams }: { searchParams: Promise<Rec
           </li> 
         ))} 
       </ul>
-    </main>
+    </div>
   )
 }
