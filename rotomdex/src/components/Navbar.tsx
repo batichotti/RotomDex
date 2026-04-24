@@ -7,7 +7,7 @@ export default function Navbar(){
         <header className={styles.navbar}>
             <Sidebar/>
             <Image
-                src="/logos/.png/RotomDex_logo_colored_wl.png"
+                src="/logos/.svg/RotomDex_logo_colored_wl.svg"
                 alt="Logo"
                 width={400}
                 height={400}

@@ -8,11 +8,17 @@ import Image from 'next/image'
 export default function Sidebar() {
     const [isOpen, setIsOpen] = useState(false)
 
+    const toggle = () => setIsOpen(prev => !prev)
+
     return (
         <>
-            <button className={styles.menuBtn} onClick={() => setIsOpen(true)}>
+            <button
+                className={`${styles.menuBtn} ${isOpen ? styles.open : ''}`}
+                onClick={toggle}
+                aria-label={isOpen ? 'Fechar menu' : 'Abrir menu'}
+            >
                 <Image
-                    src="/logos/.png/RotomDex_mini_colored.png"
+                    src="/logos/.svg/RotomDex_mini_colored.svg"
                     alt="Menu"
                     width={90}
                     height={53}
@@ -27,14 +33,9 @@ export default function Sidebar() {
             )}
 
             <nav className={`${styles.sidebar} ${isOpen ? styles.open : ''}`}>
-                <button
-                    className={styles.closeBtn}
-                    onClick={() => setIsOpen(false)}
-                >
-                    ✕
-                </button>
-
-                <Link href="/" className={styles.navLink}>Home</Link>
+                <Link href="/" className={styles.navlink}>Home</Link>
+                <Link href="/" className={styles.navlink}>Pokedex</Link>
+                {/* Adicione mais links aqui */}
             </nav>
         </>
     )
