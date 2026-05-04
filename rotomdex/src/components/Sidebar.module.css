@@ -1,0 +1,82 @@
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.3);
+    z-index: 100;
+    opacity: 0;
+    animation: fadeIn 0.3s ease forwards;
+}
+
+@keyframes fadeIn {
+    to { opacity: 1; }
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 500px;
+    min-width: 260px;
+    z-index: 101;
+    background-color: #8DE1EE;
+    box-shadow: 4px 0 16px rgba(0,0,0,0.15);
+    border: solid #63574E;
+    border-radius: 50px;
+
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem 1.2rem;
+    gap: 1rem;
+
+    transform: translateX(-100%);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sidebar.open {
+    transform: translateX(0);
+}
+
+.closeBtn:hover {
+    background: rgba(0,0,0,0.07);
+}
+
+.navlink {
+    padding: 0.6rem 0.8rem;
+    border-radius: 8px;
+    transition: background 0.5s;
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    font-size: 18px;
+}
+
+.navlink:hover {
+    background: rgba(248, 122, 140, 0.15);
+    color: #f87a8c;
+}
+
+/* O botão agora fica dentro da sidebar e se move com ela */
+.menuBtn {
+    position: fixed;
+    top: 1rem;
+    /* Quando fechado: fica na borda esquerda */
+    left: 1rem;
+    z-index: 102;
+    background-color: #fff;
+    border: none;
+    cursor: pointer;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 8px 4px rgba(0, 0, 0, 0.3);
+    transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.menuBtn.open {
+    left: calc(500px + 15px);
+    border-radius: 50%;
+}

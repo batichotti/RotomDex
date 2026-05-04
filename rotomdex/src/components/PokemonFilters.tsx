@@ -14,9 +14,9 @@ export default function PokemonFilters(){
     const params = useSearchParams();
 
     function handleChange(key: string, value: string){
-       const current = new URLSearchParams(params.toString());
+         const current = new URLSearchParams(params.toString());
        
-       if(value) current.set(key, value);
+        if(value) current.set(key, value);
         else current.delete(key);
 
         router.push(`/?${current.toString()}`)
