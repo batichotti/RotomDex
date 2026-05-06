@@ -1,6 +1,6 @@
-import type { Pokemon } from '@/types/pokemon' // Importar tipo Pokemon de src/types/pokemon.ts
-import PokemonFilters from '@/components/PokemonFilters'
-import { Suspense } from 'react'
+import type { Pokemon } from '@/types/pokemon'           // Importar tipo Pokemon de src/types/pokemon.ts
+import PokemonFilters from '@/components/PokemonFilters' // Importar Filtros de Pokemon de pokemonFilters.tsx
+import { Suspense } from 'react'                         // Imporat "Suspense" do React. Permite esperar algo carregar
 
 // Função para capitalizar strings
 function capitalize(str: string){
@@ -18,17 +18,32 @@ function getSecondaryType(p: Pokemon){
 
 // Funcão principal: Home
 export default async function Home({ searchParams }: { searchParams: Promise<Record<string, string>> }){
-  const filters = await searchParams;
-  const query = new URLSearchParams(); 
+  const filters = await searchParams;  // Recebe os Parâmetros assim que resolvidos
+  const query = new URLSearchParams(); // Recebe a Query dos parâmetros
 
-  if (filters.type)    query.set('type',    filters.type);
-  if (filters.type2)   query.set('type2',   filters.type2);
-  query.set('orderBy', filters.orderBy ?? 'id')   // sempre envia, padrão 'id'
-  query.set('order',   filters.order   ?? 'ASC')  // sempre envia, padrão 'ASC' 
+  if (filters.type)  query.set('type',  filters.type);  // Se existir tipo nos filtros, adiciona na query
+  if (filters.type2) query.set('type2', filters.type2); // Se existir tipo secundário, adiciona na query
+  
+  query.set('orderBy', filters.orderBy ?? 'id')   // Sempre envia, para a query, padrão 'id'
+  query.set('order',   filters.order   ?? 'ASC')  // Sempre envia, para a query, padrão 'ASC'  
 
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/pokemon?${query}`, {cache: 'no-store'}); // Carrega todo o /pokemon do backend 
-  const pokemon: Pokemon[] = await res.json();
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/pokemon?${query}`, {cache: 'no-store'}); // Retorna a query do backend
 
+  // Trata erros da API
+  if (!res.ok) {
+    const err = await res.json();
+    return (
+      <div style={{ padding: '1rem' }}>
+        <h1>RotomDex</h1>
+        <Suspense><PokemonFilters /></Suspense>
+        <p style={{ color: 'red' }}>{err.message}</p>
+      </div>
+    );
+  }
+
+  const pokemon: Pokemon[] = await res.json(); // Converte a resposta da API em um json, e em array
+
+  // HTML
   return(
     <div style={{padding: '1rem'}}>
       <h1>RotomDex</h1>              

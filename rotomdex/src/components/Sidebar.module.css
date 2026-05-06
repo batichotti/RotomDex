@@ -1,56 +1,58 @@
+/*Sobrepor tela*/
 .overlay {
-    position: fixed;
-    inset: 0;
+    position: fixed;               /*Fixo na tela*/
+    inset: 0;                      /*Ocupa toda a tela*/
     background: rgba(0,0,0,0.3);
-    z-index: 100;
-    opacity: 0;
-    animation: fadeIn 0.3s ease forwards;
+    z-index: 100;                  /*Profundidade = 100*/
+    opacity: 0; 
+    animation: fadeIn 0.3s ease forwards; 
 }
 
+/*Animação FadeIn*/
 @keyframes fadeIn {
-    to { opacity: 1; }
+    to { opacity: 1; } /*Final da animação, Opacidade: 1*/
 }
 
+/*Classe principal da Sidebar*/
 .sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100vh;
-    width: 500px;
-    min-width: 260px;
-    z-index: 101;
+    position: fixed; /*Fixo na tela*/
+    top: 0;          
+    left: 0; /*Posiciona no Canto superior esquerdo*/
+
+    height: 100vh;                    /*100% da altura da tela*/
+    width: clamp(300px, 25vw, 500px);
+    z-index: 101;                     /*Profundidade = 101; Acima do Overlay*/
+    
     background-color: #8DE1EE;
     box-shadow: 4px 0 16px rgba(0,0,0,0.15);
     border: solid #63574E;
     border-radius: 50px;
 
-    display: flex;
-    flex-direction: column;
-    padding: 1.5rem 1.2rem;
-    gap: 1rem;
-
-    transform: translateX(-100%);
-    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;                                                    /*Layout flexível*/
+    flex-direction: column;                                           /*Alinhados verticalmente*/
+    padding: clamp(1rem, 1.5vw, 1.5rem) clamp(0.8rem, 1.2vw, 1.2rem); /*Espaçamento interno responsivo*/
+    
+    transform: translateX(-100%); /*Move a sidebar para 100% à esquerda da tela*/
+    transition: transform 0.5s;
 }
 
+/*Sidebar aberta*/
 .sidebar.open {
-    transform: translateX(0);
+    transform: translateX(0); /*Movimenta a sidebar para a tela*/
 }
 
-.closeBtn:hover {
-    background: rgba(0,0,0,0.07);
-}
-
+/*Estilos dos links de navegação*/
 .navlink {
-    padding: 0.6rem 0.8rem;
+    padding: clamp(0.4rem, 0.6vw, 0.6rem) clamp(0.5rem, 0.8vw, 0.8rem);
     border-radius: 8px;
-    transition: background 0.5s;
-    text-decoration: none;
-    color: #333;
+    transition: background 0.5s; /*Animação de hover*/
+    text-decoration: none;       /*Remove sublinhado do link*/
+    color: #333;               /*Cor do texto*/
     font-weight: 500;
-    font-size: 18px;
+    font-size: clamp(14px, 1.25vw, 18px); 
 }
 
+/*Ao passar o moue sobre o link*/
 .navlink:hover {
     background: rgba(248, 122, 140, 0.15);
     color: #f87a8c;
@@ -58,25 +60,28 @@
 
 /* O botão agora fica dentro da sidebar e se move com ela */
 .menuBtn {
-    position: fixed;
-    top: 1rem;
-    /* Quando fechado: fica na borda esquerda */
-    left: 1rem;
+    position: fixed;                /*Fixo na tela*/
+    top: clamp(0.5rem, 1vw, 1rem); 
+    left: clamp(0.5rem, 1vw, 1rem); /*Canto Superior Esquerdo com espaçamento dinâmico*/
     z-index: 102;
-    background-color: #fff;
-    border: none;
-    cursor: pointer;
-    width: 100px;
-    height: 100px;
+    
+    background-color: #F7F6F2;
+    border: none;    /*Remove borda*/
+    cursor: pointer; /*Ativa cursor de click*/
+    
+    width: clamp(54px, 6.5vw, 100px);
+    height: clamp(54px, 6.5vw, 100px);
     border-radius: 50%;
+
     display: flex;
-    align-items: center;
+    align-items: center;     /*Centraliza a imagem*/
     justify-content: center;
+
     box-shadow: 0 0 8px 4px rgba(0, 0, 0, 0.3);
-    transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: 0.5s;
 }
 
 .menuBtn.open {
-    left: calc(500px + 15px);
+    left: clamp(315px, calc(25vw + 15px), 515px); /*Distância da esquerda*/
     border-radius: 50%;
 }
