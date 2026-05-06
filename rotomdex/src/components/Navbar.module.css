@@ -1,21 +1,16 @@
 .navbar {
     background-color: #f87a8c;
     padding: 1rem 0rem;
+
     display: flex;
-    align-items: center;
+    align-items: center;     /*Centralizar Logo*/
     justify-content: center;
-    gap: 0,75rem;
+    
     box-shadow: 0 3px 5px rgba(0,0,0,0.2);
 }
 
-.logo {
-    font-size: rem;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-}
-
 .logoImg {
-    width: 168px;
-    height: 100px;
+    width: clamp(100px, 11.67vw, 168px);
+    height: auto;
     object-fit: contain;
 }
