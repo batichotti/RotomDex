@@ -46,6 +46,7 @@ export default function Sidebar() {
             <nav className={`${styles.sidebar} ${isOpen ? styles.open : ''}`}>
                 <Link href="/" className={styles.navlink}>Home</Link>
                 <Link href="/pokedex" className={styles.navlink}>Pokedex</Link>
+                <Link href="/moves" className={styles.navlink}>Moves</Link>
                 {/* Adicione mais links aqui */}
             </nav>
         </>
