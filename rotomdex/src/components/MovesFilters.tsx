@@ -1,53 +1,60 @@
 'use client'
 
+// Importa useRouter - Permite a navegaçõa entre páginas e useSearchParams - Permite ler parâmetros da URL
 import { useRouter, useSearchParams } from 'next/navigation'
 
+// Vetor de tipos
 const TYPES = ['bug','dark','dragon','electric','fairy','fighting','fire','flying','ghost','grass','ground','ice','normal','poison','psychic','rock','steel','water']
+// Vetor de Classes
 const DAMAGE_CLASS = ['physical', 'special', 'status']
+// Vetor de ordenações
 const ORDER_BY = ['id', 'name', 'power', 'type', 'pp', 'effect_chance', 'damage_class', 'category']
 
+// Função para filtragem de Tipso
 export default function MovesFilters() {
-    const router = useRouter()
-    const params = useSearchParams()
+    const router = useRouter();       // Inicializa o Router
+    const params = useSearchParams(); // Obtém os parâmetros da URL
 
     function handleChange(key: string, value: string) {
         const current = new URLSearchParams(params.toString())
 
-        if (value) current.set(key, value)
-        else current.delete(key)
+        if(value) current.set(key, value); // Se haver valor, atualiza a URL
+        else current.delete(key); // Se vazio, remove o filtro
 
-        router.push(`/moves?${current.toString()}`)
+        router.push(`/moves?${current.toString()}`) // Atualiza a página com a nova URL
     }
 
+    // HTML
     return (
+        // Filtros: gap entre elementos, flexwrap quebra linhas e adiciona margem abaixo
         <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '1rem' }}>
 
-            {/* Tipo */}
+            {/*Tipo*/}
             <select value={params.get('type') ?? ''} onChange={e => handleChange('type', e.target.value)}>
                 <option value=''>Tipo</option>
                 {TYPES.map(t => <option key={t} value={t}>{t}</option>)}
             </select>
 
-            {/* Classe de Dano */}
+            {/* Classe */}
             <select value={params.get('damage_class') ?? ''} onChange={e => handleChange('damage_class', e.target.value)}>
-                <option value=''>Classe de dano</option>
+                <option value=''>Classe</option>
                 {DAMAGE_CLASS.map(d => <option key={d} value={d}>{d}</option>)}
             </select>
 
-            {/* Power mínimo */}
+            {/* {/* Power mínimo
             <input
                 type='number'
                 placeholder='Power mín.'
                 min={0} max={250}
                 value={params.get('min') ?? ''}
                 onChange={e => {
-                    handleChange('fill', 'power')          // define que o range é sobre power
+                    handleChange('fill', 'power')
                     handleChange('min', e.target.value)
                 }}
                 style={{ width: '90px' }}
-            />
+            /> */}
 
-            {/* Power máximo */}
+            {/* {/* Power máximo
             <input
                 type='number'
                 placeholder='Power máx.'
@@ -58,6 +65,16 @@ export default function MovesFilters() {
                     handleChange('max', e.target.value)
                 }}
                 style={{ width: '90px' }}
+            /> */}
+
+            {/* Power */}
+            <input
+                type='number'
+                placeholder='Power'
+                min={0} max={250}
+                value={params.get('power') ?? ''}
+                onChange={e => handleChange('power', e.target.value)}
+                style={{ width: '85px' }}
             />
 
             {/* PP */}
