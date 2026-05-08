@@ -1,0 +1,87 @@
+/*Sobrepor tela*/
+.overlay {
+    position: fixed;               /*Fixo na tela*/
+    inset: 0;                      /*Ocupa toda a tela*/
+    background: rgba(0,0,0,0.3);
+    z-index: 100;                  /*Profundidade = 100*/
+    opacity: 0; 
+    animation: fadeIn 0.3s ease forwards; 
+}
+
+/*Animação FadeIn*/
+@keyframes fadeIn {
+    to { opacity: 1; } /*Final da animação, Opacidade: 1*/
+}
+
+/*Classe principal da Sidebar*/
+.sidebar {
+    position: fixed; /*Fixo na tela*/
+    top: 0;          
+    left: 0; /*Posiciona no Canto superior esquerdo*/
+
+    height: 100vh;                    /*100% da altura da tela*/
+    width: clamp(300px, 25vw, 500px);
+    z-index: 101;                     /*Profundidade = 101; Acima do Overlay*/
+    
+    background-color: #8DE1EE;
+    box-shadow: 4px 0 16px rgba(0,0,0,0.15);
+    border: solid #63574E;
+    border-radius: 50px;
+
+    display: flex;                                                    /*Layout flexível*/
+    flex-direction: column;                                           /*Alinhados verticalmente*/
+    padding: clamp(1rem, 1.5vw, 1.5rem) clamp(0.8rem, 1.2vw, 1.2rem); /*Espaçamento interno responsivo*/
+    
+    transform: translateX(-100%); /*Move a sidebar para 100% à esquerda da tela*/
+    transition: transform 0.5s;
+}
+
+/*Sidebar aberta*/
+.sidebar.open {
+    transform: translateX(0); /*Movimenta a sidebar para a tela*/
+}
+
+/*Estilos dos links de navegação*/
+.navlink {
+    padding: clamp(0.4rem, 0.6vw, 0.6rem) clamp(0.5rem, 0.8vw, 0.8rem);
+    border-radius: 8px;
+    transition: background 0.5s; /*Animação de hover*/
+    text-decoration: none;       /*Remove sublinhado do link*/
+    color: #333;               /*Cor do texto*/
+    font-weight: 500;
+    font-size: clamp(14px, 1.25vw, 18px); 
+}
+
+/*Ao passar o moue sobre o link*/
+.navlink:hover {
+    background: rgba(248, 122, 140, 0.15);
+    color: #f87a8c;
+}
+
+/* O botão agora fica dentro da sidebar e se move com ela */
+.menuBtn {
+    position: fixed;                /*Fixo na tela*/
+    top: clamp(0.5rem, 1vw, 1rem); 
+    left: clamp(0.5rem, 1vw, 1rem); /*Canto Superior Esquerdo com espaçamento dinâmico*/
+    z-index: 102;
+    
+    background-color: #F7F6F2;
+    border: none;    /*Remove borda*/
+    cursor: pointer; /*Ativa cursor de click*/
+    
+    width: clamp(54px, 6.5vw, 100px);
+    height: clamp(54px, 6.5vw, 100px);
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;     /*Centraliza a imagem*/
+    justify-content: center;
+
+    box-shadow: 0 0 8px 4px rgba(0, 0, 0, 0.3);
+    transition: 0.5s;
+}
+
+.menuBtn.open {
+    left: clamp(315px, calc(25vw + 15px), 515px); /*Distância da esquerda*/
+    border-radius: 50%;
+}

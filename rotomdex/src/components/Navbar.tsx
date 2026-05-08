@@ -1,0 +1,21 @@
+import Image from 'next/image'  // <- faltou isso
+import styles from './Navbar.module.css'
+import Sidebar from './Sidebar'
+
+export default function Navbar(){
+    return(
+        <header className={styles.navbar}>
+            <Sidebar/>
+            <Image
+                src="/logos/.svg/RotomDex_logo_colored_wl.svg"
+                alt="Logo"
+                width={400}
+                height={400}
+                className={styles.logoImg}
+                priority
+            />
+            <span className={styles.logo}></span>
+        </header>
+        
+    )
+}

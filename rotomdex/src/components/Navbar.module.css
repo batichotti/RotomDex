@@ -1,0 +1,16 @@
+.navbar {
+    background-color: #f87a8c;
+    padding: 1rem 0rem;
+
+    display: flex;
+    align-items: center;     /*Centralizar Logo*/
+    justify-content: center;
+    
+    box-shadow: 0 3px 5px rgba(0,0,0,0.2);
+}
+
+.logoImg {
+    width: clamp(100px, 11.67vw, 168px);
+    height: auto;
+    object-fit: contain;
+}

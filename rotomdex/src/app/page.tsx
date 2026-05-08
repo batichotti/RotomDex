@@ -1,13 +1,7 @@
-import type { Pokemon } from '@/types/pokemon' // Importar tipo Pokemon de src/types/pokemon.ts
-import PokemonFilters from '@/components/PokemonFilters'
-import { Suspense } from 'react'
-
-// Função para capitalizar strings
-function capitalize(str: string){
-  return str.charAt(0).toUpperCase() // Retorna o texto informado como o caractere na posição inicial em maiúsculo
-       + str.slice(1);               // E uma substring da string original a partir do segundo caractere
-}
-
+import type { Pokemon } from '@/types/pokemon'           // Importar tipo Pokemon de src/types/pokemon.ts
+import { capitalize } from '@/utils/utils'               // Importar Funções de Utilidade
+import PokemonFilters from '@/components/PokemonFilters' // Importar Filtros de Pokemon de pokemonFilters.tsx
+import { Suspense } from 'react'                         // Importar "Suspense" do React. Permite esperar algo carregar
 
 // Função para tratar e devolver o tipo secundário de um Pokemon
 function getSecondaryType(p: Pokemon){
@@ -18,25 +12,38 @@ function getSecondaryType(p: Pokemon){
 
 // Funcão principal: Home
 export default async function Home({ searchParams }: { searchParams: Promise<Record<string, string>> }){
-  const filters = await searchParams;
-  const query = new URLSearchParams(); 
+  const filters = await searchParams;  // Recebe os Parâmetros assim que resolvidos
+  const query = new URLSearchParams(); // Recebe a Query dos parâmetros
 
-  if (filters.type)    query.set('type',    filters.type);
-  if (filters.type2)   query.set('type2',   filters.type2);
-  if (filters.orderBy) query.set('orderBy', filters.orderBy);
-  if (filters.order)   query.set('order',   filters.order);
+  if (filters.type)  query.set('type',  filters.type);  // Se existir tipo nos filtros, adiciona na query
+  if (filters.type2) query.set('type2', filters.type2); // Se existir tipo secundário, adiciona na query
+  
+  query.set('orderBy', filters.orderBy ?? 'id');   // Sempre envia, para a query, padrão 'id'
+  query.set('order',   filters.order   ?? 'ASC');  // Sempre envia, para a query, padrão 'ASC'  
 
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/pokemon?${query}`, {cache: 'no-store'}); // Carrega todo o /pokemon do backend 
-  const pokemon: Pokemon[] = await res.json();
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/pokemon?${query}`, {cache: 'no-store'}); // Retorna a query do backend
 
+  // Trata erros da API
+  if (!res.ok) {
+    const err = await res.json();
+    return (
+      <div style={{ padding: '1rem' }}>
+        <h1>RotomDex</h1>
+        <Suspense><PokemonFilters /></Suspense>
+        <p style={{ color: 'red' }}>{err.message}</p>
+      </div>
+    );
+  }
+
+  const pokemon: Pokemon[] = await res.json(); // Converte a resposta da API em um json, e em array
+
+  // HTML
   return(
-    <main style={{padding: '1rem'}}>
+    <div style={{padding: '1rem'}}>
       <h1>RotomDex</h1>              
 
       {/* Suspense necessário porque PokemonFilters usa useSearchParams */}
-      <Suspense fallback={<div>Carregando filtros...</div>}>
-        <PokemonFilters />
-      </Suspense>
+      <Suspense> <PokemonFilters/> </Suspense>
 
       <p>Pokémon Catalogados: {pokemon.length}</p>
       
@@ -51,6 +58,6 @@ export default async function Home({ searchParams }: { searchParams: Promise<Rec
           </li> 
         ))} 
       </ul>
-    </main>
+    </div>
   )
 }
