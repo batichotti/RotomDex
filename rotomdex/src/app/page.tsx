@@ -1,13 +1,7 @@
 import type { Pokemon } from '@/types/pokemon'           // Importar tipo Pokemon de src/types/pokemon.ts
+import { capitalize } from '@/utils/utils'               // Importar Funções de Utilidade
 import PokemonFilters from '@/components/PokemonFilters' // Importar Filtros de Pokemon de pokemonFilters.tsx
-import { Suspense } from 'react'                         // Imporat "Suspense" do React. Permite esperar algo carregar
-
-// Função para capitalizar strings
-function capitalize(str: string){
-  return str.charAt(0).toUpperCase() // Retorna o texto informado como o caractere na posição inicial em maiúsculo
-       + str.slice(1);               // E uma substring da string original a partir do segundo caractere
-}
-
+import { Suspense } from 'react'                         // Importar "Suspense" do React. Permite esperar algo carregar
 
 // Função para tratar e devolver o tipo secundário de um Pokemon
 function getSecondaryType(p: Pokemon){
@@ -24,8 +18,8 @@ export default async function Home({ searchParams }: { searchParams: Promise<Rec
   if (filters.type)  query.set('type',  filters.type);  // Se existir tipo nos filtros, adiciona na query
   if (filters.type2) query.set('type2', filters.type2); // Se existir tipo secundário, adiciona na query
   
-  query.set('orderBy', filters.orderBy ?? 'id')   // Sempre envia, para a query, padrão 'id'
-  query.set('order',   filters.order   ?? 'ASC')  // Sempre envia, para a query, padrão 'ASC'  
+  query.set('orderBy', filters.orderBy ?? 'id');   // Sempre envia, para a query, padrão 'id'
+  query.set('order',   filters.order   ?? 'ASC');  // Sempre envia, para a query, padrão 'ASC'  
 
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/pokemon?${query}`, {cache: 'no-store'}); // Retorna a query do backend
 
