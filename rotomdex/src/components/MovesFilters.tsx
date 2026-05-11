@@ -10,7 +10,7 @@ const DAMAGE_CLASS = ['physical', 'special', 'status']
 // Vetor de ordenações
 const ORDER_BY = ['id', 'name', 'power', 'type', 'pp', 'effect_chance', 'damage_class', 'category']
 
-// Função para filtragem de Tipso
+// Função para filtragem de Tipos
 export default function MovesFilters() {
     const router = useRouter();       // Inicializa o Router
     const params = useSearchParams(); // Obtém os parâmetros da URL
