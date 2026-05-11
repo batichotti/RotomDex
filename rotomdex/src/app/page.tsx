@@ -1,6 +1,7 @@
 import type { Pokemon } from '@/types/pokemon'           // Importar tipo Pokemon de src/types/pokemon.ts
 import { capitalize } from '@/utils/utils'               // Importar Funções de Utilidade
 import PokemonFilters from '@/components/PokemonFilters' // Importar Filtros de Pokemon de pokemonFilters.tsx
+import FilterBar from '@/components/FilterBar'           // Importar barra de filtros de FilterBar.tsx
 import { Suspense } from 'react'                         // Importar "Suspense" do React. Permite esperar algo carregar
 
 // Função para tratar e devolver o tipo secundário de um Pokemon
@@ -27,9 +28,13 @@ export default async function Home({ searchParams }: { searchParams: Promise<Rec
   if (!res.ok) {
     const err = await res.json();
     return (
-      <div style={{ padding: '1rem' }}>
+      <div>
+        <Suspense>
+          <FilterBar>
+            <PokemonFilters/>
+          </FilterBar>
+        </Suspense>
         <h1>RotomDex</h1>
-        <Suspense><PokemonFilters /></Suspense>
         <p style={{ color: 'red' }}>{err.message}</p>
       </div>
     );
@@ -39,12 +44,15 @@ export default async function Home({ searchParams }: { searchParams: Promise<Rec
 
   // HTML
   return(
-    <div style={{padding: '1rem'}}>
-      <h1>RotomDex</h1>              
-
+    <div>
       {/* Suspense necessário porque PokemonFilters usa useSearchParams */}
-      <Suspense> <PokemonFilters/> </Suspense>
+      <Suspense>
+        <FilterBar>
+          <PokemonFilters/>
+        </FilterBar>
+      </Suspense>
 
+      <h1>RotomDex</h1>              
       <p>Pokémon Catalogados: {pokemon.length}</p>
       
       <ul style={{listStyle: 'none', padding: '0.5rem'}}> {/*Abre a lista, remove os bullet points e adiciona espaçamento*/}

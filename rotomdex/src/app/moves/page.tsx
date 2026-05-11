@@ -1,6 +1,7 @@
 import type { Moves } from '@/types/moves'             // Importar tipo Move de src/types/moves.ts
 import { capitalize, formatStat } from '@/utils/utils' // Importar Funções de Utilidade
 import MovesFilters from '@/components/MovesFilters'   // Importar Filtros de Move de movesFilters.tsx
+import FilterBar from '@/components/FilterBar'         // Importar barra de filtros de FilterBar.tsx
 import { Suspense } from 'react'                       // Imporat "Suspense" do React. Permite esperar algo carregar
 
 export default async function MovesPage({ searchParams }: { searchParams: Promise<Record<string, string>> }) {
@@ -25,9 +26,13 @@ export default async function MovesPage({ searchParams }: { searchParams: Promis
   if (!res.ok) {
     const err = await res.json()
     return (
-      <div style={{ padding: '1rem' }}>
+      <div>
+        <Suspense>
+          <FilterBar>
+            <MovesFilters/>
+          </FilterBar>
+        </Suspense>
         <h1>Moves</h1>
-        <Suspense><MovesFilters /></Suspense>
         <p style={{ color: 'red' }}>{err.message}</p>
       </div>
     )
@@ -37,12 +42,15 @@ export default async function MovesPage({ searchParams }: { searchParams: Promis
 
   // HTML
   return (
-    <div style={{ padding: '1rem' }}>
-      <h1>Moves</h1>
-
+    <div>
       {/* Suspense necessário porque MovesFilters usa useSearchParams */}
-      <Suspense><MovesFilters /></Suspense>
+      <Suspense>
+        <FilterBar>
+          <MovesFilters/>
+        </FilterBar>
+      </Suspense>
 
+      <h1>Moves</h1>
       <p>Moves Catalogados: {moves.length}</p>
 
       <ul style={{ listStyle: 'none', padding: '0.5rem' }}>

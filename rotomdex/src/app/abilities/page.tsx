@@ -1,7 +1,8 @@
-import type { Abilities } from '@/types/abilities'
-import { capitalize } from '@/utils/utils'
-import AbilitiesFilters from '@/components/AbilitiesFilters'
-import { Suspense } from 'react'
+import type { Abilities } from '@/types/abilities'           // Importar tipo Abilities de src/types/abilities.ts
+import { capitalize } from '@/utils/utils'                   // Importar Funções de Utilidade
+import AbilitiesFilters from '@/components/AbilitiesFilters' // Importar Filtros de Habilidades de AbilitiesFilters.tsx
+import FilterBar from '@/components/FilterBar'               // Importar barra de filtros de FilterBar.tsx
+import { Suspense } from 'react'                             // Importar "Suspense" do React. Permite esperar algo carregar
 
 export default async function AbilitiesPage({ searchParams }: { searchParams: Promise<Record<string, string>> }) {
     const filters = await searchParams
@@ -16,9 +17,13 @@ export default async function AbilitiesPage({ searchParams }: { searchParams: Pr
     if (!res.ok) {
         const err = await res.json()
         return (
-            <div style={{ padding: '1rem' }}>
+            <div>
+                <Suspense>
+                    <FilterBar>
+                        <AbilitiesFilters/>
+                    </FilterBar>
+                </Suspense>
                 <h1>Abilities</h1>
-                <Suspense><AbilitiesFilters /></Suspense>
                 <p style={{ color: 'red' }}>{err.message}</p>
             </div>
         )
@@ -27,11 +32,14 @@ export default async function AbilitiesPage({ searchParams }: { searchParams: Pr
     const abilities: Abilities[] = await res.json()
 
     return (
-        <div style={{ padding: '1rem' }}>
+        <div>
+            <Suspense>
+                <FilterBar>
+                    <AbilitiesFilters/>
+                </FilterBar>
+            </Suspense>
+
             <h1>Abilities</h1>
-
-            <Suspense><AbilitiesFilters /></Suspense>
-
             <p>Habilidades Catalogadas: {abilities.length}</p>
 
             <ul style={{ listStyle: 'none', padding: '0.5rem' }}>
