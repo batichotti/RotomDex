@@ -1,7 +1,7 @@
-import type { Moves } from '@/types/moves'           // Importar tipo Move de src/types/moves.ts
-import { capitalize, formatStat } from '@/utils/utils'               // Importar Funções de Utilidade
-import MovesFilters from '@/components/MovesFilters' // Importar Filtros de Move de movesFilters.tsx
-import { Suspense } from 'react'                     // Imporat "Suspense" do React. Permite esperar algo carregar
+import type { Moves } from '@/types/moves'             // Importar tipo Move de src/types/moves.ts
+import { capitalize, formatStat } from '@/utils/utils' // Importar Funções de Utilidade
+import MovesFilters from '@/components/MovesFilters'   // Importar Filtros de Move de movesFilters.tsx
+import { Suspense } from 'react'                       // Imporat "Suspense" do React. Permite esperar algo carregar
 
 export default async function MovesPage({ searchParams }: { searchParams: Promise<Record<string, string>> }) {
   const filters = await searchParams;  // Recebe os Parâmetros assim que resolvidos
