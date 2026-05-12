@@ -33,7 +33,7 @@ export default function PokemonFilters(){
     // HTML
     return(
         // Filtros: gap entre elementos, flexwrap quebra linhas e adiciona margem abaixo
-        <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '1rem' }}>
+        <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap'}}>
 
             {/*Recebe valor de Tipo da URL e em mudanças chama handleChange*/}
             <select value={params.get('type') ?? ''} onChange={e => handleChange('type', e.target.value)}>
