@@ -1,3 +1,9 @@
+:root {
+  --navbar-height: calc(clamp(40px, 12.5vh, 140px) + 2px);
+  --filterbar-height: calc(7vh + 2px);
+
+}
+
 * {
   box-sizing: border-box;
   margin: 0;

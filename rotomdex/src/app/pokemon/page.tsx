@@ -3,6 +3,7 @@ import { capitalize } from '@/utils/utils'               // Importar Funções d
 import PokemonFilters from '@/components/PokemonFilters' // Importar Filtros de Pokemon de pokemonFilters.tsx
 import FilterBar from '@/components/FilterBar'           // Importar barra de filtros de FilterBar.tsx
 import { Suspense } from 'react'                         // Importar "Suspense" do React. Permite esperar algo carregar
+import Link from 'next/link';
 
 // Função para tratar e devolver o tipo secundário de um Pokemon
 function getSecondaryType(p: Pokemon){
@@ -11,8 +12,8 @@ function getSecondaryType(p: Pokemon){
           : ` / ${capitalize(p.secondary_type)}`; // Retorna o tipo secundário com uma barra de separação e capitalizado
 }
 
-// Funcão principal: Home
-export default async function Home({ searchParams }: { searchParams: Promise<Record<string, string>> }){
+// Funcão principal: PokemonPage
+export default async function PokemonPage({ searchParams }: { searchParams: Promise<Record<string, string>> }){
   const filters = await searchParams;  // Recebe os Parâmetros assim que resolvidos
   const query = new URLSearchParams(); // Recebe a Query dos parâmetros
 
@@ -29,7 +30,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<Rec
     const err = await res.json();
     return (
       <div>
-        <Suspense>
+        <Suspense fallback={<div>Carregando filtros...</div>}>
           <FilterBar>
             <PokemonFilters/>
           </FilterBar>
@@ -46,7 +47,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<Rec
   return(
     <div>
       {/* Suspense necessário porque PokemonFilters usa useSearchParams */}
-      <Suspense>
+      <Suspense fallback={<div>Carregando filtros...</div>}>
         <FilterBar>
           <PokemonFilters/>
         </FilterBar>
@@ -62,7 +63,9 @@ export default async function Home({ searchParams }: { searchParams: Promise<Rec
           <li key={p.id} style={{borderBottom: '1px solid #ccc', padding: '0.25rem'}}> 
             
             {/*Conteúdo da linha, ID e Nome em negrito, tipo primário e secundário*/}
-            <strong>#{p.id} {capitalize(p.name)}</strong> - {capitalize(p.primary_type)} {getSecondaryType(p)}
+            <Link href={`/pokemon/${p.name}`}>
+                <strong>#{p.id} {capitalize(p.name)}</strong> - {capitalize(p.primary_type)} {getSecondaryType(p)}
+            </Link>
           </li> 
         ))} 
       </ul>

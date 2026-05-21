@@ -1,7 +1,3 @@
-:root{
-  --filterbar-height: calc(7vh + 2px);
-}
-
 .bar {
   box-sizing: border-box;
   background: #8DE1EE;
