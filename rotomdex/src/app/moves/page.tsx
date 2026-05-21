@@ -60,9 +60,11 @@ export default async function MovesPage({ searchParams }: { searchParams: Promis
           <li key={m.id} style={{ borderBottom: '1px solid #ccc', padding: '0.25rem' }}>
             
             {/*Conteúdo da linha, ID e Nome em negrito, tipo, classe, poder, pp e acurácia*/}
-            <strong>#{m.id} {capitalize(m.name)}</strong>
-              {' '} - {capitalize(m.type)} | {capitalize(m.damage_class)}
-              {' '}| Pow: {formatStat(m.power)} | PP: {m.pp} | Acc: {formatStat(m.accuracy)}
+            <Link href={`/moves/${m.name}`}>
+              <strong>#{m.id} {capitalize(m.name)}</strong>
+                {' '} - {capitalize(m.type)} | {capitalize(m.damage_class)}
+                {' '}| Pow: {formatStat(m.power)} | PP: {m.pp} | Acc: {formatStat(m.accuracy)}
+            </Link>
           </li>
         ))}
       </ul>

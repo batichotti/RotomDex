@@ -45,7 +45,9 @@ export default async function AbilitiesPage({ searchParams }: { searchParams: Pr
             <ul style={{ listStyle: 'none', padding: '0.5rem' }}>
                 {abilities.map((a) => (
                     <li key={a.id} style={{ borderBottom: '1px solid #ccc', padding: '0.25rem' }}>
-                        <strong>#{a.id} {capitalize(a.name)}</strong> | {a.generation_introduced} - {a.short_description}
+                        <Link href={`/abilities/${a.name}`}>
+                            <strong>#{a.id} {capitalize(a.name)}</strong> | {a.generation_introduced} - {a.short_description}
+                        </Link>
                     </li>
                 ))}
             </ul>
