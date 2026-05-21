@@ -27,7 +27,7 @@ export default function MovesFilters() {
     // HTML
     return (
         // Filtros: gap entre elementos, flexwrap quebra linhas e adiciona margem abaixo
-        <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '1rem' }}>
+        <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
 
             {/*Tipo*/}
             <select value={params.get('type') ?? ''} onChange={e => handleChange('type', e.target.value)}>

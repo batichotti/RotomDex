@@ -12,6 +12,7 @@ export default function Navbar(){
                 width={400}
                 height={400}
                 className={nav.logoImg}
+                loading="eager"
             />
             <span className={nav.logo}></span>
         </header>

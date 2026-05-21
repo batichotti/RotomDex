@@ -18,7 +18,7 @@ export default function AbilitiesFilters() {
     }
 
     return (
-        <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '1rem' }}>
+        <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
 
             {/* Geração exata */}
             <select value={params.get('generation') ?? ''} onChange={e => handleChange('generation', e.target.value)}>

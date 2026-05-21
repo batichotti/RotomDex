@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Navbar from '@/components/Navbar'
 import './globals.css'
+import FilterBar from '@/components/FilterBar'
 
 export const metadata: Metadata = {
   title: 'RotomDex | A Competitve Pokédex',
@@ -12,7 +13,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="pt-BR">
       <body>
         <Navbar/>
-        <main>{children}</main>
+        <main style={{ paddingTop: 'calc(var(--navbar-height) + var(--filterbar-height))', paddingLeft: '0.5vw' }}>
+          {children}
+        </main>
       </body>
     </html>
   )
