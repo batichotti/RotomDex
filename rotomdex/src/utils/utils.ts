@@ -1,6 +1,8 @@
 // Função para capitalizar strings
 export function capitalize(str: string){
-    return str.charAt(0).toUpperCase() // Retorna o texto informado como o caractere na posição inicial em maiúsculo
+  if(!str) return "";  
+  
+  return str.charAt(0).toUpperCase() // Retorna o texto informado como o caractere na posição inicial em maiúsculo
        + str.slice(1);               // E uma substring da string original a partir do segundo caractere
 }
 

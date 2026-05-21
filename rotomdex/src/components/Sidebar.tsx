@@ -49,7 +49,7 @@ export default function Sidebar() {
             {/*Container da Sidebar*/}
             <nav className={`${styles.sidebar} ${isOpen ? styles.open : ''}`}>
                 <Link href="/" className={styles.navlink}>Home</Link>
-                <Link href="/" className={styles.navlink}>Pokedex</Link>
+                <Link href="/pokemon" className={styles.navlink}>Pokedex</Link>
                 <Link href="/moves" className={styles.navlink}>Moves</Link>
                 <Link href="/abilities" className={styles.navlink}>Abilities</Link>
                 {/* Adicione mais links aqui */}

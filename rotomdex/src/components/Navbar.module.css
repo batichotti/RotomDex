@@ -1,7 +1,3 @@
-:root {
-  --navbar-height: calc(clamp(40px, 12.5vh, 140px) + 2px);
-}
-
 .navbar {
     background-color: #f87a8c;
     padding: clamp(8px, 1.5vh, 20px);
