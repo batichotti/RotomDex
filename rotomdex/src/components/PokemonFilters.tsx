@@ -25,7 +25,7 @@ export default function PokemonFilters(){
         // Se type1 for removido, remove type2 também
         if(key === 'type' && !value) current.delete('type2');
 
-        router.push(`/?${current.toString()}`) // Atualiza a página com a nova URL
+        router.push(`/pokemon/?${current.toString()}`) // Atualiza a página com a nova URL
     }
 
     const hasType1 = !!params.get('type'); // Verifica se tipo primário está selecionado

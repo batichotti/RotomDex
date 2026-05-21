@@ -3,6 +3,7 @@ import { capitalize } from '@/utils/utils'                   // Importar Funçõ
 import AbilitiesFilters from '@/components/AbilitiesFilters' // Importar Filtros de Habilidades de AbilitiesFilters.tsx
 import FilterBar from '@/components/FilterBar'               // Importar barra de filtros de FilterBar.tsx
 import { Suspense } from 'react'                             // Importar "Suspense" do React. Permite esperar algo carregar
+import Link from 'next/link'
 
 export default async function AbilitiesPage({ searchParams }: { searchParams: Promise<Record<string, string>> }) {
     const filters = await searchParams
@@ -17,7 +18,7 @@ export default async function AbilitiesPage({ searchParams }: { searchParams: Pr
     if (!res.ok) {
         const err = await res.json()
         return (
-            <div>
+            <div style={{ paddingTop: 'var(--filterbar-height)'}}>
                 <Suspense>
                     <FilterBar>
                         <AbilitiesFilters/>
@@ -32,7 +33,7 @@ export default async function AbilitiesPage({ searchParams }: { searchParams: Pr
     const abilities: Abilities[] = await res.json()
 
     return (
-        <div>
+        <div style={{ paddingTop: 'var(--filterbar-height)'}}>
             <Suspense>
                 <FilterBar>
                     <AbilitiesFilters/>
@@ -46,7 +47,7 @@ export default async function AbilitiesPage({ searchParams }: { searchParams: Pr
                 {abilities.map((a) => (
                     <li key={a.id} style={{ borderBottom: '1px solid #ccc', padding: '0.25rem' }}>
                         <Link href={`/abilities/${a.name}`}>
-                            <strong>#{a.id} {capitalize(a.name)}</strong> | {a.generation_introduced} - {a.short_description}
+                        <strong>#{a.id} {capitalize(a.name)}</strong> | {a.generation_introduced} - {a.short_description}
                         </Link>
                     </li>
                 ))}

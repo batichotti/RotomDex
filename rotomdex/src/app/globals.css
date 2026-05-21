@@ -1,3 +1,14 @@
+:root {
+  --navbar-height: calc(clamp(40px, 12.5vh, 140px) + 2px);
+  --filterbar-height: calc(7vh + 2px);
+
+}
+
+a {
+  color: inherit;          /* Faz o link herdar a cor do elemento pai (ex: preto, branco, etc.) */
+  text-decoration: none;   /* Remove o sublinhado padrão */
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
