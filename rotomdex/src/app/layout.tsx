@@ -12,7 +12,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="pt-BR">
       <body>
         <Navbar/>
-        <main style={{ paddingTop: 'calc(var(--navbar-height) + var(--filterbar-height))', paddingLeft: '0.5vw' }}>
+        <main style={{ paddingTop: 'var(--navbar-height)', paddingLeft: '0.5vw' }}>
           {children}
         </main>
       </body>

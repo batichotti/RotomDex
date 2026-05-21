@@ -3,15 +3,11 @@ import { capitalize } from '@/utils/utils'
 
 export default async function PokemonPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
-  console.log('API URL:', process.env.NEXT_PUBLIC_API_URL)
-  console.log('ID:', id)
-  
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/pokemon/${id}`)
-  console.log('Status:', res.status);
 
   if (!res.ok) {
     return <div><h1>Pokémon não encontrado</h1></div>
-   }
+  }
 
   const pokemon: Pokemon = (await res.json())[0]; // Converte a resposta da API em um json, e em array
   

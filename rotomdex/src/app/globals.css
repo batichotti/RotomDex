@@ -4,6 +4,11 @@
 
 }
 
+a {
+  color: inherit;          /* Faz o link herdar a cor do elemento pai (ex: preto, branco, etc.) */
+  text-decoration: none;   /* Remove o sublinhado padrão */
+}
+
 * {
   box-sizing: border-box;
   margin: 0;

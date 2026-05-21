@@ -29,7 +29,7 @@ export default async function PokemonPage({ searchParams }: { searchParams: Prom
   if (!res.ok) {
     const err = await res.json();
     return (
-      <div>
+      <div style={{ paddingTop: 'var(--filterbar-height)'}}>
         <Suspense fallback={<div>Carregando filtros...</div>}>
           <FilterBar>
             <PokemonFilters/>
@@ -45,7 +45,7 @@ export default async function PokemonPage({ searchParams }: { searchParams: Prom
 
   // HTML
   return(
-    <div>
+    <div style={{ paddingTop: 'var(--filterbar-height)'}}>
       {/* Suspense necessário porque PokemonFilters usa useSearchParams */}
       <Suspense fallback={<div>Carregando filtros...</div>}>
         <FilterBar>
