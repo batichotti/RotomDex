@@ -1,4 +1,4 @@
-export type Itens = {
+    export type Items = {
     id: number;
     name: string;
     cost: number;
