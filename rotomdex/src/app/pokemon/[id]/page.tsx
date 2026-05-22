@@ -1,5 +1,7 @@
 import type { Pokemon } from '@/types/pokemon'
 import { capitalize } from '@/utils/utils'
+import Image from 'next/image';
+
 
 export default async function PokemonPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
@@ -17,9 +19,24 @@ export default async function PokemonPage({ params }: { params: Promise<{ id: st
 
   return (
     <div>
-      <h1>#{pokemon.id} - {capitalize(pokemon.name)}</h1>
-      <p>Tipo: {capitalize(pokemon.primary_type)}</p>
-      {/* resto dos dados */}
+      {/* Componente de imagem do Next.js */}
+                {pokemon.front_default ? (
+                  <Image 
+                    src={pokemon.front_default} 
+                    alt={`${pokemon.name}`} 
+                    width={256} // Ajuste o tamanho conforme preferir
+                    height={256}
+                    style={{ objectFit: 'contain' }}
+                  />
+                ) : (
+                   // Um placeholder caso o Pokémon não tenha imagem (opcional)
+                  <div style={{ width: 64, height: 64, backgroundColor: '#eee', borderRadius: '50%' }} />
+                )}
+      <span>
+        <h1>#{pokemon.species_id} - {capitalize(pokemon.species_name)}</h1>
+        <p>Tipo: {capitalize(pokemon.primary_type)}</p>
+        {/* resto dos dados */}
+      </span>
     </div>
   )
 }
