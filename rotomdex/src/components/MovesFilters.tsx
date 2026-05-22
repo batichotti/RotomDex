@@ -10,7 +10,7 @@ const DAMAGE_CLASS = ['physical', 'special', 'status']
 // Vetor de ordenações
 const ORDER_BY = ['id', 'name', 'power', 'type', 'pp', 'effect_chance', 'damage_class', 'category']
 
-// Função para filtragem de Tipso
+// Função para filtragem de Tipos
 export default function MovesFilters() {
     const router = useRouter();       // Inicializa o Router
     const params = useSearchParams(); // Obtém os parâmetros da URL
@@ -27,7 +27,7 @@ export default function MovesFilters() {
     // HTML
     return (
         // Filtros: gap entre elementos, flexwrap quebra linhas e adiciona margem abaixo
-        <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '1rem' }}>
+        <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
 
             {/*Tipo*/}
             <select value={params.get('type') ?? ''} onChange={e => handleChange('type', e.target.value)}>

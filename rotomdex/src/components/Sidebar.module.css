@@ -24,7 +24,7 @@
     z-index: 101;                     /*Profundidade = 101; Acima do Overlay*/
     
     background-color: #8DE1EE;
-    box-shadow: 4px 0 16px rgba(0,0,0,0.15);
+    box-shadow: 4px 0 16px rgba(0,0,0,0.35);
     border: solid #63574E;
     border-radius: 50px;
 
@@ -60,17 +60,17 @@
 
 /* O botão agora fica dentro da sidebar e se move com ela */
 .menuBtn {
-    position: fixed;                /*Fixo na tela*/
-    top: clamp(0.5rem, 1vw, 1rem); 
-    left: clamp(0.5rem, 1vw, 1rem); /*Canto Superior Esquerdo com espaçamento dinâmico*/
+    position: fixed; /*Fixo na tela*/
+    top: clamp(8px, 1.25vh, 18px);
+    left: clamp(8px, 1.25vh, 18px);
     z-index: 102;
     
     background-color: #F7F6F2;
     border: none;    /*Remove borda*/
     cursor: pointer; /*Ativa cursor de click*/
     
-    width: clamp(54px, 6.5vw, 100px);
-    height: clamp(54px, 6.5vw, 100px);
+    width: clamp(44px, 10vh, 110px);
+    height: clamp(44px, 10vh, 110px);
     border-radius: 50%;
 
     display: flex;

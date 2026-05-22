@@ -1,21 +1,20 @@
-import Image from 'next/image'  // <- faltou isso
-import styles from './Navbar.module.css'
+import Image from 'next/image'
+import nav from './Navbar.module.css'
 import Sidebar from './Sidebar'
 
 export default function Navbar(){
     return(
-        <header className={styles.navbar}>
+        <header className={nav.navbar}>
             <Sidebar/>
             <Image
                 src="/logos/.svg/RotomDex_logo_colored_wl.svg"
                 alt="Logo"
                 width={400}
                 height={400}
-                className={styles.logoImg}
-                priority
+                className={nav.logoImg}
+                loading="eager"
             />
-            <span className={styles.logo}></span>
+            <span className={nav.logo}></span>
         </header>
-        
     )
 }
