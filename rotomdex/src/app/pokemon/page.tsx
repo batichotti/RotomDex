@@ -67,9 +67,9 @@ export default async function PokemonPage({ searchParams }: { searchParams: Prom
         style={{ display: 'flex', alignItems: 'center', gap: '1rem', textDecoration: 'none', color: 'inherit' }}
       >
           {/* Componente de imagem do Next.js */}
-          {p.front_default ? (
+          {`/assets/pokemon/HOME${String(p.species_id).padStart(4, '0')}.png` ? (
             <Image 
-              src={p.front_default} 
+              src={`/assets/pokemon/HOME${String(p.species_id).padStart(4, '0')}.png`} 
               alt={`${p.name}`} 
               width={64} // Ajuste o tamanho conforme preferir
               height={64}
