@@ -4,6 +4,7 @@ import PokemonFilters from '@/components/PokemonFilters' // Importar Filtros de 
 import FilterBar from '@/components/FilterBar'           // Importar barra de filtros de FilterBar.tsx
 import { Suspense } from 'react'                         // Importar "Suspense" do React. Permite esperar algo carregar
 import Link from 'next/link';
+import Image from 'next/image';
 
 // Função para tratar e devolver o tipo secundário de um Pokemon
 function getSecondaryType(p: Pokemon){
@@ -56,19 +57,40 @@ export default async function PokemonPage({ searchParams }: { searchParams: Prom
       <h1>RotomDex</h1>              
       <p>Pokémon Catalogados: {pokemon.length}</p>
       
-      <ul style={{listStyle: 'none', padding: '0.5rem'}}> {/*Abre a lista, remove os bullet points e adiciona espaçamento*/}
-        {pokemon.map((p) => (
+      <ul style={{listStyle: 'none', padding: '0.5rem', display: 'flex', flexDirection: 'column', gap: '0.5rem'}}>
+  {pokemon.map((p) => (
+    <li key={p.id} style={{borderBottom: '1px solid #ccc', padding: '0.5rem'}}> 
+      
+      {/* Link transformado em um container Flex para alinhar imagem e texto */}
+      <Link 
+        href={`/pokemon/${p.species_name}`}
+        style={{ display: 'flex', alignItems: 'center', gap: '1rem', textDecoration: 'none', color: 'inherit' }}
+      >
+          {/* Componente de imagem do Next.js */}
+          {p.front_default ? (
+            <Image 
+              src={p.front_default} 
+              alt={`${p.name}`} 
+              width={64} // Ajuste o tamanho conforme preferir
+              height={64}
+              style={{ objectFit: 'contain' }}
+            />
+          ) : (
+             // Um placeholder caso o Pokémon não tenha imagem (opcional)
+            <div style={{ width: 64, height: 64, backgroundColor: '#eee', borderRadius: '50%' }} />
+          )}
 
-          // Cria elemento da lista com ID como chave, borda inferior e espaçamento
-          <li key={p.id} style={{borderBottom: '1px solid #ccc', padding: '0.25rem'}}> 
-            
-            {/*Conteúdo da linha, ID e Nome em negrito, tipo primário e secundário*/}
-            <Link href={`/pokemon/${p.name}`}>
-                <strong>#{p.id} {capitalize(p.name)}</strong> - {capitalize(p.primary_type)} {getSecondaryType(p)}
-            </Link>
-          </li> 
-        ))} 
-      </ul>
+          {/* Container para o texto */}
+          <span>
+            <strong>#{p.species_id} {capitalize(p.name)}</strong> <br/>
+            <small style={{ color: '#ccc' }}>
+              {capitalize(p.primary_type)} {getSecondaryType(p)}
+            </small>
+          </span>
+      </Link>
+    </li> 
+  ))} 
+</ul>
     </div>
   )
 }
