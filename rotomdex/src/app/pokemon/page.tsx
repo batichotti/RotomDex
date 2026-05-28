@@ -45,52 +45,62 @@ export default async function PokemonPage({ searchParams }: { searchParams: Prom
   const pokemon: Pokemon[] = await res.json(); // Converte a resposta da API em um json, e em array
 
   // HTML
-  return(
-    <div style={{ paddingTop: 'var(--filterbar-height)'}}>
-      {/* Suspense necessário porque PokemonFilters usa useSearchParams */}
-      <Suspense fallback={<div>Carregando filtros...</div>}>
-        <FilterBar>
-          <PokemonFilters/>
-        </FilterBar>
-      </Suspense>
+  // Substitui o <ul> e o map inteiro por isso:
+return (
+  <div style={{ paddingTop: 'var(--filterbar-height)' }}>
+    <Suspense fallback={<div>Carregando filtros...</div>}>
+      <FilterBar>
+        <PokemonFilters />
+      </FilterBar>
+    </Suspense>
 
-      <h1>RotomDex</h1>              
-      <p>Pokémon Catalogados: {pokemon.length}</p>
-      
-      <ul style={{listStyle: 'none', padding: '0.5rem', display: 'flex', flexDirection: 'column', gap: '0.5rem'}}>
-  {pokemon.map((p) => (
-    <li key={p.id} style={{borderBottom: '1px solid #ccc', padding: '0.5rem'}}> 
-      
-      {/* Link transformado em um container Flex para alinhar imagem e texto */}
-      <Link 
-        href={`/pokemon/${p.species_name}`}
-        style={{ display: 'flex', alignItems: 'center', gap: '1rem', textDecoration: 'none', color: 'inherit' }}
-      >
-          {/* Componente de imagem do Next.js */}
-          {`/assets/pokemon/HOME${String(p.species_id).padStart(4, '0')}.png` ? (
-            <Image 
-              src={`/assets/pokemon/HOME${String(p.species_id).padStart(4, '0')}.png`} 
-              alt={`${p.name}`} 
-              width={64} // Ajuste o tamanho conforme preferir
-              height={64}
-              style={{ objectFit: 'contain' }}
-            />
-          ) : (
-             // Um placeholder caso o Pokémon não tenha imagem (opcional)
-            <div style={{ width: 64, height: 64, backgroundColor: '#eee', borderRadius: '50%' }} />
-          )}
+    <h1>RotomDex</h1>
+    <p>Pokémon Catalogados: {pokemon.length}</p>
 
-          {/* Container para o texto */}
-          <span>
-            <strong>#{p.species_id} {capitalize(p.name)}</strong> <br/>
-            <small style={{ color: '#ccc' }}>
-              {capitalize(p.primary_type)} {getSecondaryType(p)}
-            </small>
-          </span>
-      </Link>
-    </li> 
-  ))} 
-</ul>
-    </div>
-  )
+    <ul style={{
+      listStyle: 'none',
+      padding: '0.5rem',
+      display: 'grid',
+      gridTemplateColumns: 'repeat(auto-fill, minmax(18vw, 1fr))',
+      gap: '12px',
+    }}>
+      {pokemon.map((p) => (
+        <li key={p.id}>
+          <Link
+            href={`/pokemon/${p.species_name}`}
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: '6px',
+              padding: '12px',
+              border: '1px solid #ccc',
+              borderRadius: '12px',
+              textDecoration: 'none',
+              color: 'inherit',
+              background: '#fff',
+            }}
+          >
+            {`/assets/pokemon/HOME${String(p.species_id).padStart(4, '0')}.png` ? (
+              <Image
+                src={`/assets/pokemon/HOME${String(p.species_id).padStart(4, '0')}.png`}
+                alt={p.name}
+                width={72}
+                height={72}
+                style={{ objectFit: 'contain' }}
+              />
+            ) : (
+              <div style={{ width: 72, height: 72, backgroundColor: '#eee', borderRadius: '50%' }} />
+            )}
+            <small style={{ color: '#aaa' }}>#{p.species_id}</small>
+            <strong style={{ fontSize: '14px', textAlign: 'center' }}>{capitalize(p.name)}</strong>
+            <span style={{ fontSize: '12px', color: '#888' }}>
+              {capitalize(p.primary_type)}{getSecondaryType(p)}
+            </span>
+          </Link>
+        </li>
+      ))}
+    </ul>
+  </div>
+)
 }
