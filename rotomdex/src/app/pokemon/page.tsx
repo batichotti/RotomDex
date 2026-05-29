@@ -55,26 +55,32 @@ export default async function PokemonPage({ searchParams }: { searchParams: Prom
   
   const pokemon: Pokemon[] = await res.json(); // Converte a resposta da API em um json, e em array
 
-  const bySpecies = pokemon.reduce((acc, p) => {
-    if (!acc[p.species_id]) acc[p.species_id] = []
-    acc[p.species_id].push(p)
-    return acc
-  }, {} as Record<number, Pokemon[]>)
+  const variantComparisonKeys = [
+    'primary_type',
+    'secondary_type',
+    'hp',
+    'attack',
+    'defense',
+    'special_attack',
+    'special_defense',
+    'speed',
+  ] as const;
 
-  // Verifica se o pokemon tem stats diferentes da forma base
-  function hasDifferentStats(p: Pokemon): boolean {
-    const forms = bySpecies[p.species_id]
-    const base = forms.find((f) => f.name === f.species_name)
-    
-    if (!base || p.id === base.id) return false // É a própria forma base
-    
-    return ((p.hp !== base.hp)||(p.attack !== base.attack)||(p.defense !== base.defense)||(p.special_attack !== base.special_attack)||(p.special_defense !== base.special_defense)||(p.speed !== base.speed)) // Compara status com a forma base
+  const pokemonById = new Map<number, Pokemon>(pokemon.map((entry) => [entry.id, entry]));
+
+  function shouldShow(p: Pokemon): boolean {
+    if (p.id === p.species_id) return true;
+    if (getForm(p.name, p.species_name) === 'gmax') return true;
+
+    const base = pokemonById.get(p.species_id);
+    if (!base) return false;
+
+    return variantComparisonKeys.some((key) => p[key] !== base[key]);
   }
 
-  // HTML
-const pokemonList = pokemon
-.filter((p) => (p.id < 10000) || (!hasDifferentStats(p)))
-.map((p) => {
+// HTML
+const shownPokemon = pokemon.filter(shouldShow);
+const pokemonList = shownPokemon.map((p) => {
   const form = getForm(p.name, p.species_name);
   const baseUrl = `/assets/pokemon/HOME${String(p.species_id).padStart(4, '0')}`;
   
@@ -94,6 +100,7 @@ const pokemonList = pokemon
           width={72}
           height={72}
           style={{ objectFit: 'contain' }}
+          loading="eager"
         />
 
         <small className={styles.number}>#{p.id}</small>
@@ -117,7 +124,7 @@ const pokemonList = pokemon
      </Suspense>
 
       <h1>RotomDex</h1>
-      <p>Pokémon Catalogados: {pokemon.length}</p>
+      <p>Pokémon Catalogados: {shownPokemon.length}</p>
 
       <ul className={styles.grid}>
         {pokemonList}
