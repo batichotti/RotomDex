@@ -3,6 +3,7 @@ import { capitalize } from '@/utils/utils'               // Importar Funções d
 import PokemonFilters from '@/components/PokemonFilters' // Importar Filtros de Pokemon de pokemonFilters.tsx
 import FilterBar from '@/components/FilterBar'           // Importar barra de filtros de FilterBar.tsx
 import styles from '@/components/PokemonPage.module.css'
+import PokemonGrid from '@/components/PokemonGrid'
 import { Suspense } from 'react'                         // Importar "Suspense" do React. Permite esperar algo carregar
 import Link from 'next/link';
 import Image from 'next/image';
@@ -116,19 +117,15 @@ const pokemonList = shownPokemon.map((p) => {
 
 // No return, substitua o map por:
   return (
-    <div className={styles.wrapper}>
-      <Suspense fallback={<div>Carregando filtros...</div>}>
-        <FilterBar>
-         <PokemonFilters />
-       </FilterBar>
-     </Suspense>
+  <div className={styles.wrapper}>
+    <Suspense fallback={<div>Carregando filtros...</div>}>
+      <FilterBar>
+        <PokemonFilters />
+      </FilterBar>
+    </Suspense>
 
-      <h1>RotomDex</h1>
-      <p>Pokémon Catalogados: {shownPokemon.length}</p>
-
-      <ul className={styles.grid}>
-        {pokemonList}
-      </ul>
-   </div>
+    <h1>RotomDex</h1>
+    <PokemonGrid pokemon={shownPokemon} />  {/* 👈 substitui <p> + <ul> */}
+  </div>
   )
 }
