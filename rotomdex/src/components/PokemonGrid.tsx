@@ -6,7 +6,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { capitalize } from '@/utils/utils'
 import type { Pokemon } from '@/types/pokemon'
-import styles from '@/components/PokemonPage.module.css'
+import styles from '@/components/PokemonGrid.module.css'
 
 const PAGE_SIZE = 60;
 
@@ -39,18 +39,22 @@ export default function PokemonGrid({ pokemon }: { pokemon: Pokemon[] }) {
           return (
             <li key={p.id}>
               <Link href={`/pokemon/${p.species_name}`} className={styles.card}>
-                <Image
-                  src={formPath}
-                  alt={p.name}
-                  width={72}
-                  height={72}
-                  style={{ objectFit: 'contain' }}
-                />
-                <small className={styles.number}>#{p.id}</small>
-                <strong className={styles.name}>{capitalize(p.name)}</strong>
-                <span className={styles.type}>
-                  {capitalize(p.primary_type)}{getSecondaryType(p)}
-                </span>
+                <div className={styles.cardImage}>
+                  <Image
+                    src={formPath}
+                    alt={p.name}
+                    width={128}
+                    height={128}
+                    style={{ objectFit: 'contain' }}
+                  />
+                </div>
+                <div className={styles.cardInfo}>
+                  <small className={styles.number}>#{p.species_id}</small>
+                  <strong className={styles.name}>{capitalize(p.name)}</strong>
+                  <span className={styles.type}>
+                    {capitalize(p.primary_type)}{getSecondaryType(p)}
+                  </span>
+                </div>
               </Link>
             </li>
           )

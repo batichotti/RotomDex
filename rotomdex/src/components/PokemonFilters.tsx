@@ -26,7 +26,10 @@ export default function PokemonFilters(){
         if(key === 'type' && !value) current.delete('type2');
 
         // Não permite type2 igual ao type1
-            if(key === 'type2' && value === current.get('type')) return;
+        if(key === 'type2' && value === current.get('type')) return;
+
+        // Não permite type1 igual ao type2
+        if(key === 'type' && value === current.get('type2')) return;
 
         router.push(`/pokemon/?${current.toString()}`) // Atualiza a página com a nova URL
     }
