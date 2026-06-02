@@ -65,24 +65,26 @@ export default async function PokemonPage({ searchParams }: { searchParams: Prom
     'special_attack',
     'special_defense',
     'speed',
+    'height',
+    'weight'
   ] as const;
 
   const pokemonById = new Map<number, Pokemon>(pokemon.map((entry) => [entry.id, entry]));
 
-  function shouldShow(p: Pokemon): boolean {
+  function shouldShow(p: Pokemon, filter: boolean = false): boolean {
     if (p.id === p.species_id) return true;
-    if (getForm(p.name, p.species_name) === 'gmax') return true;
 
     const base = pokemonById.get(p.species_id);
-    if (!base) return false;
+    if (!base) return filter;
 
     return variantComparisonKeys.some((key) => p[key] !== base[key]);
   }
 
-// HTML
-const shownPokemon = pokemon.filter(shouldShow);
-// No return, substitua o map por:
-  return (
+  const hasFilter = !!(filters.type || filters.type2);
+  const shownPokemon = pokemon.filter(p => shouldShow(p, hasFilter));
+
+  // HTML
+return (
   <div className={styles.wrapper}>
     <Suspense fallback={<div>Carregando filtros...</div>}>
       <FilterBar>
@@ -91,7 +93,7 @@ const shownPokemon = pokemon.filter(shouldShow);
     </Suspense>
 
     <h1>RotomDex</h1>
-    <PokemonGrid pokemon={shownPokemon} />  {/* 👈 substitui <p> + <ul> */}
+    <PokemonGrid pokemon={shownPokemon} />
   </div>
   )
 }

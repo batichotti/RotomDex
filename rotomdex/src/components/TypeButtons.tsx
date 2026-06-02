@@ -1,49 +1,60 @@
 'use client'
 
 import styles from './PokemonFilters.module.css'
+import { TYPE_COLORS } from './TypeIcon'
 
 const TYPES = ['bug','dark','dragon','electric','fairy','fighting','fire','flying','ghost','grass','ground','ice','normal','poison','psychic','rock','steel','water']
 
 interface TypeButtonGroupProps {
     selectedType: string
     selectedType2: string
-    onTypeChange: (value: string) => void
-    onType2Change: (value: string) => void
+    onTypeClick: (type: string) => void
 }
 
-export default function TypeButtonGroup({ selectedType, selectedType2, onTypeChange, onType2Change }: TypeButtonGroupProps) {
-    const hasType1 = !!selectedType
+export default function TypeButtonGroup({ selectedType, selectedType2, onTypeClick }: TypeButtonGroupProps) {
+    const bothSelected = !!selectedType && !!selectedType2
+
+    function getButtonClass(t: string) {
+        const isSelected = selectedType === t || selectedType2 === t
+        const isBlocked = bothSelected && !isSelected
+
+        if (isSelected) return `${styles.typeButton} ${styles.typeButtonActive}`
+        if (isBlocked)  return `${styles.typeButton} ${styles.typeButtonInactive}`
+        return styles.typeButton
+    }
+
+    function getTitle(t: string) {
+        if (selectedType === t)  return `${t} (primário — clique para remover)`
+        if (selectedType2 === t) return `${t} (secundário — clique para remover)`
+        if (bothSelected)        return `${t} (bloqueado)`
+        if (selectedType)        return `${t} (definir como secundário)`
+        return `${t} (definir como primário)`
+    }
+
+    function getButtonStyle(t: string) {
+        const isSelected = selectedType === t || selectedType2 === t
+        if (isSelected) {
+            return {
+                backgroundColor: TYPE_COLORS[t as keyof typeof TYPE_COLORS],
+            }
+        }
+        return {}
+    }
 
     return (
-        <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', alignItems: 'center' }}>
-            {/* Botões de tipo primário */}
-            <div className={styles.typeButtonsContainer}>
-                {TYPES.map(t => (
-                    <button
-                        key={t}
-                        className={`${styles.typeButton} ${selectedType === t ? styles.typeButtonActive : selectedType ? styles.typeButtonInactive : ''}`}
-                        onClick={() => onTypeChange(selectedType === t ? '' : t)}
-                        title={t}
-                    >
-                        <img src={`/assets/types/.svg/${t} Type Icon.svg`} alt={t} width={32} height={32} />
-                    </button>
-                ))}
-            </div>
-
-            {/* Select de tipo secundário */}
-            <select
-                className={styles.select}
-                value={selectedType2}
-                onChange={e => onType2Change(e.target.value)}
-                disabled={!hasType1}
-                title={!hasType1 ? 'Selecione o Tipo primário primeiro' : ''}
-                style={{ opacity: hasType1 ? 1 : 0.4, cursor: hasType1 ? 'pointer' : 'not-allowed' }}
-            >
-                <option value=''>Tipo secundário</option>
-                {TYPES.map(t => (
-                    <option key={t} value={t}>{t}</option>
-                ))}
-            </select>
+        <div className={styles.typeButtonsContainer}>
+            {TYPES.map(t => (
+                <button
+                    key={t}
+                    className={getButtonClass(t)}
+                    style={getButtonStyle(t)}
+                    onClick={() => onTypeClick(t)}
+                    title={getTitle(t)}
+                    disabled={bothSelected && selectedType !== t && selectedType2 !== t}
+                >
+                    <img src={`/assets/types/.svg/${t} Type Icon.svg`} alt={t} width={32} height={32} />
+                </button>
+            ))}
         </div>
     )
 }

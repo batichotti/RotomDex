@@ -9,24 +9,42 @@ export default function PokemonFilters() {
     const router = useRouter()
     const params = useSearchParams()
 
-    function handleChange(key: string, value: string) {
+    // Lógica de clique nos tipos:
+    // - Sem seleção → vira primário
+    // - Primário clicado → removido, secundário (se existir) promovido a primário
+    // - Secundário clicado → removido
+    // - Ambos selecionados e clicou em outro → bloqueado (não faz nada)
+    function handleTypeClick(type: string) {
         const current = new URLSearchParams(params.toString())
+        const type1 = current.get('type') ?? ''
+        const type2 = current.get('type2') ?? ''
 
+        if (type === type1) {
+            // Remove primário; se havia secundário, ele vira primário
+            if (type2) {
+                current.set('type', type2)
+                current.delete('type2')
+            } else current.delete('type')
+        
+        } else if (type === type2) {
+            // Remove secundário
+            current.delete('type2')
+        } else if (!type1) {
+            // Nenhum selecionado → define primário
+            current.set('type', type)
+        } else if (!type2) {
+            // Primário já existe → define secundário
+            current.set('type2', type)
+        }
+        // Se ambos já estão selecionados e clicou em outro, não faz nada
+
+        router.push(`/pokemon/?${current.toString()}`)
+    }
+
+    function handleSortChange(key: string, value: string) {
+        const current = new URLSearchParams(params.toString())
         if (value) current.set(key, value)
         else current.delete(key)
-
-        // Se houver tipo 2, mas não tipo 1, bloqueia
-        if (key === 'type2' && value && !current.get('type')) return
-
-        // Se type1 for removido, remove type2 também
-        if (key === 'type' && !value) current.delete('type2')
-
-        // Não permite type2 igual ao type1
-        if (key === 'type2' && value === current.get('type')) return
-
-        // Não permite type1 igual ao type2
-        if (key === 'type' && value === current.get('type2')) return
-
         router.push(`/pokemon/?${current.toString()}`)
     }
 
@@ -35,14 +53,14 @@ export default function PokemonFilters() {
             <TypeButtonGroup
                 selectedType={params.get('type') ?? ''}
                 selectedType2={params.get('type2') ?? ''}
-                onTypeChange={value => handleChange('type', value)}
-                onType2Change={value => handleChange('type2', value)}
+                onTypeClick={handleTypeClick}
             />
+            
             <SortControls
                 orderBy={params.get('orderBy') ?? 'species_id'}
                 order={params.get('order') ?? 'ASC'}
-                onOrderByChange={value => handleChange('orderBy', value)}
-                onOrderChange={value => handleChange('order', value)}
+                onOrderByChange={value => handleSortChange('orderBy', value)}
+                onOrderChange={value => handleSortChange('order', value)}
             />
         </div>
     )
