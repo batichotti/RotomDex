@@ -1,7 +1,9 @@
 import type { Pokemon } from '@/types/pokemon'
-import PokemonStats from '@/components/PokemonStats';
 import PokemonHeader from '@/components/PokemonHeader';
+import PokemonStats from '@/components/PokemonStats';
 import PokemonImage from '@/components/PokemonImage';
+import PokemonNavigation from '@/components/PokemonNavigation';
+import styles from './page.module.css';
 
 
 export default async function PokemonPage({ params }: { params: Promise<{ id: string }> }) {
@@ -19,13 +21,13 @@ export default async function PokemonPage({ params }: { params: Promise<{ id: st
   }
 
   return (
-    <div>
-      <PokemonImage pokemon={pokemon} />
+    <div className={styles.pokemonContainer}>
+      <PokemonImage pokemon={pokemon}/>
 
-      
       <span>
         <PokemonHeader pokemon={pokemon} />
         <PokemonStats pokemon={pokemon} />
+        <PokemonNavigation pokemon={pokemon} />
       </span>
     </div>
   )

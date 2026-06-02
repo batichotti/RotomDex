@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import type { Pokemon } from '@/types/pokemon'
 import Image from 'next/image'
+import styles from './PokemonImage.module.css'
 
 interface PokemonImageProps {
   pokemon: Pokemon
@@ -31,14 +32,16 @@ export default function PokemonImage({ pokemon, width = 256, height = 256 }: Pok
   const src = useShiny ? formPath.replace('.png', '_s.png') : formPath
 
   return (
-    <Image
-      src={src}
-      alt={`${pokemon.name}`}
-      width={width}
-      height={height}
-      style={{ objectFit: 'contain', cursor: 'pointer' }}
-      onClick={handleClick}
-      loading="eager"
-    />
+    <div className={`${styles.imageContainer} ${useShiny ? styles.shiny : ''}`}>
+      <Image
+        src={src}
+        alt={`${pokemon.name}`}
+        width={width}
+        height={height}
+        style={{ objectFit: 'contain' }}
+        onClick={handleClick}
+        loading="eager"
+      />
+    </div>
   )
 }
