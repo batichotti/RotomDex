@@ -6,9 +6,11 @@ import Image from 'next/image'
 
 interface PokemonImageProps {
   pokemon: Pokemon
+  width?: number
+  height?: number
 }
 
-export default function PokemonImage({ pokemon }: PokemonImageProps) {
+export default function PokemonImage({ pokemon, width = 256, height = 256 }: PokemonImageProps) {
   const [useShiny, setUseShiny] = useState(false)
 
   const handleClick = () => {
@@ -23,8 +25,8 @@ export default function PokemonImage({ pokemon }: PokemonImageProps) {
     <Image
       src={src}
       alt={`${pokemon.name}`}
-      width={256}
-      height={256}
+      width={width}
+      height={height}
       style={{ objectFit: 'contain', cursor: 'pointer' }}
       onClick={handleClick}
       loading="eager"
