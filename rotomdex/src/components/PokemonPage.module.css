@@ -2,53 +2,6 @@
   padding-top: var(--filterbar-height);
 }
 
-.grid {
-  list-style: none;
-  padding: 0.5rem;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(18vw, 1fr));
-  gap: 12px;
-}
-
-.card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 12px;
-  text-decoration: none;
-  color: inherit;
-  background: #fff;
-  transition: box-shadow 0.2s ease;
-}
-
-.card:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
-}
-
-.placeholder {
-  width: 72px;
-  height: 72px;
-  background-color: #eee;
-  border-radius: 50%;
-}
-
-.number {
-  color: #aaa;
-}
-
-.name {
-  font-size: 14px;
-  text-align: center;
-}
-
-.type {
-  font-size: 12px;
-  color: #888;
-}
-
 .error {
   color: red;
 }
