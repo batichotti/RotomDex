@@ -1,7 +1,8 @@
 import type { Pokemon } from '@/types/pokemon'
+import { capitalize } from '@/utils/utils'
+import Image from 'next/image'
 import PokemonStats from '@/components/PokemonStats';
-import PokemonHeader from '@/components/PokemonHeader';
-import PokemonImage from '@/components/PokemonImage';
+import TypeIcon from '@/components/TypeIcon';
 
 
 export default async function PokemonPage({ params }: { params: Promise<{ id: string }> }) {
@@ -20,10 +21,18 @@ export default async function PokemonPage({ params }: { params: Promise<{ id: st
 
   return (
     <div>
-      <PokemonImage pokemon={pokemon} />
+      <Image 
+        src={`/assets/pokemon/HOME${String(pokemon.species_id).padStart(4, '0')}.png`} 
+        alt={`${pokemon.name}`} 
+        width={256} // Ajuste o tamanho conforme preferir
+        height={256}
+        style={{ objectFit: 'contain' }}
+        loading="eager"
+      />
       
       <span>
-        <PokemonHeader pokemon={pokemon} />
+        <h1>#{pokemon.species_id} - {capitalize(pokemon.species_name)}</h1>
+        <TypeIcon primary_type={pokemon.primary_type} secondary_type={pokemon.secondary_type}/>
         <PokemonStats pokemon={pokemon} />
       </span>
     </div>
