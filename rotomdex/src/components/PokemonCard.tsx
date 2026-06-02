@@ -10,7 +10,7 @@ interface PokemonCardProps {
 
 export default function PokemonCard({ pokemon }: PokemonCardProps) {
   return (
-    <Link href={`/pokemon/${pokemon.species_name}`} className={styles.card}>
+    <Link href={`/pokemon/${pokemon.name}`} className={styles.card}>
       <PokemonCardImage pokemon={pokemon} className={styles.cardImage} />
       <PokemonCardInfo pokemon={pokemon} className={styles.cardInfo} />
     </Link>

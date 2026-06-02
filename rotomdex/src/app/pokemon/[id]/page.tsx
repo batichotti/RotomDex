@@ -22,7 +22,6 @@ export default async function PokemonPage({ params }: { params: Promise<{ id: st
     <div>
       <PokemonImage pokemon={pokemon} />
 
-      
       <span>
         <PokemonHeader pokemon={pokemon} />
         <PokemonStats pokemon={pokemon} />

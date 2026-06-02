@@ -81,40 +81,6 @@ export default async function PokemonPage({ searchParams }: { searchParams: Prom
 
 // HTML
 const shownPokemon = pokemon.filter(shouldShow);
-const pokemonList = shownPokemon.map((p) => {
-  const form = getForm(p.name, p.species_name);
-  const baseUrl = `/assets/pokemon/HOME${String(p.species_id).padStart(4, '0')}`;
-  
-  let formPath = form
-    ? `${baseUrl}_${form}.png` 
-    : `${baseUrl}.png`;
-
-  // if(!NOT_SHINY.includes(form)) formPath += '_s';
-  // formPath += '.png';
-
-  return (
-    <li key={p.id}>
-      <Link href={`/pokemon/${p.species_name}`} className={styles.card}>
-        <Image
-          src={formPath}
-          alt={p.name}
-          width={72}
-          height={72}
-          style={{ objectFit: 'contain' }}
-          loading="eager"
-        />
-
-        <small className={styles.number}>#{p.id}</small>
-        <strong className={styles.name}>{capitalize(p.name)}</strong>
-        
-        <span className={styles.type}>
-          {capitalize(p.primary_type)}{getSecondaryType(p)}
-        </span>
-      </Link>
-    </li>
-  );
-});
-
 // No return, substitua o map por:
   return (
   <div className={styles.wrapper}>
