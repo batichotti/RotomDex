@@ -60,7 +60,7 @@ export default function PokemonFilters(){
             </select>
 
             {/*Define qual o campo de Ordenação; Padrão: 'id'*/}
-            <select value={params.get('orderBy') ?? 'id'} onChange={e => handleChange('orderBy', e.target.value)}>
+            <select value={params.get('orderBy') ?? 'apecies_id'} onChange={e => handleChange('orderBy', e.target.value)}>
                 {ORDER_BY.map(o => <option key={o} value={o}>{o}</option>)}
             </select>
 

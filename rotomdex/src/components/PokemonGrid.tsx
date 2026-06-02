@@ -43,8 +43,8 @@ export default function PokemonGrid({ pokemon }: { pokemon: Pokemon[] }) {
                   <Image
                     src={formPath}
                     alt={p.name}
-                    width={128}
-                    height={128}
+                    width={164}
+                    height={164}
                     style={{ objectFit: 'contain' }}
                   />
                 </div>
