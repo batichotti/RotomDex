@@ -1,3 +1,13 @@
 .pokemonContainer {
   width: 50%;
 }
+
+.imageHeaderContainer {
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+}
+
+.pokemonContainer span {
+  padding-top: 0.5vh;
+}

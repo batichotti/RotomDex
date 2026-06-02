@@ -1,3 +1,4 @@
+import { redirect } from 'next/navigation'
 import type { Pokemon } from '@/types/pokemon'
 import PokemonHeader from '@/components/PokemonHeader';
 import PokemonStats from '@/components/PokemonStats';
@@ -20,12 +21,17 @@ export default async function PokemonPage({ params }: { params: Promise<{ id: st
     return <div><h1>Pokémon não encontrado</h1></div>
   }
 
+  if (id !== pokemon.name) {
+    redirect(`/pokemon/${pokemon.name}`)
+  }
+
   return (
     <div className={styles.pokemonContainer}>
-      <PokemonImage pokemon={pokemon}/>
-
-      <span>
+      <div className={styles.imageHeaderContainer}>
+        <PokemonImage pokemon={pokemon}/>
         <PokemonHeader pokemon={pokemon} />
+      </div>
+      <span>
         <PokemonStats pokemon={pokemon} />
         <PokemonNavigation pokemon={pokemon} />
       </span>
