@@ -9,6 +9,7 @@ interface PokemonImageProps {
   pokemon: Pokemon
   width?: number
   height?: number
+  shinyLock?: boolean;
 }
 
 function getForm(name: string, speciesName: string) {
@@ -17,12 +18,12 @@ function getForm(name: string, speciesName: string) {
   return name.slice(speciesName.length + 1).replaceAll('-', '_')
 }
 
-export default function PokemonImage({ pokemon, width = 256, height = 256 }: PokemonImageProps) {
+export default function PokemonImage({ pokemon, width = 256, height = 256, shinyLock = false }: PokemonImageProps) {
   const [useShiny, setUseShiny] = useState(false)
 
   const handleClick = () => {
     // toggle between normal and _s version
-    setUseShiny((v) => !v)
+    if(!shinyLock){setUseShiny((v) => !v)}
   }
 
   const paddedId = String(pokemon.species_id).padStart(4, '0')
