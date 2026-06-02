@@ -33,7 +33,7 @@ export default function PokemonStats({ pokemon }: { pokemon: Pokemon }) {
         const color = (label === 'BST') ? barColor(value, true) : barColor(value);
         return (
           <div key={label} style={{ marginBottom: 8 }}>
-            <div style={{ width: '90%', display: 'flex', justifyContent: 'space-between', fontSize: 13 }}>
+            <div style={{ width: '90%', display: 'flex', justifyContent: 'space-between', fontSize: 15 }}>
               <span>{label}</span>
               <span>{value}</span>
             </div>

@@ -30,13 +30,14 @@ export default function PokemonNavigation({ pokemon }: PokemonNavigationProps) {
         disabled={pokemon.species_id <= 1}
         title="- Pokémon"
       >
-        ←
+        {'<'}
       </button>
       <button 
         onClick={handleNext}
+        disabled={pokemon.species_id >= 1025}
         title="+ Pokémon"
       >
-        →
+        {'>'}
       </button>
     </div>
   )
