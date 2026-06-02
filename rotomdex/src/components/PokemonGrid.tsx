@@ -1,14 +1,11 @@
-// src/components/PokemonGrid.tsx
 'use client'
 
 import { useState } from 'react'
-import Link from 'next/link'
 import type { Pokemon } from '@/types/pokemon'
-import PokemonImage from '@/components/PokemonImage'
-import PokemonHeader from '@/components/PokemonHeader'
+import PokemonCard from '@/components/PokemonCard'
 import styles from '@/components/PokemonGrid.module.css'
 
-const PAGE_SIZE = 60;
+const PAGE_SIZE = 60
 
 export default function PokemonGrid({ pokemon }: { pokemon: Pokemon[] }) {
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE)
@@ -21,20 +18,11 @@ export default function PokemonGrid({ pokemon }: { pokemon: Pokemon[] }) {
       <p>Pokémon Catalogados: {pokemon.length}</p>
 
       <ul className={styles.grid}>
-        {visible.map((p) => {
-          return (
-            <li key={p.id}>
-              <Link href={`/pokemon/${p.species_name}`} className={styles.card}>
-                <div className={styles.cardImage}>
-                  <PokemonImage pokemon={p} width={196} height={196} />
-                </div>
-                <div className={styles.cardInfo}>
-                  <PokemonHeader pokemon={p} />
-                </div>
-              </Link>
-            </li>
-          )
-        })}
+        {visible.map((p) => (
+          <li key={p.id}>
+            <PokemonCard pokemon={p} />
+          </li>
+        ))}
       </ul>
 
       {hasMore && (
