@@ -5,7 +5,7 @@ const COLOR_THRESHOLDS = [
   { max: 30,  max_bst: 400, color: '#f2190a' }, // red
   { max: 60,  max_bst: 500, color: '#ef8310' }, // orange
   { max: 90,  max_bst: 550, color: '#ffb300' }, // amber
-  { max: 120, max_bst: 650, color: '#66be6b' }, // green
+  { max: 120, max_bst: 650, color: '#41d848' }, // green
   { max: 150, max_bst: 700, color: '#5a800f' }, // olive
   { max: 255, max_bst: 770, color: '#00c2b8' }, // cyan
 ] as const;
@@ -27,20 +27,20 @@ export default function PokemonStats({ pokemon }: { pokemon: Pokemon }) {
     ['BST', pokemon.bst]
   ] as const
 
-  return (
+  return(
     <div>
       {stats.map(([label, value]) => {
         const color = (label === 'BST') ? barColor(value, true) : barColor(value);
         return (
           <div key={label} style={{ marginBottom: 8 }}>
-            <div style={{ width: '50%', display: 'flex', justifyContent: 'space-between', fontSize: 13 }}>
+            <div style={{ width: '40%', display: 'flex', justifyContent: 'space-between', fontSize: 13 }}>
               <span>{label}</span>
               <span>{value}</span>
             </div>
-            <div style={{ width: '50%', height: 10, background: '#e0e0e0', borderRadius: 6, overflow: 'hidden' }}>
+            <div style={{ width: '40%', height: 10, background: '#e0e0e0', borderRadius: 6, overflow: 'hidden' }}>
               <div
                 style={{
-                  width: (label === 'BST') ? `${value*100/780}%` : `${value*100/255}%`,
+                  width: (label === 'BST') ? `${value*100/(255*6)}%` : `${value*100/255}%`,
                   height: '100%',
                   background: color,
                   transition: 'width 300ms ease'
