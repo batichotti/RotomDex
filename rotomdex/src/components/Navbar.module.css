@@ -1,7 +1,7 @@
 .navbar {
     background-color: #f87a8c;
     padding: clamp(8px, 1.5vh, 20px);
-    border-bottom: 3px solid #63574E;
+    border-bottom: 4px solid #63574E;
     box-shadow: 0px 2px 8px rgba(0,0,0,0.35);
     
     /*Centralizar Logo*/
