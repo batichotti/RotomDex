@@ -1,6 +1,6 @@
 :root {
   --navbar-height: calc(clamp(40px, 12.5vh, 140px) + 2px);
-  --filterbar-height: calc(8vh + 2px);
+  --filterbar-height: calc(14vh + 2px);
 }
 
 a {

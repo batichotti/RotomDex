@@ -64,15 +64,14 @@ export default async function PokemonPage({ searchParams }: { searchParams: Prom
     'defense',
     'special_attack',
     'special_defense',
-    'speed',
-    'height',
-    'weight'
+    'speed'
   ] as const;
 
   const pokemonById = new Map<number, Pokemon>(pokemon.map((entry) => [entry.id, entry]));
 
   function shouldShow(p: Pokemon, filter: boolean = false): boolean {
     if (p.id === p.species_id) return true;
+    if (getForm(p.name, p.species_name) === 'gmax') return true;
 
     const base = pokemonById.get(p.species_id);
     if (!base) return filter;

@@ -48,12 +48,20 @@ export default function PokemonFilters() {
         router.push(`/pokemon/?${current.toString()}`)
     }
 
+    function handleClearTypes() {
+        const current = new URLSearchParams(params.toString())
+        current.delete('type')
+        current.delete('type2')
+        router.push(`/pokemon/?${current.toString()}`)
+    }
+
     return (
         <div className={styles.filterContainer}>
             <TypeButtonGroup
                 selectedType={params.get('type') ?? ''}
                 selectedType2={params.get('type2') ?? ''}
                 onTypeClick={handleTypeClick}
+                onClear={handleClearTypes}
             />
             
             <SortControls

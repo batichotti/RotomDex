@@ -6,10 +6,22 @@
   margin-top: 0.25rem;
 }
 
+.typeButtonsWrapper {
+  position: relative;
+  padding-left: 0;
+  transition: padding-right 0.2s;
+}
+
+.typeButtonsWrapperActive {
+  padding-right: 56px;
+}
+
 .typeButtonsContainer {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(9, 48px);
   gap: 0.5rem;
-  flex-wrap: wrap;
+  align-items: start;
+  position: relative;
 }
 
 .typeButton {
@@ -27,14 +39,56 @@
   box-sizing: border-box;
 }
 
-.typeButtonActive {
-  opacity: 1;
-  border-radius: 50%;
-  transition: background-color 0.2s, opacity 0.2s;
-}
-
 .typeButtonInactive {
   opacity: 0.4;
+}
+
+.typeButtonInactive:hover {
+    opacity: 0.7;
+}
+
+.typeButtonActive {
+    opacity: 1;
+    border-radius: 50%;
+    transition: background-color 0.2s, opacity 0.2s;
+}
+
+.typeButtonActive:hover,
+.typeButtonInactive:hover,
+.typeButton:hover,
+.clearButton:hover {
+    scale: 1.1;
+}
+
+.clearButton {
+  cursor: pointer;
+  padding: 0;
+  border-radius: 50%;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  box-sizing: border-box;
+  font-weight: bolder;
+  color: #fff;
+  background: none;
+  border: none;
+  outline: none;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  visibility: hidden; /* Ocupa espaço mas fica invisível */
+}
+
+.clearButton:hover {
+    background: rgb(255, 0, 56, .4);
+}
+
+.clearButtonVisible {
+  visibility: visible;
 }
 
 .select {

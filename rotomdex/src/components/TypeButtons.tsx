@@ -9,9 +9,10 @@ interface TypeButtonGroupProps {
     selectedType: string
     selectedType2: string
     onTypeClick: (type: string) => void
+    onClear: () => void
 }
 
-export default function TypeButtonGroup({ selectedType, selectedType2, onTypeClick }: TypeButtonGroupProps) {
+export default function TypeButtonGroup({ selectedType, selectedType2, onTypeClick, onClear }: TypeButtonGroupProps) {
     const bothSelected = !!selectedType && !!selectedType2
 
     function getButtonClass(t: string) {
@@ -41,7 +42,10 @@ export default function TypeButtonGroup({ selectedType, selectedType2, onTypeCli
         return {}
     }
 
+    const hasSelection = !!selectedType || !!selectedType2
+
     return (
+    <div className={`${styles.typeButtonsWrapper} ${hasSelection ? styles.typeButtonsWrapperActive : ''}`}>
         <div className={styles.typeButtonsContainer}>
             {TYPES.map(t => (
                 <button
@@ -54,7 +58,16 @@ export default function TypeButtonGroup({ selectedType, selectedType2, onTypeCli
                 >
                     <img src={`/assets/types/.svg/${t} Type Icon.svg`} alt={t} width={32} height={32} />
                 </button>
-            ))}
+                ))}
         </div>
+        
+        <button
+            className={`${styles.clearButton} ${hasSelection ? styles.clearButtonVisible : ''}`}
+            onClick={onClear}
+            title="Limpar filtros de tipo"
+        >
+            <img src={`/assets/flags/trashcan_flag.svg`} alt={"clear"} width={32} height={32} />
+        </button>
+    </div>
     )
 }
