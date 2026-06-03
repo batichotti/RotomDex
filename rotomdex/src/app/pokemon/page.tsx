@@ -71,7 +71,10 @@ export default async function PokemonPage({ searchParams }: { searchParams: Prom
 
   function shouldShow(p: Pokemon, filter: boolean = false): boolean {
     if (p.id === p.species_id) return true;
-    if (getForm(p.name, p.species_name) === 'gmax') return true;
+    
+    const form = getForm(p.name, p.species_name);
+    if (form === 'gmax') return true;
+    if (form?.includes('totem')) return false;
 
     const base = pokemonById.get(p.species_id);
     if (!base) return filter;
@@ -91,7 +94,7 @@ return (
       </FilterBar>
     </Suspense>
 
-    <h1>RotomDex</h1>
+    <h1 style={{paddingTop: '16vh'}}>RotomDex</h1>
     <PokemonGrid pokemon={shownPokemon} />
   </div>
   )

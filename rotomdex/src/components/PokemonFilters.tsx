@@ -21,10 +21,13 @@ export default function PokemonFilters() {
 
         if (type === type1) {
             // Remove primário; se havia secundário, ele vira primário
-            if (type2) {
+            if (type2 && type2 !== 'None') {
                 current.set('type', type2)
                 current.delete('type2')
-            } else current.delete('type')
+            } else {
+                current.delete('type')
+                current.delete('type2')
+            }
         
         } else if (type === type2) {
             // Remove secundário

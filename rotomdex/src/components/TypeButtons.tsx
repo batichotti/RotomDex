@@ -68,6 +68,18 @@ export default function TypeButtonGroup({ selectedType, selectedType2, onTypeCli
         >
             <img src={`/assets/flags/trashcan_flag.svg`} alt={"clear"} width={32} height={32} />
         </button>
+
+        {(!bothSelected || selectedType2 === 'None') && selectedType && (
+            <button
+                className={`${styles.typeButton} ${selectedType2 === 'None' ? styles.typeButtonActive : ''} ${styles.extraTypeButton}`}
+                style={selectedType2 === 'None' ? { backgroundColor: TYPE_COLORS[selectedType as keyof typeof TYPE_COLORS] } : {}}
+                onClick={() => onTypeClick('None')}
+                title={selectedType2 === 'None' ? `${selectedType} / None (clique para remover)` : `${selectedType} / None (mostrar apenas tipo primário)`}
+            >
+                <img src={`/assets/flags/uniqueButton.svg`} alt={selectedType} width={32} height={32} />
+            </button>
+        )}
+
     </div>
     )
 }
