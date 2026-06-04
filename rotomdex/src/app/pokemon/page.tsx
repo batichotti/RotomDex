@@ -1,21 +1,13 @@
 import type { Pokemon } from '@/types/pokemon'           // Importar tipo Pokemon de src/types/pokemon.ts
-import { capitalize } from '@/utils/utils'               // Importar Funções de Utilidade
 import PokemonFilters from '@/components/PokemonFilters' // Importar Filtros de Pokemon de pokemonFilters.tsx
 import FilterBar from '@/components/FilterBar'           // Importar barra de filtros de FilterBar.tsx
 import styles from '@/components/PokemonPage.module.css'
 import PokemonGrid from '@/components/PokemonGrid'
+import { shouldShow } from '@/utils/PokemonMap'
+import PokemonErrorState from '@/components/PokemonErrorState'
 import { Suspense } from 'react'                         // Importar "Suspense" do React. Permite esperar algo carregar
-import Link from 'next/link';
-import Image from 'next/image';
 
 // const NOT_SHINY = ['partner_cap', 'alola_cap', 'kalos_cap', 'unova_cap', 'sinnoh_cap', 'hoenn_cap', 'original_cap', 'rock_star', 'pop_star', 'phd', 'belle', 'libre', 'world_cap', 'totem', 'totem_disguised', 'totem_busted', 'stellar', 'gliding_build', 'swimming_build', 'limited_build', 'sprinting_build', 'low_power_mode', 'drive_mode','aquatic_mode', 'glide_mode', '_eternal']
-
-// Função para tratar e devolver o tipo secundário de um Pokemon
-function getSecondaryType(p: Pokemon){
-  return (p.secondary_type === 'None')            // Pokemon não possui tipo secundário( = "None")
-          ? ''
-          : ` / ${capitalize(p.secondary_type)}`; // Retorna o tipo secundário com uma barra de separação e capitalizado
-}
 
 function getForm(name: string, speciesName: string){
   if(name === speciesName) return null;
@@ -41,49 +33,14 @@ export default async function PokemonPage({ searchParams }: { searchParams: Prom
   // Trata erros da API
   if (!res.ok) {
     const err = await res.json();
-    return (
-      <div style={{ paddingTop: 'var(--filterbar-height)'}}>
-        <Suspense fallback={<div>Carregando filtros...</div>}>
-          <FilterBar>
-            <PokemonFilters/>
-          </FilterBar>
-        </Suspense>
-        <h1>RotomDex</h1>
-        <p style={{ color: 'red' }}>{err.message}</p>
-      </div>
-    );
+    return <PokemonErrorState message={err.message} />;
   }
   
   const pokemon: Pokemon[] = await res.json(); // Converte a resposta da API em um json, e em array
-
-  const variantComparisonKeys = [
-    'primary_type',
-    'secondary_type',
-    'hp',
-    'attack',
-    'defense',
-    'special_attack',
-    'special_defense',
-    'speed'
-  ] as const;
-
-  const pokemonById = new Map<number, Pokemon>(pokemon.map((entry) => [entry.id, entry]));
-
-  function shouldShow(p: Pokemon, filter: boolean = false): boolean {
-    if (p.id === p.species_id) return true;
-    
-    const form = getForm(p.name, p.species_name);
-    if (form === 'gmax') return true;
-    if (form?.includes('totem')) return false;
-
-    const base = pokemonById.get(p.species_id);
-    if (!base) return filter;
-
-    return variantComparisonKeys.some((key) => p[key] !== base[key]);
-  }
-
+  const pokemonById = new Map<number, Pokemon>(pokemon.map(p => [p.id, p]));
+  
   const hasFilter = !!(filters.type || filters.type2);
-  const shownPokemon = pokemon.filter(p => shouldShow(p, hasFilter));
+  const shownPokemon = pokemon.filter(p => shouldShow(p, pokemonById.get(p.species_id), hasFilter));
 
   // HTML
 return (
