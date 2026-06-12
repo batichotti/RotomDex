@@ -5,6 +5,7 @@ import styles from '@/components/PokemonPage.module.css'
 import PokemonGrid from '@/components/PokemonGrid'
 import { shouldShow } from '@/utils/PokemonMap'
 import PokemonErrorState from '@/components/PokemonErrorState'
+import OrderBar from '@/components/OrderBar'
 import { Suspense } from 'react'                         // Importar "Suspense" do React. Permite esperar algo carregar
 
 // const NOT_SHINY = ['partner_cap', 'alola_cap', 'kalos_cap', 'unova_cap', 'sinnoh_cap', 'hoenn_cap', 'original_cap', 'rock_star', 'pop_star', 'phd', 'belle', 'libre', 'world_cap', 'totem', 'totem_disguised', 'totem_busted', 'stellar', 'gliding_build', 'swimming_build', 'limited_build', 'sprinting_build', 'low_power_mode', 'drive_mode','aquatic_mode', 'glide_mode', '_eternal']
@@ -51,7 +52,8 @@ return (
       </FilterBar>
     </Suspense>
 
-    <h1 style={{paddingTop: '16vh'}}>RotomDex</h1>
+    <OrderBar />
+    <h1 style={{}}>RotomDex</h1>
     <PokemonGrid pokemon={shownPokemon} />
   </div>
   )

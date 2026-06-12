@@ -66,13 +66,6 @@ export default function PokemonFilters() {
                 onTypeClick={handleTypeClick}
                 onClear={handleClearTypes}
             />
-            
-            <SortControls
-                orderBy={params.get('orderBy') ?? 'species_id'}
-                order={params.get('order') ?? 'ASC'}
-                onOrderByChange={value => handleSortChange('orderBy', value)}
-                onOrderChange={value => handleSortChange('order', value)}
-            />
         </div>
     )
 }

@@ -12,6 +12,11 @@
 
 .card:hover .cardImage {
   background: #CEC7BA;
+  scale: 1.03;
+}
+
+.card:hover .cardHeader {
+  background: #CEC7BA;
 }
 
 .cardImage {
