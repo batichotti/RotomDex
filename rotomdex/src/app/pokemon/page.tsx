@@ -8,16 +8,6 @@ import PokemonErrorState from '@/components/PokemonErrorState'
 import OrderBar from '@/components/OrderBar'
 import { Suspense } from 'react'                         // Importar "Suspense" do React. Permite esperar algo carregar
 
-// const NOT_SHINY = ['partner_cap', 'alola_cap', 'kalos_cap', 'unova_cap', 'sinnoh_cap', 'hoenn_cap', 'original_cap', 'rock_star', 'pop_star', 'phd', 'belle', 'libre', 'world_cap', 'totem', 'totem_disguised', 'totem_busted', 'stellar', 'gliding_build', 'swimming_build', 'limited_build', 'sprinting_build', 'low_power_mode', 'drive_mode','aquatic_mode', 'glide_mode', '_eternal']
-
-function getForm(name: string, speciesName: string){
-  if(name === speciesName) return null;
-  if (!name.startsWith(speciesName + '-')) return null;
-  
-  const suffix = name.slice(speciesName.length + 1).replaceAll('-', '_');; // ex: "_galar", "_alola"
-  return suffix;
-};
-
 // Funcão principal: PokemonPage
 export default async function PokemonPage({ searchParams }: { searchParams: Promise<Record<string, string>> }){
   const filters = await searchParams;  // Recebe os Parâmetros assim que resolvidos
