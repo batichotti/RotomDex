@@ -1,112 +1,84 @@
+/* ── Container principal ── */
 .filterContainer {
   display: flex;
-  gap: 1rem;
   flex-wrap: wrap;
   margin-bottom: 0.25rem;
   margin-top: 0.25rem;
+  width: 100%;
 }
 
+/* ── Wrapper e linha de botões ── */
 .typeButtonsWrapper {
-  position: relative;
-  padding-left: 0;
-  transition: padding-right 0.2s;
-}
-
-.typeButtonsWrapperActive {
-  padding-right: 56px;
+  width: 100%;
 }
 
 .typeButtonsContainer {
-  display: grid;
-  grid-template-columns: repeat(9, 48px);
-  gap: 0.5rem;
-  align-items: start;
-  position: relative;
+  display: flex;
+  width: 100%;
+  align-items: center;
 }
 
+/* ── Botão base — cada um ocupa 1 fração igual ── */
 .typeButton {
-  border: 2px solid transparent;
+  flex: 1;
+  min-width: 0;
+  border: none;
   background: none;
   cursor: pointer;
   padding: 0;
-  border-radius: 4px;
-  transition: border-color 0.2s, opacity 0.2s;
+  height: 5vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 48px;
-  height: 48px;
-  box-sizing: border-box;
-  position: relative;
+  overflow: visible;
+  transition: flex 0.25s ease, opacity 0.2s;
 }
 
+/* Círculo colorido interno — sempre quadrado, nunca cortado */
+.typeButton .circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1 / 1;
+  height: 5.5vh;
+  border-radius: 50%;
+  background: transparent;
+  flex-shrink: 0;
+  transition: background-color 0.2s, transform 0.15s ease;
+}
+
+/* ── Botões extras: ocultos com scale + opacity (sem overflow:hidden) ── */
+.extraTypeButton,
+.clearTypeButton {
+  flex: 0 0 0px;
+  opacity: 0;
+  pointer-events: none;
+  overflow: visible;
+  transition: flex 0.25s ease, opacity 0.2s ease;
+}
+
+/* Quando devem aparecer */
+.extraTypeButton.extraVisible,
+.clearTypeButton.extraVisible {
+  flex: 1;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ── Estados dos botões de tipo ── */
 .typeButtonInactive {
   opacity: 0.4;
 }
 
 .typeButtonInactive:hover {
-    opacity: 0.7;
+  opacity: 0.7;
 }
 
-.typeButtonActive {
-    opacity: 1;
-    border-radius: 50%;
-    transition: background-color 0.2s, opacity 0.2s;
+/* ── Hover: escala no círculo interno, não no botão inteiro ── */
+.typeButton:not(:disabled):hover .circle {
+  transform: scale(1.12);
 }
 
-.extraTypeButton {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-}
-
-.typeButtonActive:hover,
-.typeButtonInactive:hover,
-.typeButton:hover,
-.clearButton:hover,
-.extraTypeButton:hover {
-    scale: 1.1;
-}
-
-.clearButton {
-  cursor: pointer;
-  border-radius: 50%;
-  transition: all 0.2s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 48px;
-  height: 48px;
-  box-sizing: border-box;
-  background: none;
-  border: none;
-  outline: none;
-  position: absolute;
-  right: 0;
-  top: 0;
-  visibility: hidden;
-}
-
-.clearButton:hover {
-    background: rgb(255, 0, 56, .5);
-}
-
-.clearButtonVisible {
-  visibility: visible;
-}
-
-.select {
-  padding: 0.5rem 0.75rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 1rem;
-  background-color: #fff;
-  cursor: pointer;
-  transition: border-color 0.2s, box-shadow 0.2s;
-}
-
-.select:disabled {
-  opacity: 0.3;
-  cursor: default;
-  background-color: #8DE1EE;
+.clearTypeButton:not(:disabled):hover .circle {
+  filter: drop-shadow(0 0 4px rgba(255, 0, 56, 0.6));
 }

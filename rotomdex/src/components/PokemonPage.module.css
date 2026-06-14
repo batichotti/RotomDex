@@ -1,5 +1,5 @@
 .wrapper {
-  padding-top: var(--filterbar-height);
+  padding-top: calc(var(--filterbar-height) + var(--orderbar-height) + 2vh);
 }
 
 .error {

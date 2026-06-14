@@ -52,8 +52,10 @@ return (
       </FilterBar>
     </Suspense>
 
-    <OrderBar />
-    <h1 style={{}}>RotomDex</h1>
+    <Suspense fallback={null}>
+      <OrderBar path="/pokemon" total={shownPokemon.length} species={new Set(pokemon.map((p) => p.species_id)).size} />
+    </Suspense>
+    
     <PokemonGrid pokemon={shownPokemon} />
   </div>
   )

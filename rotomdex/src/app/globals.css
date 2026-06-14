@@ -1,6 +1,7 @@
 :root {
-  --navbar-height: calc(clamp(40px, 12.5vh, 140px) + 2px);
-  --filterbar-height: calc(14vh + 2px);
+  --navbar-height: calc(clamp(40px, 12.5vh, 140px) + 3px);
+  --filterbar-height: calc(8vh + 3px);
+  --orderbar-height: calc(6vh + 3px);
 }
 
 a {

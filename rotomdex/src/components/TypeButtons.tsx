@@ -14,6 +14,9 @@ interface TypeButtonGroupProps {
 
 export default function TypeButtonGroup({ selectedType, selectedType2, onTypeClick, onClear }: TypeButtonGroupProps) {
     const bothSelected = !!selectedType && !!selectedType2
+    const hasSelection = !!selectedType || !!selectedType2
+    const showUnique = !!selectedType && (!bothSelected || selectedType2 === "None")
+    const showClear = hasSelection
 
     function getButtonClass(t: string) {
         const isSelected = selectedType === t || selectedType2 === t
@@ -32,54 +35,66 @@ export default function TypeButtonGroup({ selectedType, selectedType2, onTypeCli
         return `${t} (definir como primário)`
     }
 
-    function getButtonStyle(t: string) {
+    function getCircleStyle(t: string) {
         const isSelected = selectedType === t || selectedType2 === t
         if (isSelected) {
-            return {
-                backgroundColor: TYPE_COLORS[t as keyof typeof TYPE_COLORS],
-            }
+            return { backgroundColor: TYPE_COLORS[t as keyof typeof TYPE_COLORS] }
         }
         return {}
     }
 
-    const hasSelection = !!selectedType || !!selectedType2
+    const uniqueCircleStyle = selectedType2 === 'None'
+        ? { backgroundColor: TYPE_COLORS[selectedType as keyof typeof TYPE_COLORS] }
+        : {}
 
     return (
-    <div className={`${styles.typeButtonsWrapper} ${hasSelection ? styles.typeButtonsWrapperActive : ''}`}>
-        <div className={styles.typeButtonsContainer}>
-            {TYPES.map(t => (
+        <div className={styles.typeButtonsWrapper}>
+            <div className={styles.typeButtonsContainer}>
+
+                {/* Botão "único" */}
                 <button
-                    key={t}
-                    className={getButtonClass(t)}
-                    style={getButtonStyle(t)}
-                    onClick={() => onTypeClick(t)}
-                    title={getTitle(t)}
-                    disabled={bothSelected && selectedType !== t && selectedType2 !== t}
+                    className={`${styles.typeButton} ${styles.extraTypeButton} ${showUnique ? styles.extraVisible : ''} ${selectedType2 === 'None' ? styles.typeButtonActive : ''}`}
+                    onClick={() => selectedType ? onTypeClick('None') : undefined}
+                    title={selectedType2 === 'None'
+                        ? `${selectedType} / None (clique para remover)`
+                        : `${selectedType} / None (mostrar apenas tipo primário)`}
+                    disabled={!showUnique}
+                    aria-hidden={!showUnique}
                 >
-                    <img src={`/assets/types/.svg/${t} Type Icon.svg`} alt={t} width={32} height={32} />
+                    <span className={styles.circle} style={uniqueCircleStyle}>
+                        <img src={`/assets/flags/uniqueButton.svg`} alt="unique" width={24} height={24} />
+                    </span>
                 </button>
+
+                {/* 18 botões de tipo */}
+                {TYPES.map(t => (
+                    <button
+                        key={t}
+                        className={getButtonClass(t)}
+                        onClick={() => onTypeClick(t)}
+                        title={getTitle(t)}
+                        disabled={bothSelected && selectedType !== t && selectedType2 !== t}
+                    >
+                        <span className={styles.circle} style={getCircleStyle(t)}>
+                            <img src={`/assets/types/.svg/${t} Type Icon.svg`} alt={t} width={24} height={24} />
+                        </span>
+                    </button>
                 ))}
+
+                {/* Botão limpar */}
+                <button
+                    className={`${styles.typeButton} ${styles.clearTypeButton} ${showClear ? styles.extraVisible : ''}`}
+                    onClick={onClear}
+                    title="Limpar filtros de tipo"
+                    disabled={!showClear}
+                    aria-hidden={!showClear}
+                >
+                    <span className={styles.circle}>
+                        <img src={`/assets/flags/trashcan_flag.svg`} alt="clear" width={24} height={24} />
+                    </span>
+                </button>
+
+            </div>
         </div>
-        
-        <button
-            className={`${styles.clearButton} ${hasSelection ? styles.clearButtonVisible : ''}`}
-            onClick={onClear}
-            title="Limpar filtros de tipo"
-        >
-            <img src={`/assets/flags/trashcan_flag.svg`} alt={"clear"} width={32} height={32} />
-        </button>
-
-        {(!bothSelected || selectedType2 === 'None') && selectedType && (
-            <button
-                className={`${styles.typeButton} ${selectedType2 === 'None' ? styles.typeButtonActive : ''} ${styles.extraTypeButton}`}
-                style={selectedType2 === 'None' ? { backgroundColor: TYPE_COLORS[selectedType as keyof typeof TYPE_COLORS] } : {}}
-                onClick={() => onTypeClick('None')}
-                title={selectedType2 === 'None' ? `${selectedType} / None (clique para remover)` : `${selectedType} / None (mostrar apenas tipo primário)`}
-            >
-                <img src={`/assets/flags/uniqueButton.svg`} alt={selectedType} width={32} height={32} />
-            </button>
-        )}
-
-    </div>
     )
 }

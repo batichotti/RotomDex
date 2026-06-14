@@ -8,7 +8,7 @@
   align-items: center;
   
   position: fixed;
-  top: calc(clamp(40px, 12.5vh, 140px) + 2px);
+  top: var(--navbar-height);
   left: 0;
   width: 100%;
 
