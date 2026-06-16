@@ -11,12 +11,12 @@
 }
 
 .card:hover .cardImage {
-  background: #CEC7BA;
+  background: #bcb5a8;
   scale: 1.03;
 }
 
 .card:hover .cardHeader {
-  background: #CEC7BA;
+  background: #bcb5a8;
 }
 
 .cardImage {
@@ -25,7 +25,7 @@
   align-items: center;
   justify-content: center;
   padding: 8px;
-  background: #E8E2D8;
+  background: #d5cfc4;
   border: 4px solid rgb(99, 87, 78);
   border-radius: 50px;
   transition: box-shadow 0.2s ease;

@@ -21,8 +21,8 @@ export function shouldShow(p: Pokemon, base: Pokemon | undefined, filter: boolea
   if (p.id === p.species_id) return true;
 
   const form = getForm(p.name, p.species_name);
-  if (form === 'gmax') return true;
-  if (form?.includes('totem')) return false;
+  if (form?.includes('gmax')) return true;
+  if (form?.includes('totem') || form?.includes('cap')) return false;
   if (!base) return filter;
   return variantComparisonKeys.some((key) => p[key] !== base[key]);
 }

@@ -4,17 +4,17 @@ import styles from '@/components/OrderBar.module.css'
 import { useRouter, useSearchParams } from 'next/navigation'
 
 const SORT_OPTIONS = [
-  { label: '#',    value: 'species_id',      defaultOrder: 'ASC'  },
-  { label: 'Name', value: 'name',    defaultOrder: 'ASC'  },
-  { label: 'HP',   value: 'hp',              defaultOrder: 'DESC' },
-  { label: 'Atk',  value: 'attack',          defaultOrder: 'DESC' },
-  { label: 'Def',  value: 'defense',         defaultOrder: 'DESC' },
-  { label: 'SpA',  value: 'special_attack',  defaultOrder: 'DESC' },
-  { label: 'SpD',  value: 'special_defense', defaultOrder: 'DESC' },
-  { label: 'Spe',  value: 'speed',           defaultOrder: 'DESC' },
-  { label: 'BST',  value: 'bst',             defaultOrder: 'DESC' },
-  { label: 'Height',  value: 'height',             defaultOrder: 'DESC' },
-  { label: 'Weight',  value: 'weight',             defaultOrder: 'DESC' },
+  { label: '#',       value: 'species_id',      defaultOrder: 'ASC'  },
+  { label: 'Name',    value: 'name',            defaultOrder: 'ASC'  },
+  { label: 'HP',      value: 'hp',              defaultOrder: 'DESC' },
+  { label: 'Atk',     value: 'attack',          defaultOrder: 'DESC' },
+  { label: 'Def',     value: 'defense',         defaultOrder: 'DESC' },
+  { label: 'SpA',     value: 'special_attack',  defaultOrder: 'DESC' },
+  { label: 'SpD',     value: 'special_defense', defaultOrder: 'DESC' },
+  { label: 'Spe',     value: 'speed',           defaultOrder: 'DESC' },
+  { label: 'BST',     value: 'bst',             defaultOrder: 'DESC' },
+  { label: 'Height',  value: 'height',          defaultOrder: 'DESC' },
+  { label: 'Weight',  value: 'weight',          defaultOrder: 'DESC' },
 ]
 
 interface OrderBarProps {

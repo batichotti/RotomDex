@@ -1,5 +1,6 @@
 import type { Pokemon } from '@/types/pokemon'           // Importar tipo Pokemon de src/types/pokemon.ts
 import PokemonFilters from '@/components/PokemonFilters' // Importar Filtros de Pokemon de pokemonFilters.tsx
+import PokemonAdvancedFilters from '@/components/PokemonAdvFilters'
 import FilterBar from '@/components/FilterBar'           // Importar barra de filtros de FilterBar.tsx
 import styles from '@/components/PokemonPage.module.css'
 import PokemonGrid from '@/components/PokemonGrid'
@@ -8,15 +9,19 @@ import PokemonErrorState from '@/components/PokemonErrorState'
 import OrderBar from '@/components/OrderBar'
 import { Suspense } from 'react'                         // Importar "Suspense" do React. Permite esperar algo carregar
 
+const FILTERS = ['type', 'type2', 'generation', 'eggGroup1', 'eggGroup2', 'fill', 'min', 'max', 'isLegendary', 'isMythical', 'isBaby', 'hasGenderDifference', 'formsSwitchable', 'isMega', 'isGmax', 'isRegionalForm'] as const;
+
 // Funcão principal: PokemonPage
 export default async function PokemonPage({ searchParams }: { searchParams: Promise<Record<string, string>> }){
   const filters = await searchParams;  // Recebe os Parâmetros assim que resolvidos
   const query = new URLSearchParams(); // Recebe a Query dos parâmetros
 
-  if (filters.type)  query.set('type',  filters.type);  // Se existir tipo nos filtros, adiciona na query
-  if (filters.type2) query.set('type2', filters.type2); // Se existir tipo secundário, adiciona na query
+  for (const key of FILTERS) {
+    const value = filters[key];
+    if (value) query.set(key, value);
+  }
   
-  query.set('orderBy', filters.orderBy ?? 'id');   // Sempre envia, para a query, padrão 'id'
+  query.set('orderBy', filters.orderBy ?? 'species_id');   // Sempre envia, para a query, padrão 'id'
   query.set('order',   filters.order   ?? 'ASC');  // Sempre envia, para a query, padrão 'ASC'  
 
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/pokemon?${query}`, {cache: 'no-store'}); // Retorna a query do backend
@@ -30,20 +35,20 @@ export default async function PokemonPage({ searchParams }: { searchParams: Prom
   const pokemon: Pokemon[] = await res.json(); // Converte a resposta da API em um json, e em array
   const pokemonById = new Map<number, Pokemon>(pokemon.map(p => [p.id, p]));
   
-  const hasFilter = !!(filters.type || filters.type2);
+  const hasFilter = !!(FILTERS);
   const shownPokemon = pokemon.filter(p => shouldShow(p, pokemonById.get(p.species_id), hasFilter));
 
   // HTML
 return (
   <div className={styles.wrapper}>
     <Suspense fallback={<div>Carregando filtros...</div>}>
-      <FilterBar>
+      <FilterBar advanced={<PokemonAdvancedFilters />} >
         <PokemonFilters />
       </FilterBar>
     </Suspense>
 
     <Suspense fallback={null}>
-      <OrderBar path="/pokemon" total={shownPokemon.length} species={new Set(pokemon.map((p) => p.species_id)).size} />
+      <OrderBar path="/pokemon" total={shownPokemon.length} species={new Set(shownPokemon.map((p) => p.species_id)).size} />
     </Suspense>
     
     <PokemonGrid pokemon={shownPokemon} />

@@ -35,16 +35,29 @@ export default function TypeButtonGroup({ selectedType, selectedType2, onTypeCli
         return `${t} (definir como primário)`
     }
 
+    function hexToRgb(hex: string) {
+        const normalized = hex.trim().replace(/^#/, '')
+        const fullHex = normalized.length === 3
+            ? normalized.split('').map(char => char + char).join('')
+            : normalized
+        const r = parseInt(fullHex.slice(0, 2), 16)
+        const g = parseInt(fullHex.slice(2, 4), 16)
+        const b = parseInt(fullHex.slice(4, 6), 16)
+        return `${r}, ${g}, ${b}`
+    }
+
     function getCircleStyle(t: string) {
         const isSelected = selectedType === t || selectedType2 === t
         if (isSelected) {
-            return { backgroundColor: TYPE_COLORS[t as keyof typeof TYPE_COLORS] }
+            return {
+                backgroundColor: `rgba(${hexToRgb(TYPE_COLORS[t as keyof typeof TYPE_COLORS])}, 0.6)`
+            }
         }
         return {}
     }
 
     const uniqueCircleStyle = selectedType2 === 'None'
-        ? { backgroundColor: TYPE_COLORS[selectedType as keyof typeof TYPE_COLORS] }
+        ? { backgroundColor: `rgba(${hexToRgb(TYPE_COLORS[selectedType as keyof typeof TYPE_COLORS])}, 0.6)` }
         : {}
 
     return (

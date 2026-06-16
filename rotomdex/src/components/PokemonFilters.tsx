@@ -2,7 +2,6 @@
 
 import { useRouter, useSearchParams } from 'next/navigation'
 import TypeButtonGroup from './TypeButtons'
-import SortControls from './SortControls'
 import styles from './PokemonFilters.module.css'
 
 export default function PokemonFilters() {
