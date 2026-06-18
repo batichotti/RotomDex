@@ -1,0 +1,97 @@
+/* ── Container principal ── */
+.filterContainer {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 0.25rem;
+  margin-top: 0.25rem;
+  width: 100%;
+}
+
+/* ── Wrapper e linha de botões ── */
+.typeButtonsWrapper {
+  width: 100%;
+}
+
+.typeButtonsContainer {
+  display: flex;
+  width: 100%;
+  align-items: center;
+}
+
+/* ── Botão base — cada um ocupa 1 fração igual ── */
+.typeButton {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 0;
+  height: 5vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+  transition: flex 0.25s ease, opacity 0.2s;
+}
+
+/* Círculo colorido interno — sempre quadrado, nunca cortado */
+.typeButton .circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1 / 1;
+  height: 5.5vh;
+  border-radius: 50%;
+  background: transparent;
+  flex-shrink: 0;
+  transition: background-color 0.2s, transform 0.15s ease;
+  
+  background: rgba(0,0,0, 0.025);
+  box-shadow: 
+    0 2px 4px rgba(0, 0, 0, 0.25),      /* sombra embaixo — dá profundidade */
+    0 1px 2px rgba(0, 0, 0, 0.15),      /* sombra sutil mais próxima */
+    inset 0 0 8px rgba(255, 255, 255, 0.6);
+    /* inset 0 1px 0 rgba(255,255,255,0.8); brilho interno no topo */
+  
+    backdrop-filter: blur(6px);
+  /* border: 1px solid rgba(255, 255, 255, 0.6); */
+}
+
+/* ── Botões extras: ocultos com scale + opacity (sem overflow:hidden) ── */
+.extraTypeButton,
+.clearTypeButton {
+  flex: 0 0 0px;
+  opacity: 0;
+  pointer-events: none;
+  overflow: visible;
+  transition: flex 0.25s ease, opacity 0.2s ease;
+}
+
+/* Quando devem aparecer */
+.extraTypeButton.extraVisible,
+.clearTypeButton.extraVisible {
+  flex: 1;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ── Estados dos botões de tipo ── */
+.typeButtonInactive {
+  opacity: 0.4;
+}
+
+.typeButtonInactive:hover {
+  opacity: 0.7;
+}
+
+/* ── Hover: escala no círculo interno, não no botão inteiro ── */
+.typeButton:not(:disabled):hover .circle {
+  transform: scale(1.06) translateY(-2px); /* sobe um pouco */
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3),
+  inset 0 0 8px rgba(255, 255, 255, 0.6);
+
+}
+
+.clearTypeButton:not(:disabled):hover .circle {
+  filter: drop-shadow(0 0 4px rgba(255, 0, 56, 0.6));
+}

@@ -1,7 +1,6 @@
 :root {
-  --navbar-height: calc(clamp(40px, 12.5vh, 140px) + 2px);
-  --filterbar-height: calc(7vh + 2px);
-
+  --navbar-height: calc(clamp(40px, 12.5vh, 140px) + 3px);
+  --orderbar-height: calc(6vh + 3px);
 }
 
 a {
@@ -16,7 +15,7 @@ a {
 }
 
 body {
-  background: #f7f6f2;
+  background: #e5e3de;
   color: #63574e;
   font-family: system-ui, sans-serif;
 }

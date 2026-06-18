@@ -2,7 +2,7 @@ import { capitalize } from '@/utils/utils'
 import Image from 'next/image'
 import styles from './TypeIcon.module.css'
 
-const TYPE_COLORS = {
+export const TYPE_COLORS = {
     'normal': '#A0A3A0',
     'water': '#3393DD',
     'fire': '#DA2C33',

@@ -12,7 +12,7 @@ export default function PokemonCard({ pokemon }: PokemonCardProps) {
   return (
     <Link href={`/pokemon/${pokemon.name}`} className={styles.card}>
       <PokemonCardImage pokemon={pokemon} className={styles.cardImage} />
-      <PokemonHeader pokemon={pokemon} />
+      <PokemonHeader pokemon={pokemon} className={styles.cardHeader} />
     </Link>
   )
 }

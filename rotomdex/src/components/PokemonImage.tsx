@@ -4,6 +4,7 @@ import { useState } from 'react'
 import type { Pokemon } from '@/types/pokemon'
 import Image from 'next/image'
 import styles from './PokemonImage.module.css'
+import { getForm } from '@/utils/PokemonMap'
 
 interface PokemonImageProps {
   pokemon: Pokemon
