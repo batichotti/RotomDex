@@ -10,5 +10,5 @@ export default async function PokemonEvolutionCard({ pokemonId }: { pokemonId: n
 
     if (!pokemon) return null
 
-    return <PokemonImage pokemon={pokemon}  width={120} height={120}/>
+    return <PokemonImage pokemon={pokemon}  width={120} height={120} shinyLock={true}/>
 }
