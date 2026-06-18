@@ -11,3 +11,12 @@
 .pokemonContainer span {
   padding-top: 0.5vh;
 }
+
+.pokemonImageDataContainer {
+  display: flex;
+}
+
+.pokemonData {
+  padding-left: 0.5vw;
+  padding-top: 1vh;
+}
