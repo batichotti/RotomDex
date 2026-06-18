@@ -4,18 +4,13 @@ import { useState } from 'react'
 import type { Pokemon } from '@/types/pokemon'
 import Image from 'next/image'
 import styles from './PokemonImage.module.css'
+import { getForm } from '@/utils/PokemonMap'
 
 interface PokemonImageProps {
   pokemon: Pokemon
   width?: number
   height?: number
   shinyLock?: boolean;
-}
-
-function getForm(name: string, speciesName: string) {
-  if (name === speciesName) return null
-  if (!name.startsWith(speciesName + '-')) return null
-  return name.slice(speciesName.length + 1).replaceAll('-', '_')
 }
 
 export default function PokemonImage({ pokemon, width = 256, height = 256, shinyLock = false }: PokemonImageProps) {

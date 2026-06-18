@@ -1,0 +1,104 @@
+.bar {
+  position: fixed;
+  top: calc(var(--navbar-height) + var(--filterbar-height) +  7.5vh);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 97%;
+  height: auto;
+  /* background-color: hsl(188, 74%, 74%); */
+  
+  z-index: 99;
+  border: 4px solid #63574E;
+  box-shadow: 0px 2px 8px rgba(0,0,0,0.35);
+  padding-left: 1.5rem;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  backdrop-filter: blur(2px);
+}
+
+.bar::before {
+    content: '';
+    position: absolute;
+    inset: 0;              /* cobre toda a div */
+    background-image: url("/assets/flags/GlassTexture.svg");
+    background-size: auto;      /* Cobre toda a div */
+    background-position: center; /* Centraliza */
+    background-repeat: no-repeat; /* Não repete */
+    filter: brightness(0.9);
+    opacity: 0.7;          /* aqui controla a opacidade */
+    z-index: 0;            /* fica atrás do conteúdo */
+    border-radius: 30px;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  padding-right: 1vw;
+  position: relative;
+  z-index: 1;
+}
+
+.title {
+  font-size: 1.5rem;
+  line-height: 1;
+  position: relative;
+  z-index: 1;
+  color: white;
+}
+
+.counts {
+  display: flex;
+  font-size: 0.8rem;
+  position: relative;
+  z-index: 1;
+  color: white;
+}
+
+.sortButtons {
+  display: flex;
+  gap: 0px;
+  flex: 1;
+  position: relative;
+  z-index: 1;
+
+  background: rgba(0,0,0, 0.025);
+}
+
+.sortBtn {
+  flex: 1;
+
+  background: transparent;
+
+  border: none;
+  border-left: 4px solid #63574E;
+  padding: 8px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.15s, color 0.15s;
+  min-width: 44px;
+  position: relative;
+  z-index: 1;
+}
+
+.sortBtn:last-child {
+  border-top-right-radius: 30px;
+  border-bottom-right-radius: 30px;
+}
+
+.sortBtn:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.sortBtnActive {
+  background: #63574E;
+  color: #8DE1EE;
+}
+
+.sortBtnActive:hover {
+  background: #4e453e;
+}

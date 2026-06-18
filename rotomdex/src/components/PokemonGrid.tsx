@@ -15,8 +15,6 @@ export default function PokemonGrid({ pokemon }: { pokemon: Pokemon[] }) {
 
   return (
     <>
-      <p>Pokémon Catalogados: {pokemon.length}</p>
-
       <ul className={styles.grid}>
         {visible.map((p) => (
           <li key={p.id}>
