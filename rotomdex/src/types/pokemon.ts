@@ -17,6 +17,10 @@ export type Pokemon = {
     egg_group_2: string
     primary_type: string
     secondary_type: string
+    front_default: string
+    front_shiny: string
+    front_female: string
+    front_shiny_female: string
     hp: number
     attack: number
     defense: number
