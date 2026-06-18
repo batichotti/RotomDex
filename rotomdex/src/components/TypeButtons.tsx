@@ -1,5 +1,6 @@
 'use client'
 
+import { capitalize } from '@/utils/utils'
 import styles from './PokemonFilters.module.css'
 import { TYPE_COLORS } from './TypeIcon'
 
@@ -89,7 +90,7 @@ export default function TypeButtonGroup({ selectedType, selectedType2, onTypeCli
                         disabled={bothSelected && selectedType !== t && selectedType2 !== t}
                     >
                         <span className={styles.circle} style={getCircleStyle(t)}>
-                            <img src={`/assets/types/.svg/${t} Type Icon.svg`} alt={t} width={24} height={24} />
+                            <img src={`/assets/types/.svg/${capitalize(t)} Type Icon.svg`} alt={t} width={24} height={24} />
                         </span>
                     </button>
                 ))}

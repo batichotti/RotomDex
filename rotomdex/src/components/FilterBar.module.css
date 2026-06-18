@@ -23,7 +23,7 @@
     content: '';
     position: absolute;
     inset: 0;              /* cobre toda a div */
-    background-image: url("/assets/flags/glassTexture.svg");
+    background-image: url("/assets/flags/GlassTexture.svg"); 
     background-size: auto;      /* Cobre toda a div */
     background-position: top; /* Centraliza */
     background-repeat: no-repeat; /* Não repete */
