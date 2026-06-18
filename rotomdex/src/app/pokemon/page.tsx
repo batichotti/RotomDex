@@ -9,16 +9,17 @@ import PokemonErrorState from '@/components/PokemonErrorState'
 import OrderBar from '@/components/OrderBar'
 import { Suspense } from 'react'                         // Importar "Suspense" do React. Permite esperar algo carregar
 
-const FILTERS = ['type', 'type2', 'generation', 'eggGroup1', 'eggGroup2', 'fill', 'min', 'max', 'isLegendary', 'isMythical', 'isBaby', 'hasGenderDifference', 'formsSwitchable', 'isMega', 'isGmax', 'isRegionalForm'] as const;
+const FILTERS = ['type', 'type2', 'generation', 'eggGroup1', 'eggGroup2', 'fill', 'min', 'max', 'isLegendary', 'isMythical', 'isBaby', 'hasGenderDifferences', 'formsSwitchable', 'isMega', 'isGmax', 'isRegionalForm'] as const;
 
 // Funcão principal: PokemonPage
 export default async function PokemonPage({ searchParams }: { searchParams: Promise<Record<string, string>> }){
   const filters = await searchParams;  // Recebe os Parâmetros assim que resolvidos
   const query = new URLSearchParams(); // Recebe a Query dos parâmetros
 
+  let hasFilter = false;  
   for (const key of FILTERS) {
     const value = filters[key];
-    if (value) query.set(key, value);
+    if (value){query.set(key, value); hasFilter = true}
   }
   
   query.set('orderBy', filters.orderBy ?? 'species_id');   // Sempre envia, para a query, padrão 'id'
@@ -35,7 +36,7 @@ export default async function PokemonPage({ searchParams }: { searchParams: Prom
   const pokemon: Pokemon[] = await res.json(); // Converte a resposta da API em um json, e em array
   const pokemonById = new Map<number, Pokemon>(pokemon.map(p => [p.id, p]));
   
-  const hasFilter = !!(FILTERS);
+  // const hasFilter = !!(value);
   const shownPokemon = pokemon.filter(p => shouldShow(p, pokemonById.get(p.species_id), hasFilter));
 
   // HTML
