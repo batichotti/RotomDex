@@ -2,9 +2,13 @@ import type { Pokemon } from '@/types/pokemon'           // Importar tipo Pokemo
 import { capitalize } from '@/utils/utils'               // Importar Funções de Utilidade
 import PokemonFilters from '@/components/PokemonFilters' // Importar Filtros de Pokemon de pokemonFilters.tsx
 import FilterBar from '@/components/FilterBar'           // Importar barra de filtros de FilterBar.tsx
+import styles from '@/components/PokemonPage.module.css'
+import PokemonGrid from '@/components/PokemonGrid'
 import { Suspense } from 'react'                         // Importar "Suspense" do React. Permite esperar algo carregar
 import Link from 'next/link';
 import Image from 'next/image';
+
+// const NOT_SHINY = ['partner_cap', 'alola_cap', 'kalos_cap', 'unova_cap', 'sinnoh_cap', 'hoenn_cap', 'original_cap', 'rock_star', 'pop_star', 'phd', 'belle', 'libre', 'world_cap', 'totem', 'totem_disguised', 'totem_busted', 'stellar', 'gliding_build', 'swimming_build', 'limited_build', 'sprinting_build', 'low_power_mode', 'drive_mode','aquatic_mode', 'glide_mode', '_eternal']
 
 // Função para tratar e devolver o tipo secundário de um Pokemon
 function getSecondaryType(p: Pokemon){
@@ -12,6 +16,14 @@ function getSecondaryType(p: Pokemon){
           ? ''
           : ` / ${capitalize(p.secondary_type)}`; // Retorna o tipo secundário com uma barra de separação e capitalizado
 }
+
+function getForm(name: string, speciesName: string){
+  if(name === speciesName) return null;
+  if (!name.startsWith(speciesName + '-')) return null;
+  
+  const suffix = name.slice(speciesName.length + 1).replaceAll('-', '_');; // ex: "_galar", "_alola"
+  return suffix;
+};
 
 // Funcão principal: PokemonPage
 export default async function PokemonPage({ searchParams }: { searchParams: Promise<Record<string, string>> }){
@@ -41,56 +53,45 @@ export default async function PokemonPage({ searchParams }: { searchParams: Prom
       </div>
     );
   }
-
+  
   const pokemon: Pokemon[] = await res.json(); // Converte a resposta da API em um json, e em array
 
-  // HTML
-  return(
-    <div style={{ paddingTop: 'var(--filterbar-height)'}}>
-      {/* Suspense necessário porque PokemonFilters usa useSearchParams */}
-      <Suspense fallback={<div>Carregando filtros...</div>}>
-        <FilterBar>
-          <PokemonFilters/>
-        </FilterBar>
-      </Suspense>
+  const variantComparisonKeys = [
+    'primary_type',
+    'secondary_type',
+    'hp',
+    'attack',
+    'defense',
+    'special_attack',
+    'special_defense',
+    'speed',
+  ] as const;
 
-      <h1>RotomDex</h1>              
-      <p>Pokémon Catalogados: {pokemon.length}</p>
-      
-      <ul style={{listStyle: 'none', padding: '0.5rem', display: 'flex', flexDirection: 'column', gap: '0.5rem'}}>
-  {pokemon.map((p) => (
-    <li key={p.id} style={{borderBottom: '1px solid #ccc', padding: '0.5rem'}}> 
-      
-      {/* Link transformado em um container Flex para alinhar imagem e texto */}
-      <Link 
-        href={`/pokemon/${p.species_name}`}
-        style={{ display: 'flex', alignItems: 'center', gap: '1rem', textDecoration: 'none', color: 'inherit' }}
-      >
-          {/* Componente de imagem do Next.js */}
-          {p.front_default ? (
-            <Image 
-              src={p.front_default} 
-              alt={`${p.name}`} 
-              width={64} // Ajuste o tamanho conforme preferir
-              height={64}
-              style={{ objectFit: 'contain' }}
-            />
-          ) : (
-             // Um placeholder caso o Pokémon não tenha imagem (opcional)
-            <div style={{ width: 64, height: 64, backgroundColor: '#eee', borderRadius: '50%' }} />
-          )}
+  const pokemonById = new Map<number, Pokemon>(pokemon.map((entry) => [entry.id, entry]));
 
-          {/* Container para o texto */}
-          <span>
-            <strong>#{p.species_id} {capitalize(p.name)}</strong> <br/>
-            <small style={{ color: '#ccc' }}>
-              {capitalize(p.primary_type)} {getSecondaryType(p)}
-            </small>
-          </span>
-      </Link>
-    </li> 
-  ))} 
-</ul>
-    </div>
+  function shouldShow(p: Pokemon): boolean {
+    if (p.id === p.species_id) return true;
+    if (getForm(p.name, p.species_name) === 'gmax') return true;
+
+    const base = pokemonById.get(p.species_id);
+    if (!base) return false;
+
+    return variantComparisonKeys.some((key) => p[key] !== base[key]);
+  }
+
+// HTML
+const shownPokemon = pokemon.filter(shouldShow);
+// No return, substitua o map por:
+  return (
+  <div className={styles.wrapper}>
+    <Suspense fallback={<div>Carregando filtros...</div>}>
+      <FilterBar>
+        <PokemonFilters />
+      </FilterBar>
+    </Suspense>
+
+    <h1>RotomDex</h1>
+    <PokemonGrid pokemon={shownPokemon} />  {/* 👈 substitui <p> + <ul> */}
+  </div>
   )
 }

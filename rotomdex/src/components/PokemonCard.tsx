@@ -1,0 +1,18 @@
+import Link from 'next/link'
+import type { Pokemon } from '@/types/pokemon'
+import PokemonCardImage from '@/components/PokemonCardImage'
+import PokemonHeader from '@/components/PokemonHeader'
+import styles from '@/components/PokemonCard.module.css'
+
+interface PokemonCardProps {
+  pokemon: Pokemon
+}
+
+export default function PokemonCard({ pokemon }: PokemonCardProps) {
+  return (
+    <Link href={`/pokemon/${pokemon.name}`} className={styles.card}>
+      <PokemonCardImage pokemon={pokemon} className={styles.cardImage} />
+      <PokemonHeader pokemon={pokemon} />
+    </Link>
+  )
+}

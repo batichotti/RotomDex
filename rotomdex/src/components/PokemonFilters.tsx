@@ -6,7 +6,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 // Vetor de tipos
 const TYPES = ['bug','dark','dragon','electric','fairy','fighting','fire','flying','ghost','grass','ground','ice','normal','poison','psychic','rock','steel','water']
 // Vetor de ordenações
-const ORDER_BY = ['id','name','attack','bst','defense','hp','special_attack','special_defense','speed','height','weight']
+const ORDER_BY = ['id', 'species_id', 'name','attack','bst','defense','hp','special_attack','special_defense','speed','height','weight']
 
 // Função para filtragem de Pokémon
 export default function PokemonFilters(){
@@ -24,6 +24,12 @@ export default function PokemonFilters(){
 
         // Se type1 for removido, remove type2 também
         if(key === 'type' && !value) current.delete('type2');
+
+        // Não permite type2 igual ao type1
+        if(key === 'type2' && value === current.get('type')) return;
+
+        // Não permite type1 igual ao type2
+        if(key === 'type' && value === current.get('type2')) return;
 
         router.push(`/pokemon/?${current.toString()}`) // Atualiza a página com a nova URL
     }
@@ -54,7 +60,7 @@ export default function PokemonFilters(){
             </select>
 
             {/*Define qual o campo de Ordenação; Padrão: 'id'*/}
-            <select value={params.get('orderBy') ?? 'id'} onChange={e => handleChange('orderBy', e.target.value)}>
+            <select value={params.get('orderBy') ?? 'apecies_id'} onChange={e => handleChange('orderBy', e.target.value)}>
                 {ORDER_BY.map(o => <option key={o} value={o}>{o}</option>)}
             </select>
 

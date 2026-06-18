@@ -1,0 +1,18 @@
+.imageContainer {
+  position: relative;
+  display: inline-block;
+}
+
+.imageContainer img {
+  display: block;
+  cursor: pointer;
+}
+
+.imageContainer:hover {
+  cursor: url('/assets/flags/shiny_flag.png'), pointer;
+}
+
+.imageContainer.shiny {
+  filter: drop-shadow(0 0 4px rgba(0, 217, 255, 0.6)) drop-shadow(0 0 6px rgba(0, 102, 255, 0.4));
+  transition: filter 0.2s ease;
+}
