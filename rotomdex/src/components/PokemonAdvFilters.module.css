@@ -1,0 +1,118 @@
+/* PokemonAdvFilters.module.css */
+
+.advancedContainer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 1rem 1rem;
+  position: relative;
+  z-index: 1;
+}
+
+.select {
+  height: 4vh;
+  min-width: 120px;
+  padding: 0 0.75rem;
+  border: 3px solid #63574E;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(4px);
+  color: #63574E;
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2), inset 0 0 6px rgba(255, 255, 255, 0.5);
+  transition: background 0.2s, transform 0.15s ease;
+}
+
+.select:hover {
+  background: rgba(255, 255, 255, 0.7);
+  transform: translateY(-1px);
+}
+
+.genGroup {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.genBtn {
+  height: 4vh;
+  padding: 0 0.7rem;
+  border: 3px solid #63574E;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(4px);
+  color: #63574E;
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 12px;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2), inset 0 0 6px rgba(255, 255, 255, 0.5);
+  transition: background 0.2s, transform 0.15s ease, color 0.15s;
+}
+
+.genBtn:hover {
+  background: rgba(255, 255, 255, 0.7);
+  transform: translateY(-1px);
+}
+
+.genBtnActive {
+  background: #63574E;
+  color: #8DE1EE;
+}
+
+.genBtnActive:hover {
+  background: #4e453e;
+}
+
+.boolGroup {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(0, 0, 0, 0.025);
+  border: 3px solid #63574E;
+  border-radius: 20px;
+  padding: 0.3rem 0.6rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2), inset 0 0 6px rgba(255, 255, 255, 0.4);
+}
+
+.boolLabel {
+  font-size: 12px;
+  font-weight: 600;
+  color: #63574E;
+  white-space: nowrap;
+}
+
+.boolBtn {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 700;
+  color: #63574E;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s, transform 0.15s ease, color 0.15s;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.boolBtn:hover {
+  transform: scale(1.1);
+}
+
+.boolBtnTrueActive {
+  background: #41d848;
+  color: white;
+}
+
+.boolBtnFalseActive {
+  background: #f2190a;
+  color: white;
+}
