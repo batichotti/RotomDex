@@ -56,7 +56,7 @@ export default function PokemonAdvancedFilters() {
                         <button
                             key={g.key}
                             className={`${styles.genBtn} ${isActive ? styles.genBtnActive : ''}`}
-                            onClick={() => handle('generation', g.key)}
+                            onClick={() => handle('generation', isActive ? '' : g.key)}
                         >
                             {g.value}
                         </button>
@@ -73,7 +73,7 @@ export default function PokemonAdvancedFilters() {
                 const value = params.get(key)
                 return (
                     <span key={key} className={styles.boolGroup}>
-                        <span className={styles.boolLabel}>{label}</span>
+                        <span className={styles.boolLabel}>{label}:</span>
                         <button
                             className={`${styles.boolBtn} ${value === 'true' ? styles.boolBtnTrueActive : ''}`}
                             onClick={() => handleBool(key, 'true')}

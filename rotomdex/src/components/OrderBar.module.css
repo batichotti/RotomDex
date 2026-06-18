@@ -1,6 +1,6 @@
 .bar {
   position: fixed;
-  top: calc(var(--navbar-height) + var(--filterbar-height) +  7.5vh);
+  top: calc(var(--navbar-height) + var(--filterbar-height) +  8vh);
   left: 50%;
   transform: translateX(-50%);
   width: 97%;

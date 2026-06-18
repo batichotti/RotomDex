@@ -1,7 +1,7 @@
 .bar {
   box-sizing: border-box;
 
-  padding: 3vh 1vh 3vh;
+  padding: 3vh 1vh 3.5vh;
 
   display: flex;
   flex-wrap: wrap;
@@ -28,7 +28,7 @@
     background-position: top; /* Centraliza */
     background-repeat: no-repeat; /* Não repete */
     opacity: 0.7;          /* aqui controla a opacidade */
-    filter: brightness(0.95);
+    filter: brightness(0.9);
     z-index: 0;            /* fica atrás do conteúdo */
 }
 
@@ -62,7 +62,7 @@
 
   display: flex;
   align-items: center;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 600;
 
   border: solid transparent;
@@ -74,14 +74,15 @@
 }
 
 .advancedBtn:hover {
-  scale: 1.02;
+  transform: scale(1.06) translateY(-2px); /* sobe um pouco */
+  text-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
 }
 
 .buttonRow {
   width: 100%;
   display: flex;
-
-  padding-left: 1vw;
+  justify-content: center;
+  align-items: center;
   position: absolute;
   bottom: 0;
   padding-bottom: 0.75vh;
