@@ -9,7 +9,7 @@ interface PokemonCardImageProps {
 export default function PokemonCardImage({ pokemon, className }: PokemonCardImageProps) {
   return (
     <div className={className}>
-      <PokemonImage pokemon={pokemon} width={196} height={196} />
+      <PokemonImage pokemon={pokemon} width={196} height={196} shinyLock={true} />
     </div>
   )
 }

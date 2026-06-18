@@ -13,6 +13,6 @@
 }
 
 .imageContainer.shiny {
-  filter: drop-shadow(0 0 6px rgba(0, 217, 255, 0.6)) drop-shadow(0 0 8px rgba(0, 102, 255, 0.4));
-  transition: filter 0.3s ease-in-out;
+  filter: drop-shadow(0 0 4px rgba(0, 217, 255, 0.6)) drop-shadow(0 0 6px rgba(0, 102, 255, 0.4));
+  transition: filter 0.2s ease;
 }
