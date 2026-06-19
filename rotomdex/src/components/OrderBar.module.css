@@ -45,7 +45,7 @@
   line-height: 1;
   position: relative;
   z-index: 1;
-  color: white;
+  color: #63574E;
 }
 
 .counts {
@@ -53,7 +53,7 @@
   font-size: 0.8rem;
   position: relative;
   z-index: 1;
-  color: white;
+  color: #63574E;
 }
 
 .sortButtons {
@@ -76,7 +76,7 @@
   padding: 8px;
   font-size: 18px;
   font-weight: 700;
-  color: #fff;
+  color: #63574E;
   cursor: pointer;
   font-family: inherit;
   transition: background 0.15s, color 0.15s;
@@ -91,14 +91,10 @@
 }
 
 .sortBtn:hover {
-  background: rgba(0, 0, 0, 0.05);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3),
+  inset 0 0 8px rgba(255, 255, 255, 0.6);
 }
 
 .sortBtnActive {
-  background: #63574E;
-  color: #8DE1EE;
-}
-
-.sortBtnActive:hover {
-  background: #4e453e;
+  background: rgba(255,255,255, 0.5);
 }

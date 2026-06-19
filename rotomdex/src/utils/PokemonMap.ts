@@ -17,12 +17,13 @@ export function getForm(name: string, speciesName: string): string | null {
   return name.slice(speciesName.length + 1).replaceAll('-', '_');
 }
 
-export function shouldShow(p: Pokemon, base: Pokemon | undefined, filter: boolean = false): boolean {
+export function shouldShow(p: Pokemon, base: Pokemon | undefined, filter: string): boolean {
   if (p.id === p.species_id) return true;
 
   const form = getForm(p.name, p.species_name);
+  if (filter === 'formSwitch' && form) return false;
   if (form?.includes('gmax')) return true;
   if (form?.includes('totem') || form?.includes('cap')) return false;
-  if (!base) return filter;
+  if (!base) return filter !== 'false';
   return variantComparisonKeys.some((key) => p[key] !== base[key]);
 }
