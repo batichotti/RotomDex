@@ -57,7 +57,7 @@ function getNestedValue(obj: PokemonMove, col: SortCol): string | number | null 
 function SortIcon({ dir }: { dir: SortDir }) {
     if (dir === 1) return <span className={styles.sortIcon} aria-hidden>↑</span>
     if (dir === -1) return <span className={styles.sortIcon} aria-hidden>↓</span>
-    return <span className={`${styles.sortIcon} ${styles.sortIconInactive}`} aria-hidden></span>
+    return <span className={`${styles.sortIcon} ${styles.sortIconInactive}`} aria-hidden>↑↓</span>
 }
 
 function useSortCycle(cols: SortCol[]) {
@@ -181,7 +181,7 @@ function MethodSection({ method, moves }: { method: string; moves: PokemonMove[]
                                     <TypeIconBadge type={pm.move.type} />
                                 </td>
                                 <td className={`${styles.cell} ${styles.capitalize}`}>
-                                    {pm.move.name}
+                                    {pm.move.name.replaceAll("-", " ")}
                                 </td>
                                 <td className={`${styles.cell} ${styles.categoryCell} ${styles.capitalize}`}>
                                     {pm.move.damage_class}

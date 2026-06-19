@@ -17,7 +17,7 @@ export default async function PokemonData({ pokemon }: { pokemon: Pokemon }) {
                 { pokemon.egg_group_2 === "None" && (<p>Egg Group: {pokemon.egg_group_1.replaceAll("-", " ")}</p>) }
                 { pokemon.egg_group_2 !== "None" && (<p>Egg Groups: {pokemon.egg_group_1.replaceAll("-", " ")}, {pokemon.egg_group_2.replaceAll("-", " ")}</p>) }
                 <p>Height: { (pokemon.height / 100).toFixed(2) } m</p>
-                <p>Weight: { (pokemon.weight / 10).toFixed(2) } kg</p>
+                <p>Weight: { (pokemon.weight).toFixed(1) } kg</p>
             </div>
 
             {abilities.length > 0 && (

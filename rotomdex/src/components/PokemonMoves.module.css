@@ -7,7 +7,7 @@
 .section {
   padding: 1.1rem 1.25rem;
   background: rgba(213, 207, 196, 0.4); /* mesmo tom do .cardImage, translúcido */
-  border: 1px solid rgba(99, 87, 78, 0.18);
+  border: 0.1rem solid rgba(99, 87, 78, 0.18);
   border-radius: 28px;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
@@ -108,4 +108,24 @@
 .numberCell {
   color: rgba(99, 87, 78, 0.85);
   font-variant-numeric: tabular-nums;
+}
+
+.sortableHeader {
+    cursor: pointer;
+    user-select: none;
+    white-space: nowrap;
+}
+
+.sortableHeader:hover {
+    opacity: 0.75;
+}
+
+.sortIcon {
+    display: inline-block;
+    margin-left: 4px;
+    font-size: 11px;
+}
+
+.sortIconInactive {
+    opacity: 0;
 }
