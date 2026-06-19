@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect, useLayoutEffect } from 'react'
 import styles from './PokemonAdvFilters.module.css'
-import { EGG_GROUPS } from './PokemonAdvFilters'
+import { EGG_GROUPS } from '@/utils/PokemonInfoMaps'
 
 interface EggGroupSelectProps {
     value: string
