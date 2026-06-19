@@ -37,7 +37,7 @@ export default function PokemonStats({ pokemon }: { pokemon: Pokemon }) {
               <span>{label}</span>
               <span>{value}</span>
             </div>
-            <div style={{ width: '90%', height: 10, background: '#e0e0e0', borderRadius: 6, overflow: 'hidden' }}>
+            <div style={{ width: '90%', height: 10, background: '#c9c8c8', borderRadius: 6, overflow: 'hidden' }}>
               <div
                 style={{
                   width: (label === 'BST') ? `${value*100/(255*6)}%` : `${value*100/255}%`,
