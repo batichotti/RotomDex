@@ -67,6 +67,7 @@ export default async function PokemonPage({ params }: { params: Promise<{ id: st
 
           <div className={styles.rightCol}>
             <PokemonEvolutionTree evolution={evolutionData} />
+            {/* <PokemonTypeTable types={typesData}/> */}
             <PokemonMoves  moves={movesData ?? []} />
           </div>
 
