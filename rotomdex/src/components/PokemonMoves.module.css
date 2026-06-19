@@ -1,0 +1,111 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.section {
+  padding: 1.1rem 1.25rem;
+  background: rgba(213, 207, 196, 0.4); /* mesmo tom do .cardImage, translúcido */
+  border: 1px solid rgba(99, 87, 78, 0.18);
+  border-radius: 28px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 0 4px rgba(99, 87, 78, 0.15), inset 0 0 12px rgba(255, 255, 255, 0.25);
+  transition: box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.section:hover {
+  background: rgba(213, 207, 196, 0.55);
+}
+
+.sectionTitle {
+  margin: 0 0 0.85rem;
+  font-size: 1rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  color: #63574e;
+}
+
+.tableWrapper {
+  overflow-x: auto;
+  border-radius: 18px;
+}
+
+.table {
+  width: 100%;
+  font-size: 0.875rem;
+  border-collapse: collapse;
+}
+
+.tableHead tr {
+  text-align: left;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: rgba(99, 87, 78, 0.55);
+}
+
+.tableHead th {
+  padding: 0.4rem 0.65rem;
+  font-weight: 600;
+}
+
+.row {
+  border-top: 1px solid rgba(99, 87, 78, 0.14);
+  transition: background 0.2s ease;
+}
+
+.row:hover {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.cell {
+  padding: 0.5rem 0.65rem;
+  color: #63574e;
+  vertical-align: middle;
+}
+
+.capitalize {
+  text-transform: capitalize;
+}
+
+.levelCell {
+  font-weight: 600;
+  color: #8a7a6b;
+  width: 2.25rem;
+}
+
+.dash {
+  color: rgba(99, 87, 78, 0.4);
+}
+
+.typeCell {
+  width: 2.75rem;
+}
+
+.typeIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  box-shadow: 0 0 3px rgba(99, 87, 78, 0.15);
+}
+
+.typeIconImg {
+  object-fit: contain;
+}
+
+.categoryCell {
+  color: rgba(99, 87, 78, 0.75);
+}
+
+.numberCell {
+  color: rgba(99, 87, 78, 0.85);
+  font-variant-numeric: tabular-nums;
+}
