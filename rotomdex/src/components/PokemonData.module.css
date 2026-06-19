@@ -1,0 +1,7 @@
+.text {
+    font-size: 1.1rem;
+}
+
+.text > ul {
+    list-style-type: none;
+}

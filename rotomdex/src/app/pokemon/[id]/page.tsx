@@ -8,16 +8,9 @@ import PokemonNavigation from '@/components/PokemonNavigation';
 import PokemonData from '@/components/PokemonData';
 import styles from './page.module.css';
 import PokemonEvolutionTree from '@/components/PokemonEvolutionTree';
-
-async function safeFetch<T>(url: string): Promise<T | null> {
-  try {
-    const res = await fetch(url);
-    if (!res.ok) return null;
-    return res.json();
-  } catch {
-    return null;
-  }
-}
+import PokemonMoves from '@/components/PokemonMoves';
+import { safeFetch } from '@/utils/safefetch';
+import { PokemonMove } from '@/types/moves';
 
 export default async function PokemonPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -31,31 +24,54 @@ export default async function PokemonPage({ params }: { params: Promise<{ id: st
     redirect(`/pokemon/${pokemon.name}`);
   }
 
-  const [evolutionData, movesData, abilityData, typesData] = await Promise.all([
+  const typeParams = new URLSearchParams({ type: pokemon.primary_type })
+  if (pokemon.secondary_type && pokemon.secondary_type !== 'None') {
+    typeParams.append('type2', pokemon.secondary_type)
+  }
+
+  const [evolutionData, movesData, abilityData, typesData, prevData, nextData] = await Promise.all([
     safeFetch<Evolution[]>(`${process.env.NEXT_PUBLIC_API_URL}/pokemon-evolutions/${pokemon.id}`),
-    safeFetch(`${process.env.NEXT_PUBLIC_API_URL}/pokemon-moves/pokemon/${pokemon.id}`),
+    safeFetch<PokemonMove[]>(`${process.env.NEXT_PUBLIC_API_URL}/pokemon-moves/pokemon/${pokemon.species_id}`),
     safeFetch(`${process.env.NEXT_PUBLIC_API_URL}/pokemon-abilities/pokemon/${pokemon.id}`),
-    safeFetch(`${process.env.NEXT_PUBLIC_API_URL}/types/defensive?type=${pokemon.primary_type}&type2=${pokemon.secondary_type ?? ''}`),
+    safeFetch(`${process.env.NEXT_PUBLIC_API_URL}/types/defensive?${typeParams}`),
+    pokemon.species_id > 1
+      ? safeFetch<Pokemon[]>(`${process.env.NEXT_PUBLIC_API_URL}/pokemon/${pokemon.species_id - 1}`)
+      : Promise.resolve(null),
+    pokemon.species_id < 1025
+      ? safeFetch<Pokemon[]>(`${process.env.NEXT_PUBLIC_API_URL}/pokemon/${pokemon.species_id + 1}`)
+      : Promise.resolve(null),
   ]);
 
+  const prevPokemon = prevData?.[0] ? { id: prevData[0].species_id, name: prevData[0].name } : null;
+  const nextPokemon = nextData?.[0] ? { id: nextData[0].species_id, name: nextData[0].name } : null;
+
   return (
-    <div className={styles.pokemonContainer}>
-      <div className={styles.pokemonImageDataContainer}>
-        <div className={styles.imageHeaderContainer}>
-          <PokemonImage pokemon={pokemon} />
-          <PokemonHeader pokemon={pokemon} />
-        </div>
-        <div className={styles.pokemonData}>
-          <PokemonData pokemon={pokemon} />
+    <>
+      <PokemonNavigation pokemon={pokemon} prevPokemon={prevPokemon} nextPokemon={nextPokemon}/>
+
+      <div className={styles.global}>
+        <div className={styles.twoCol}>
+
+          <div className={styles.leftCol}>
+            <div className={styles.pokemonImageDataContainer}>
+              <div className={styles.imageHeaderContainer}>
+                <PokemonImage pokemon={pokemon} />
+                <PokemonHeader pokemon={pokemon} />
+              </div>
+              <div className={styles.pokemonData}>
+                <PokemonData pokemon={pokemon} />
+              </div>
+            </div>
+            <PokemonStats pokemon={pokemon} />
+          </div>
+
+          <div className={styles.rightCol}>
+            <PokemonEvolutionTree evolution={evolutionData} />
+            <PokemonMoves  moves={movesData ?? []} />
+          </div>
+
         </div>
       </div>
-      <span>
-        <PokemonStats pokemon={pokemon} />
-        <PokemonNavigation pokemon={pokemon} />
-      </span>
-
-    <PokemonEvolutionTree evolution={evolutionData} />
-
-    </div>
+    </>
   );
 }

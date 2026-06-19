@@ -1,22 +1,40 @@
-.pokemonContainer {
-  width: 50%;
+.global {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 12vh 2vh;
+}
+
+.twoCol {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  align-items: start;
+}
+
+.leftCol {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .imageHeaderContainer {
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
-}
-
-.pokemonContainer span {
-  padding-top: 0.5vh;
 }
 
 .pokemonImageDataContainer {
   display: flex;
+  gap: 0.5rem;
 }
 
 .pokemonData {
-  padding-left: 0.5vw;
   padding-top: 1vh;
+}
+
+.rightCol {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
 }
