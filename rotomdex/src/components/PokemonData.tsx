@@ -2,6 +2,11 @@ import type { Pokemon } from '@/types/pokemon'
 import type { PokemonAbilities } from '@/types/abilities'
 import { safeFetch } from '@/utils/safefetch'
 import styles from './PokemonData.module.css'
+import { EGG_GROUPS } from '@/utils/PokemonInfoMaps'
+
+function getEggGroup(egg_group: string){
+    return EGG_GROUPS.find(opt => opt.key === egg_group)?.label ?? 'Egg Group';
+}
 
 export default async function PokemonData({ pokemon }: { pokemon: Pokemon }) {
     const data = await safeFetch<PokemonAbilities[]>(
@@ -14,8 +19,8 @@ export default async function PokemonData({ pokemon }: { pokemon: Pokemon }) {
         <>
             <div className={styles.text}>
                 <h3>INFO</h3>
-                { pokemon.egg_group_2 === "None" && (<p>Egg Group: {pokemon.egg_group_1.replaceAll("-", " ")}</p>) }
-                { pokemon.egg_group_2 !== "None" && (<p>Egg Groups: {pokemon.egg_group_1.replaceAll("-", " ")}, {pokemon.egg_group_2.replaceAll("-", " ")}</p>) }
+                { pokemon.egg_group_2 === "None" && (<p>Egg Group: {getEggGroup(pokemon.egg_group_1)}</p>) }
+                { pokemon.egg_group_2 !== "None" && (<p>Egg Groups: {getEggGroup(pokemon.egg_group_1)}, {getEggGroup(pokemon.egg_group_2)}</p>) }
                 <p>Height: { (pokemon.height / 100).toFixed(2) } m</p>
                 <p>Weight: { (pokemon.weight).toFixed(1) } kg</p>
             </div>
