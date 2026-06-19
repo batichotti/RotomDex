@@ -8,6 +8,7 @@
   border-radius: 30px;
   transition: box-shadow 0.2s ease;
   box-shadow: 0 0 4px 0, inset 0 0 12px 0;
+  width: fit-content;
   pointer-events: auto;
 }
 
