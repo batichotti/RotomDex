@@ -2,11 +2,13 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.75rem 2.25rem;
+  gap: 1rem 1rem;
   padding: 0.5rem 1rem 1rem;
   position: relative;
   z-index: 1;
 }
+
+/* ---------- Gerações ---------- */
 
 .genGroup {
   display: flex;
@@ -15,93 +17,56 @@
 }
 
 .genBtn {
+  composes: glassBase glassHover pillText from './Glass.module.css';
   height: 4vh;
-  padding: 0 0.7rem;
-  border-radius: 20px;
-  color: #63574E;
-  font: inherit;
-  font-weight: 700;
-  font-size: 14px;
   cursor: pointer;
-  transition: background 0.2s, transform 0.15s ease, color 0.15s;
   display: flex;
   align-items: center;
   gap: 0.4rem;
-  background: rgba(0, 0, 0, 0.025);
-  border: transparent;
   border-radius: 20px;
   padding: 0.3rem 0.6rem;
-  box-shadow: 
-    0 2px 4px rgba(0, 0, 0, 0.25),      /* sombra embaixo — dá profundidade */
-    0 1px 2px rgba(0, 0, 0, 0.15),      /* sombra sutil mais próxima */
-    inset 0 0 8px rgba(255, 255, 255, 0.6);
-  
-  backdrop-filter: blur(6px);
-}
-
-.genBtn:hover {
-  transform: scale(1.06) translateY(-1px); /* sobe um pouco */
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3),
-  inset 0 0 8px rgba(255, 255, 255, 0.6);
 }
 
 .genBtnActive {
-  background: rgba(255,255,255, 0.5);
+  composes: glassActive from './Glass.module.css';
+}
+
+/* ---------- Filtros booleanos ---------- */
+
+.boolRow {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
 }
 
 .boolGroup {
+  composes: glassBase from './Glass.module.css';
   display: flex;
   align-items: center;
   gap: 0.4rem;
-  background: rgba(0, 0, 0, 0.025);
-  border: transparent;
   border-radius: 20px;
   padding: 0.3rem 0.6rem;
-  box-shadow: 
-    0 2px 4px rgba(0, 0, 0, 0.25),      /* sombra embaixo — dá profundidade */
-    0 1px 2px rgba(0, 0, 0, 0.15),      /* sombra sutil mais próxima */
-    inset 0 0 8px rgba(255, 255, 255, 0.6);
-  
-  backdrop-filter: blur(6px);
 }
 
 .boolLabel {
-  font-size: 14px;
-  font-weight: 700;
-  color: #63574E;
+  composes: pillText from './Glass.module.css';
   white-space: nowrap;
 }
 
 .boolBtn {
+  composes: glassBase glassHover from './Glass.module.css';
   border: none;
-  background: none;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   aspect-ratio: 1 / 1;
-  
   height: 3vh;
   border-radius: 50%;
-  background: transparent;
   flex-shrink: 0;
-  transition: background-color 0.2s, transform 0.15s ease;
-  
-  background: rgba(0,0,0, 0.025);
-  box-shadow: 
-    0 2px 4px rgba(0, 0, 0, 0.25),      /* sombra embaixo — dá profundidade */
-    0 1px 2px rgba(0, 0, 0, 0.15),      /* sombra sutil mais próxima */
-    inset 0 0 8px rgba(255, 255, 255, 0.6);
-    /* inset 0 1px 0 rgba(255,255,255,0.8); brilho interno no topo */
-  
-  backdrop-filter: blur(6px);
   color: #63574E;
-}
-
-.boolBtn:hover {
-  transform: scale(1.06) translateY(-1px); /* sobe um pouco */
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3),
-  inset 0 0 8px rgba(255, 255, 255, 0.6);
 }
 
 .boolBtnTrueActive {
@@ -112,119 +77,4 @@
 .boolBtnFalseActive {
   background: rgba(213, 32, 19, 0.6);
   color: white;
-}
-
-.boolRow {
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.75rem;
-}
-
-/* Select unificado: uma única "pílula" que expande de largura ao abrir,
-   em vez de dois blocos colados. */
-.eggGroupSelect {
-  position: relative;
-  height: 4vh;
-  display: flex;
-  align-items: center;
-  overflow: hidden;
-  border-radius: 20px;
-  background: rgba(0, 0, 0, 0.025);
-  border: transparent;
-  box-shadow:
-    0 2px 4px rgba(0, 0, 0, 0.25),
-    0 1px 2px rgba(0, 0, 0, 0.15),
-    inset 0 0 8px rgba(255, 255, 255, 0.6);
-  backdrop-filter: blur(6px);
-  transition: width 0.25s ease, box-shadow 0.2s ease;
-}
-
-.eggGroupSelectActive {
-  background: rgba(255, 255, 255, 0.5);
-}
-
-.eggGroupSelectOpen {
-  box-shadow:
-    0 3px 8px rgba(0, 0, 0, 0.3),
-    inset 0 0 8px rgba(255, 255, 255, 0.6);
-}
-
-.eggGroupContent {
-  display: flex;
-  align-items: center;
-  height: 100%;
-  white-space: nowrap;
-}
-
-.eggGroupToggle {
-  height: 100%;
-  padding: 0.3rem 0.6rem;
-  color: #63574E;
-  font: inherit;
-  font-weight: 700;
-  font-size: 14px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  background: transparent;
-  border: none;
-  white-space: nowrap;
-  flex-shrink: 0;
-  transition: color 0.15s;
-}
-
-.eggGroupOptions {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  height: 100%;
-  padding-left: 0.6rem;
-  padding-right: 0.6rem;
-  opacity: 0;
-  transition: opacity 0.15s ease;
-  pointer-events: none;
-}
-
-.eggGroupSelectOpen .eggGroupOptions {
-  opacity: 1;
-  pointer-events: auto;
-  transition: opacity 0.2s ease 0.1s;
-}
-
-.eggGroupOption {
-  height: 70%;
-  padding: 0 0.6rem;
-  border-radius: 20px;
-  color: #63574E;
-  font: inherit;
-  font-weight: 700;
-  font-size: 14px;
-  cursor: pointer;
-  transition: background 0.2s, transform 0.15s ease, color 0.15s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: transparent;
-  white-space: nowrap;
-  flex-shrink: 0;
-  
-  background: rgba(0,0,0, 0.025);
-  box-shadow: 
-    0 2px 4px rgba(0, 0, 0, 0.25),      /* sombra embaixo — dá profundidade */
-    0 1px 2px rgba(0, 0, 0, 0.15),      /* sombra sutil mais próxima */
-    inset 0 0 8px rgba(255, 255, 255, 0.6);
-    /* inset 0 1px 0 rgba(255,255,255,0.8); brilho interno no topo */
-  
-  backdrop-filter: blur(6px);
-}
-
-.eggGroupOption:hover {
-  transform: scale(1.06) translateY(-1px);
-}
-
-.eggGroupOptionActive {
-  background: rgba(255, 255, 255, 0.7);
 }

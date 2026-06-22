@@ -1,0 +1,52 @@
+.statRange {
+  composes: glassBase from './Glass.module.css';
+  height: 4vh;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  border-radius: 20px;
+  padding: 0.3rem 0.6rem;
+}
+
+.statRangeActive {
+  composes: glassActive from './Glass.module.css';
+}
+
+.statSelect {
+  composes: pillText from './Glass.module.css';
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  max-width: 9rem;
+}
+
+.statSelect:focus {
+  outline: none;
+}
+
+.statInput {
+  composes: pillText from './Glass.module.css';
+  width: 3.2rem;
+  background: transparent;
+  border: none;
+  text-align: center;
+}
+
+.statInput:focus {
+  outline: none;
+}
+
+.statInput::-webkit-outer-spin-button,
+.statInput::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.statInput:disabled {
+  opacity: 0.4;
+}
+
+.statDivider {
+  color: #63574E;
+  opacity: 0.6;
+}

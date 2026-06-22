@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useRef, useEffect, useLayoutEffect } from 'react'
-import styles from './PokemonAdvFilters.module.css'
+import styles from './EggGroupSelect.module.css'
 import { EGG_GROUPS } from '@/utils/PokemonInfoMaps'
 
 interface EggGroupSelectProps {
@@ -58,7 +58,7 @@ export default function EggGroupSelect({ value, onChange }: EggGroupSelectProps)
                     {selectedLabel} {open ? '◄' : '►'}
                 </button>
 
-                <div className={styles.eggGroupOptions}>
+                <div className={`${styles.eggGroupOptions} ${value ? styles.eggGroupOptionsHasSelection : ''}`}>
                     {EGG_GROUPS.map(opt => (
                         <button
                             key={opt.key}
