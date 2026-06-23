@@ -1,15 +1,59 @@
-.statRange {
-  composes: glassBase from './Glass.module.css';
+.filterContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.triggerBtn {
+  composes: glassBase glassHover from './Glass.module.css';
+  width: 4vh;
   height: 4vh;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  border: none;
+  color: #63574E;
+  transition: background 0.15s;
+  position: relative;
+  z-index: 2;
+
+  right: 0;
+}
+
+.triggerBtnActive {
+  composes: glassActive from './Glass.module.css';
+}
+
+.expandWrap {
+  composes: glassBase from './Glass.module.css';
+  position: absolute;
+  right: 0.4rem;
+  top: 50%;
+  transform: translateY(-50%);
+  transform-origin: right center;
+
   display: flex;
   align-items: center;
   gap: 0.4rem;
-  border-radius: 20px;
-  padding: 0.3rem 0.6rem;
+  padding-left: 1vw;
+
+  overflow: hidden;
+  width: 0;
+  opacity: 0;
+  height: 4vh;
+  border-radius: 30px;
+
+  transition: width 0.3s ease, opacity 0.2s ease;
+  pointer-events: none;
 }
 
-.statRangeActive {
-  composes: glassActive from './Glass.module.css';
+.expandWrapOpen {
+  width: 320px;
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .statSelect {

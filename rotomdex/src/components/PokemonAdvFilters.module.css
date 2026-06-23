@@ -78,3 +78,10 @@
   background: rgba(213, 32, 19, 0.6);
   color: white;
 }
+
+.fillAnchor {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}

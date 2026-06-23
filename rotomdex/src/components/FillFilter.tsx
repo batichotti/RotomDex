@@ -1,5 +1,6 @@
 'use client'
 
+import { useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import styles from './FillFilter.module.css'
 import { STAT_FIELDS } from '@/utils/PokemonInfoMaps'
@@ -7,6 +8,7 @@ import { STAT_FIELDS } from '@/utils/PokemonInfoMaps'
 export default function FillFilter() {
     const router = useRouter()
     const params = useSearchParams()
+    const [open, setOpen] = useState(false)
 
     const fill = params.get('fill') ?? ''
     const min = params.get('min') ?? ''
@@ -16,7 +18,6 @@ export default function FillFilter() {
         const current = new URLSearchParams(params.toString())
         const merged = { fill, min, max, ...next }
 
-        // Sem stat selecionado, não faz sentido manter min/max na URL
         if (!merged.fill) {
             current.delete('fill')
             current.delete('min')
@@ -32,56 +33,55 @@ export default function FillFilter() {
         router.push(`/pokemon/?${current.toString()}`)
     }
 
-    function handleFillChange(value: string) {
-        update({ fill: value })
-    }
-
-    function handleMinChange(value: string) {
-        update({ min: value })
-    }
-
-    function handleMaxChange(value: string) {
-        update({ max: value })
-    }
-
     const active = Boolean(fill)
 
     return (
-        <div className={`${styles.statRange} ${active ? styles.statRangeActive : ''}`}>
-            <select
-                className={styles.statSelect}
-                value={fill}
-                onChange={e => handleFillChange(e.target.value)}
+        <>
+            <button
+                className={`${styles.triggerBtn} ${active ? styles.triggerBtnActive : ''}`}
+                onClick={() => setOpen(o => !o)}
+                aria-label="Filtro de stat"
+                aria-expanded={open}
             >
-                <option value="">Stat</option>
-                {STAT_FIELDS.map(opt => (
-                    <option key={opt.key} value={opt.key}>
-                        {opt.label}
-                    </option>
-                ))}
-            </select>
+                <img src={`/assets/flags/FilterButton.svg`} alt="Filter Button" width={20} height={20} />
+            </button>
 
-            <input
-                type="number"
-                inputMode="numeric"
-                className={styles.statInput}
-                placeholder="min"
-                value={min}
-                disabled={!active}
-                onChange={e => handleMinChange(e.target.value)}
-            />
+            <div className={styles.filterContainer}>
+                <div className={`${styles.expandWrap} ${open ? styles.expandWrapOpen : ''}`}>
+                    <select
+                        className={styles.statSelect}
+                        value={fill}
+                        onChange={e => update({ fill: e.target.value })}
+                    >
+                        <option value="">Stat</option>
+                        {STAT_FIELDS.map(opt => (
+                            <option key={opt.key} value={opt.key}>{opt.label}</option>
+                        ))}
+                    </select>
 
-            <span className={styles.statDivider}>–</span>
+                    <input
+                        type="number"
+                        inputMode="numeric"
+                        className={styles.statInput}
+                        placeholder="min"
+                        value={min}
+                        disabled={!active}
+                        onChange={e => update({ min: e.target.value })}
+                        />
 
-            <input
-                type="number"
-                inputMode="numeric"
-                className={styles.statInput}
-                placeholder="max"
-                value={max}
-                disabled={!active}
-                onChange={e => handleMaxChange(e.target.value)}
-            />
-        </div>
+                    <span className={styles.statDivider}>–</span>
+
+                    <input
+                        type="number"
+                        inputMode="numeric"
+                        className={styles.statInput}
+                        placeholder="max"
+                        value={max}
+                        disabled={!active}
+                        onChange={e => update({ max: e.target.value })}
+                    />
+                </div>
+            </div>
+        </>
     )
 }
