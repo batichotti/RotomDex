@@ -1,6 +1,7 @@
 import { redirect, notFound } from 'next/navigation'
 import type { Pokemon } from '@/types/pokemon'
 import type { Evolution } from '@/types/evolutions'
+import type { TypeEffectiveness } from '@/types/type';
 import PokemonHeader from '@/components/PokemonHeader';
 import PokemonStats from '@/components/PokemonStats';
 import PokemonImage from '@/components/PokemonImage';
@@ -11,6 +12,7 @@ import PokemonEvolutionTree from '@/components/PokemonEvolutionTree';
 import PokemonMoves from '@/components/PokemonMoves';
 import { safeFetch } from '@/utils/safefetch';
 import { PokemonMove } from '@/types/moves';
+import PokemonTypeTable from '@/components/PokemonTypeTable';
 
 export default async function PokemonPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -24,22 +26,26 @@ export default async function PokemonPage({ params }: { params: Promise<{ id: st
     redirect(`/pokemon/${pokemon.name}`);
   }
 
-  const typeParams = new URLSearchParams({ type: pokemon.primary_type })
-  if (pokemon.secondary_type && pokemon.secondary_type !== 'None') {
-    typeParams.append('type2', pokemon.secondary_type)
+  const secondaryType = pokemon.secondary_type?.trim();
+  const hasSecondaryType = !!secondaryType && secondaryType.toLowerCase() !== 'none';
+
+  let typeParams = `type=${pokemon.primary_type}`;
+
+  if (hasSecondaryType) {
+    typeParams += `&type2=${secondaryType}`;
   }
 
-  const [evolutionData, movesData, abilityData, typesData, prevData, nextData] = await Promise.all([
+  const [evolutionData, movesData, typesData, prevData, nextData, altFormsData] = await Promise.all([
     safeFetch<Evolution[]>(`${process.env.NEXT_PUBLIC_API_URL}/pokemon-evolutions/${pokemon.id}`),
     safeFetch<PokemonMove[]>(`${process.env.NEXT_PUBLIC_API_URL}/pokemon-moves/pokemon/${pokemon.species_id}`),
-    safeFetch(`${process.env.NEXT_PUBLIC_API_URL}/pokemon-abilities/pokemon/${pokemon.id}`),
-    safeFetch(`${process.env.NEXT_PUBLIC_API_URL}/types/defensive?${typeParams}`),
+    safeFetch<TypeEffectiveness[]>(`${process.env.NEXT_PUBLIC_API_URL}/types/defensive?${typeParams}`),
     pokemon.species_id > 1
       ? safeFetch<Pokemon[]>(`${process.env.NEXT_PUBLIC_API_URL}/pokemon/${pokemon.species_id - 1}`)
       : Promise.resolve(null),
     pokemon.species_id < 1025
       ? safeFetch<Pokemon[]>(`${process.env.NEXT_PUBLIC_API_URL}/pokemon/${pokemon.species_id + 1}`)
       : Promise.resolve(null),
+    safeFetch<Pokemon[]>(`${process.env.NEXT_PUBLIC_API_URL}/pokemon/${pokemon.species_name}`),
   ]);
 
   const prevPokemon = prevData?.[0] ? { id: prevData[0].species_id, name: prevData[0].name } : null;
@@ -47,7 +53,7 @@ export default async function PokemonPage({ params }: { params: Promise<{ id: st
 
   return (
     <>
-      <PokemonNavigation pokemon={pokemon} prevPokemon={prevPokemon} nextPokemon={nextPokemon}/>
+      <PokemonNavigation pokemon={pokemon} prevPokemon={prevPokemon} nextPokemon={nextPokemon} alternativeForms={altFormsData}/>
 
       <div className={styles.global}>
         <div className={styles.twoCol}>
@@ -55,7 +61,7 @@ export default async function PokemonPage({ params }: { params: Promise<{ id: st
           <div className={styles.leftCol}>
             <div className={styles.pokemonImageDataContainer}>
               <div className={styles.imageHeaderContainer}>
-                <PokemonImage pokemon={pokemon} />
+                <PokemonImage pokemon={pokemon} width={'20rem'} height={'20rem'} />
                 <PokemonHeader pokemon={pokemon} />
               </div>
               <div className={styles.pokemonData}>
@@ -67,8 +73,8 @@ export default async function PokemonPage({ params }: { params: Promise<{ id: st
 
           <div className={styles.rightCol}>
             <PokemonEvolutionTree evolution={evolutionData} />
-            {/* <PokemonTypeTable types={typesData}/> */}
-            <PokemonMoves  moves={movesData ?? []} />
+            <PokemonTypeTable types={typesData ?? []} />
+            <PokemonMoves moves={movesData ?? []} />
           </div>
 
         </div>

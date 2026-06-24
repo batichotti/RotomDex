@@ -2,7 +2,7 @@
 
 import { capitalize } from '@/utils/utils'
 import styles from './PokemonFilters.module.css'
-import { TYPE_COLORS } from './TypeIcon'
+import { TYPE_COLORS } from "@/utils/TypeColors"
 
 const TYPES = ['bug','dark','dragon','electric','fairy','fighting','fire','flying','ghost','grass','ground','ice','normal','poison','psychic','rock','steel','water']
 

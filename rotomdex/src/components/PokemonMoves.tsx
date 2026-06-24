@@ -4,45 +4,15 @@ import { useState, useCallback } from "react"
 import type { PokemonMove } from "@/types/moves"
 import Image from "next/image"
 import { capitalize } from "@/utils/utils"
-import { TYPE_COLORS } from "./TypeIcon"
+import { TYPE_COLORS } from "@/utils/TypeColors"
 import styles from "./PokemonMoves.module.css"
-
+import Link from "next/link"
+import { TypeIconBadge } from "./TypeIconBadge"
 const METHOD_ORDER = ["level-up", "egg", "machine", "tutor"]
 
 type SortDir = 1 | -1 | 0
 type SortCol = "level_learned_at" | "move.type" | "move.name" | "move.damage_class" | "move.pp" | "move.power"
 
-function hexToRgb(hex: string) {
-    const normalized = hex.trim().replace(/^#/, "")
-    const fullHex = normalized.length === 3
-        ? normalized.split("").map((char) => char + char).join("")
-        : normalized
-    const r = parseInt(fullHex.slice(0, 2), 16)
-    const g = parseInt(fullHex.slice(2, 4), 16)
-    const b = parseInt(fullHex.slice(4, 6), 16)
-    return `${r}, ${g}, ${b}`
-}
-
-function TypeIconBadge({ type }: { type: string }) {
-    const color = TYPE_COLORS[type as keyof typeof TYPE_COLORS]
-
-    return (
-        <span
-            className={styles.typeIcon}
-            style={{ backgroundColor: `rgba(${hexToRgb(color)}, 0.6)` }}
-            title={capitalize(type)}
-        >
-            <Image
-                src={`/assets/types/.svg/${capitalize(type)} Type Icon.svg`}
-                alt={capitalize(type)}
-                width={18}
-                height={18}
-                className={styles.typeIconImg}
-                loading="eager"
-            />
-        </span>
-    )
-}
 
 function getNestedValue(obj: PokemonMove, col: SortCol): string | number | null {
     if (col === "level_learned_at") return obj.level_learned_at
@@ -178,10 +148,12 @@ function MethodSection({ method, moves }: { method: string; moves: PokemonMove[]
                                     </td>
                                 )}
                                 <td className={`${styles.cell} ${styles.typeCell}`}>
-                                    <TypeIconBadge type={pm.move.type} />
+                                    <TypeIconBadge type={pm.move.type} width={35} height={35}/>
                                 </td>
                                 <td className={`${styles.cell} ${styles.capitalize}`}>
-                                    {pm.move.name.replaceAll("-", " ")}
+                                    <Link href={`/moves/${pm.move.name}`}>
+                                        {pm.move.name.replaceAll("-", " ")}
+                                    </Link>
                                 </td>
                                 <td className={`${styles.cell} ${styles.categoryCell} ${styles.capitalize}`}>
                                     {pm.move.damage_class}

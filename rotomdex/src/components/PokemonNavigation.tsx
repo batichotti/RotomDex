@@ -1,6 +1,7 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
+import { useEffect, useRef, useState } from 'react'
 import type { Pokemon } from '@/types/pokemon'
 import styles from './PokemonNavigation.module.css'
 import { Beiruti } from 'next/font/google'
@@ -15,10 +16,45 @@ interface PokemonNavigationProps {
   pokemon: Pokemon
   prevPokemon?: { id: number; name: string } | null
   nextPokemon?: { id: number; name: string } | null
+  alternativeForms?: Pokemon[] | null
 }
 
-export default function PokemonNavigation({ pokemon, prevPokemon, nextPokemon }: PokemonNavigationProps) {
+export default function PokemonNavigation({
+  pokemon,
+  prevPokemon,
+  nextPokemon,
+  alternativeForms,
+}: PokemonNavigationProps) {
   const router = useRouter()
+  const [isOpen, setIsOpen] = useState(false)
+  const dropdownRef = useRef<HTMLDivElement>(null)
+
+  const hasMultipleForms = (alternativeForms?.length ?? 0) > 1
+
+  useEffect(() => {
+    if (!isOpen) return
+
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsOpen(false)
+      }
+    }
+    function handleEscape(event: KeyboardEvent) {
+      if (event.key === 'Escape') setIsOpen(false)
+    }
+
+    document.addEventListener('mousedown', handleClickOutside)
+    document.addEventListener('keydown', handleEscape)
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+      document.removeEventListener('keydown', handleEscape)
+    }
+  }, [isOpen])
+
+  const handleSelectForm = (formName: string) => {
+    setIsOpen(false)
+    if (formName !== pokemon.name) router.push(`/pokemon/${formName}`)
+  }
 
   return (
     <nav className={`${styles.navBar} ${beiruti.className}`}>
@@ -35,7 +71,45 @@ export default function PokemonNavigation({ pokemon, prevPokemon, nextPokemon }:
         </span>
       </button>
 
-      <span> #{pokemon.species_id} <b>{pokemon.name.replaceAll('-', ' ')}</b> </span>
+      <div className={styles.pokemonInfo}>
+        <span className={styles.speciesNum}>#{pokemon.species_id}</span>
+
+        {hasMultipleForms ? (
+          <div className={styles.formsDropdown} ref={dropdownRef}>
+            <button
+              type="button"
+              className={styles.formsTrigger}
+              onClick={() => setIsOpen((prev) => !prev)}
+              aria-haspopup="listbox"
+              aria-expanded={isOpen}
+            >
+              <b>{pokemon.name.replaceAll('-', ' ')}</b>
+              <span className={styles.formsCaret} aria-hidden="true">
+                {isOpen ? '▲' : '▼'}
+              </span>
+            </button>
+
+            {isOpen && (
+              <ul className={styles.formsList} role="listbox">
+                {alternativeForms!.map((form) => (
+                  <li key={form.id} role="option" aria-selected={form.name === pokemon.name}>
+                    <button
+                      type="button"
+                      className={`${styles.formsItem} ${form.name === pokemon.name ? styles.formsItemActive : ''
+                        }`}
+                      onClick={() => handleSelectForm(form.name)}
+                    >
+                      {form.name.replaceAll('-', ' ')}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        ) : (
+          <b>{pokemon.name.replaceAll('-', ' ')}</b>
+        )}
+      </div>
 
       <button
         className={styles.navBtn}
