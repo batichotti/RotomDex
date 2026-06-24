@@ -1,27 +1,7 @@
 import { capitalize } from '@/utils/utils'
 import Image from 'next/image'
 import styles from './TypeIcon.module.css'
-
-export const TYPE_COLORS = {
-    'normal': '#A0A3A0',
-    'water': '#3393DD',
-    'fire': '#DA2C33',
-    'grass': '#02913A',
-    'electric': '#FBD200',
-    'ground': '#E97333',
-    'rock': '#C9B787',
-    'dark': '#5B5366',
-    'steel': '#5A8FA3',
-    'ice': '#4BD2C1',
-    'fighting': '#E12C6A',
-    'poison': '#B667CF',
-    'ghost': '#594593',
-    'psychic': '#FF6676',
-    'fairy': '#FB8AEC',
-    'dragon': '#006FC9',
-    'flying': '#89AAE3',
-    'bug': '#82C200',
-} as const;
+import { TYPE_COLORS } from '@/utils/TypeColors';
 
 export default function TypeIcon({ primary_type, secondary_type }: { primary_type: string; secondary_type?: string }) {
     const hasSecondary = secondary_type && secondary_type !== 'None';

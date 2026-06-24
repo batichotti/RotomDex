@@ -1,5 +1,6 @@
 import type { Pokemon } from '@/types/pokemon'
 import PokemonImage from './PokemonImage'
+import Link from 'next/link'
 
 export default async function PokemonEvolutionCard({ pokemonId }: { pokemonId: number }) {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/pokemon/${pokemonId}`)
@@ -10,5 +11,7 @@ export default async function PokemonEvolutionCard({ pokemonId }: { pokemonId: n
 
     if (!pokemon) return null
 
-    return <PokemonImage pokemon={pokemon}  width={120} height={120} shinyLock={true}/>
+    return <Link href={`/pokemon/${pokemon.name}`}>
+        <PokemonImage pokemon={pokemon}  width={'10rem'} height={'10rem'} shinyLock={true}/>
+        </Link>
 }

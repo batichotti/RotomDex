@@ -23,16 +23,6 @@
   z-index: 0;               /* fica atrás do conteúdo */
 }
 
-
-.navBar > span {
-  font-size: 2rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-  z-index: 1;
-}
-
 .navBtn {
   height: 6vh;
   padding: 0 0.7rem;
@@ -97,7 +87,7 @@
 }
 
 .num {
-  font-size: 1rem;
+  font-size: 1.2rem;
   font-weight: 600;
   color: rgb(99, 87, 78);
   line-height: 1;
@@ -114,6 +104,105 @@
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 100%;
+}
+
+.pokemonInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  position: relative;
+  z-index: 1;
+  font-size: 2rem;
+}
+
+.speciesNum {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: rgb(99, 87, 78);
+  line-height: 1;
+}
+
+.formsDropdown {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.formsTrigger {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font: inherit;
+  font-size: 1em;
+  color: inherit;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  border-radius: 14px;
+  transition: background 0.2s;
+}
+
+.formsTrigger:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.formsTrigger:focus-visible {
+  outline: 2px solid rgba(99, 87, 78, 0.5);
+  outline-offset: 2px;
+}
+
+.formsCaret {
+  padding-top: 5px;
+  font-size: 0.5em;
+  color: rgb(99, 87, 78);
+}
+
+.formsList {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 200px;
+  max-height: 280px;
+  overflow-y: auto;
+  list-style: none;
+  margin: 0;
+  padding: 6px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  border-radius: 14px;
+  box-shadow:
+    0 8px 20px rgba(0, 0, 0, 0.25),
+    inset 0 0 8px rgba(255, 255, 255, 0.6);
+  z-index: 10;
+}
+
+.formsItem {
+  display: block;
+  width: 100%;
+  text-align: center;
+  background: transparent;
+  border: none;
+  border-radius: 10px;
+  padding: 8px 12px;
+  font: inherit;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: rgb(40, 35, 30);
+  cursor: pointer;
+  text-transform: lowercase;
+  white-space: nowrap;
+  transition: background 0.15s, color 0.15s;
+}
+
+.formsItem:hover {
+  background: rgba(99, 87, 78, 0.1);
+}
+
+.formsItemActive {
+  background: rgba(99, 87, 78, 0.18);
+  color: rgb(99, 87, 78);
 }
 
 @media (max-width: 768px) {
@@ -159,6 +248,14 @@
 
   .num {
     font-size: 9px;
+  }
+
+  .formsTrigger {
+    font-size: 1.3rem;
+  }
+
+  .formsList {
+    min-width: 160px;
   }
 }
 
