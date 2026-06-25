@@ -52,7 +52,10 @@ export default async function PokemonPage({ params }: { params: Promise<{ id: st
   const prevPokemon = prevData?.[0] ? { id: prevData[0].species_id, name: prevData[0].name } : null;
   const nextPokemon = nextData?.[0] ? { id: nextData[0].species_id, name: nextData[0].name } : null;
 
-  const pokemonForms = altFormsData?.filter((form) => getForm(form.name, pokemon.species_name)) ?? [];
+  const pokemonForms = [
+    ...(altFormsData?.[0] ? [altFormsData[0]] : []),
+    ...(altFormsData?.filter((form) => getForm(form.name, pokemon.species_name)) ?? []),
+  ];
 
   return (
     <>
