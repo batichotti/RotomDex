@@ -3,6 +3,7 @@ import PokemonImage from './PokemonImage'
 import Link from 'next/link'
 
 export default async function PokemonEvolutionCard({ pokemonId }: { pokemonId: number }) {
+    if (pokemonId === 9997 || pokemonId === 9996) pokemonId = 414;
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/pokemon/${pokemonId}`)
     if (!res.ok) return null
 
