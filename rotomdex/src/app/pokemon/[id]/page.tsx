@@ -13,6 +13,7 @@ import PokemonMoves from '@/components/PokemonMoves';
 import { safeFetch } from '@/utils/safefetch';
 import { PokemonMove } from '@/types/moves';
 import PokemonTypeTable from '@/components/PokemonTypeTable';
+import { getForm } from '@/utils/PokemonMap';
 
 export default async function PokemonPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -51,9 +52,11 @@ export default async function PokemonPage({ params }: { params: Promise<{ id: st
   const prevPokemon = prevData?.[0] ? { id: prevData[0].species_id, name: prevData[0].name } : null;
   const nextPokemon = nextData?.[0] ? { id: nextData[0].species_id, name: nextData[0].name } : null;
 
+  const pokemonForms = altFormsData?.filter((form) => getForm(form.name, pokemon.species_name)) ?? [];
+
   return (
     <>
-      <PokemonNavigation pokemon={pokemon} prevPokemon={prevPokemon} nextPokemon={nextPokemon} alternativeForms={altFormsData}/>
+      <PokemonNavigation pokemon={pokemon} prevPokemon={prevPokemon} nextPokemon={nextPokemon} alternativeForms={pokemonForms}/>
 
       <div className={styles.global}>
         <div className={styles.twoCol}>
