@@ -65,9 +65,10 @@ export default function PokemonAdvancedFilters() {
                 onChange={(value) => handle('eggGroup1', value)}
             />
 
-            <div className={styles.fillAnchor}>
-                <FillFilter />
-            </div>
+            <EggGroupSelect
+                value={params.get('eggGroup1') ?? ''}
+                onChange={(value) => handle('eggGroup1', value)}
+            />
 
             <div className={styles.boolRow}>
                 {BOOL_FILTERS.map(({ key, label }) => {

@@ -1,87 +1,77 @@
 'use client'
 
-import { useState } from 'react'
-import { useRouter, useSearchParams } from 'next/navigation'
-import styles from './FillFilter.module.css'
-import { STAT_FIELDS } from '@/utils/PokemonInfoMaps'
+import { useState, useRef, useEffect, useLayoutEffect } from 'react'
+import styles from './EggGroupSelect.module.css'
+import { EGG_GROUPS } from '@/utils/PokemonInfoMaps'
 
-export default function FillFilter() {
-    const router = useRouter()
-    const params = useSearchParams()
+interface FillFiterProps {
+    value: string
+    onChange: (value: string) => void
+}
+
+export default function FillFilter({ value, onChange }: FillFiterProps) {
     const [open, setOpen] = useState(false)
+    const containerRef = useRef<HTMLDivElement>(null)
+    const contentRef = useRef<HTMLDivElement>(null)
+    const toggleRef = useRef<HTMLButtonElement>(null)
+    const [width, setWidth] = useState<number | undefined>(undefined)
 
-    const fill = params.get('fill') ?? ''
-    const min = params.get('min') ?? ''
-    const max = params.get('max') ?? ''
-
-    function update(next: { fill?: string; min?: string; max?: string }) {
-        const current = new URLSearchParams(params.toString())
-        const merged = { fill, min, max, ...next }
-
-        if (!merged.fill) {
-            current.delete('fill')
-            current.delete('min')
-            current.delete('max')
-        } else {
-            current.set('fill', merged.fill)
-            if (merged.min) current.set('min', merged.min)
-            else current.delete('min')
-            if (merged.max) current.set('max', merged.max)
-            else current.delete('max')
+    useEffect(() => {
+        function handleClickOutside(e: MouseEvent) {
+            if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+                setOpen(false)
+            }
         }
+        document.addEventListener('mousedown', handleClickOutside)
+        return () => document.removeEventListener('mousedown', handleClickOutside)
+    }, [])
 
-        router.push(`/pokemon/?${current.toString()}`)
+    // Mede a largura necessária do conteúdo (fechado = só o botão, aberto = botão + opções)
+    useLayoutEffect(() => {
+        if (open && contentRef.current) {
+            setWidth(contentRef.current.scrollWidth)
+        } else if (!open && toggleRef.current) {
+            setWidth(toggleRef.current.scrollWidth)
+        }
+    }, [open, value])
+
+    function handleSelect(opt: string) {
+        onChange(opt === value ? '' : opt)
+        setOpen(false)
     }
 
-    const active = Boolean(fill)
+    const selectedLabel = EGG_GROUPS.find(opt => opt.key === value)?.label ?? 'Egg Group'
 
     return (
-        <>
-            <button
-                className={`${styles.triggerBtn} ${active ? styles.triggerBtnActive : ''}`}
-                onClick={() => setOpen(o => !o)}
-                aria-label="Filtro de stat"
-                aria-expanded={open}
-            >
-                <img src={`/assets/flags/FilterButton.svg`} alt="Filter Button" width={20} height={20} />
-            </button>
+        <div
+            className={`${styles.eggGroupSelect} ${open ? styles.eggGroupSelectOpen : ''} ${value ? styles.eggGroupSelectActive : ''}`}
+            ref={containerRef}
+            style={width !== undefined ? { width } : undefined}
+        >
+            <div className={styles.eggGroupContent} ref={contentRef}>
+                <button
+                    type="button"
+                    className={styles.eggGroupToggle}
+                    onClick={() => setOpen(prev => !prev)}
+                    ref={toggleRef}
+                >
+                    {selectedLabel} {open ? '◄' : '►'}
+                </button>
 
-            <div className={styles.filterContainer}>
-                <div className={`${styles.expandWrap} ${open ? styles.expandWrapOpen : ''}`}>
-                    <select
-                        className={styles.statSelect}
-                        value={fill}
-                        onChange={e => update({ fill: e.target.value })}
-                    >
-                        <option value="">Stat</option>
-                        {STAT_FIELDS.map(opt => (
-                            <option key={opt.key} value={opt.key}>{opt.label}</option>
-                        ))}
-                    </select>
-
-                    <input
-                        type="number"
-                        inputMode="numeric"
-                        className={styles.statInput}
-                        placeholder="min"
-                        value={min}
-                        disabled={!active}
-                        onChange={e => update({ min: e.target.value })}
-                        />
-
-                    <span className={styles.statDivider}>–</span>
-
-                    <input
-                        type="number"
-                        inputMode="numeric"
-                        className={styles.statInput}
-                        placeholder="max"
-                        value={max}
-                        disabled={!active}
-                        onChange={e => update({ max: e.target.value })}
-                    />
+                <div className={`${styles.eggGroupOptions} ${value ? styles.eggGroupOptionsHasSelection : ''}`}>
+                    {EGG_GROUPS.map(opt => (
+                        <button
+                            key={opt.key}
+                            type="button"
+                            className={`${styles.eggGroupOption} ${opt.key === value ? styles.eggGroupOptionActive : ''}`}
+                            onClick={() => handleSelect(opt.key)}
+                            tabIndex={open ? 0 : -1}
+                        >
+                            {opt.label}
+                        </button>
+                    ))}
                 </div>
             </div>
-        </>
+        </div>
     )
 }
