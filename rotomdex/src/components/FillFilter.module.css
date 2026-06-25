@@ -1,0 +1,96 @@
+.filterContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.triggerBtn {
+  composes: glassBase glassHover from './Glass.module.css';
+  width: 4vh;
+  height: 4vh;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  border: none;
+  color: #63574E;
+  transition: background 0.15s;
+  position: relative;
+  z-index: 2;
+
+  right: 0;
+}
+
+.triggerBtnActive {
+  composes: glassActive from './Glass.module.css';
+}
+
+.expandWrap {
+  composes: glassBase from './Glass.module.css';
+  position: absolute;
+  right: 0.4rem;
+  top: 50%;
+  transform: translateY(-50%);
+  transform-origin: right center;
+
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding-left: 1vw;
+
+  overflow: hidden;
+  width: 0;
+  opacity: 0;
+  height: 4vh;
+  border-radius: 30px;
+
+  transition: width 0.3s ease, opacity 0.2s ease;
+  pointer-events: none;
+}
+
+.expandWrapOpen {
+  width: 320px;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.statSelect {
+  composes: pillText from './Glass.module.css';
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  max-width: 9rem;
+}
+
+.statSelect:focus {
+  outline: none;
+}
+
+.statInput {
+  composes: pillText from './Glass.module.css';
+  width: 3.2rem;
+  background: transparent;
+  border: none;
+  text-align: center;
+}
+
+.statInput:focus {
+  outline: none;
+}
+
+.statInput::-webkit-outer-spin-button,
+.statInput::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.statInput:disabled {
+  opacity: 0.4;
+}
+
+.statDivider {
+  color: #63574E;
+  opacity: 0.6;
+}

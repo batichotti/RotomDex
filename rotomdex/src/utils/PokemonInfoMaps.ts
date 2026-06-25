@@ -39,3 +39,16 @@ export const BOOL_FILTERS = [
     { key: 'hasGenderDifferences', label: 'Gender Difference' },
     { key: 'formsSwitchable',      label: 'Forms Switchable'  },
 ] as const;
+
+export const STAT_FIELDS = [
+    { key: 'bst',             label: 'BST'             },
+    { key: 'hp',              label: 'HP'              },
+    { key: 'attack',          label: 'Attack'          },
+    { key: 'defense',         label: 'Defense'         },
+    { key: 'special_attack',  label: 'Special Attack'  },
+    { key: 'special_defense', label: 'Special Defense' },
+    { key: 'speed',           label: 'Speed'           },
+    { key: 'height',          label: 'Height'          },
+    { key: 'weight',          label: 'Weight'          },
+    { key: 'base_experience', label: 'Base Experience' },
+]

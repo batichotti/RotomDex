@@ -4,12 +4,12 @@ import { useState, useRef, useEffect, useLayoutEffect } from 'react'
 import styles from './EggGroupSelect.module.css'
 import { EGG_GROUPS } from '@/utils/PokemonInfoMaps'
 
-interface EggGroupSelectProps {
+interface FillFiterProps {
     value: string
     onChange: (value: string) => void
 }
 
-export default function EggGroupSelect({ value, onChange }: EggGroupSelectProps) {
+export default function FillFilter({ value, onChange }: FillFiterProps) {
     const [open, setOpen] = useState(false)
     const containerRef = useRef<HTMLDivElement>(null)
     const contentRef = useRef<HTMLDivElement>(null)

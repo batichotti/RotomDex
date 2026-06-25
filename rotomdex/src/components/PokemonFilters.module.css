@@ -2,7 +2,7 @@
 .filterContainer {
   display: flex;
   flex-wrap: wrap;
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.75rem;
   margin-top: 0.25rem;
   width: 100%;
 }

@@ -1,6 +1,7 @@
 'use client'
 
 import EggGroupSelect from './EggGroupSelect'
+import FillFilter from './FillFilter'
 import { useRouter, useSearchParams } from "next/navigation"
 import styles from './PokemonAdvFilters.module.css'
 import { GENERATIONS, BOOL_FILTERS } from '@/utils/PokemonInfoMaps'
@@ -58,6 +59,11 @@ export default function PokemonAdvancedFilters() {
                     )
                 })}
             </div>
+
+            <EggGroupSelect
+                value={params.get('eggGroup1') ?? ''}
+                onChange={(value) => handle('eggGroup1', value)}
+            />
 
             <EggGroupSelect
                 value={params.get('eggGroup1') ?? ''}
