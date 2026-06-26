@@ -23,7 +23,6 @@
     width: clamp(300px, 25vw, 500px);
     z-index: 101;                     /*Profundidade = 101; Acima do Overlay*/
     
-    background-color: #8DE1EE;
     box-shadow: 4px 0 16px rgba(0,0,0,0.35);
     border: solid #63574E;
     border-radius: 50px;
@@ -34,6 +33,20 @@
     
     transform: translateX(-100%); /*Move a sidebar para 100% à esquerda da tela*/
     transition: transform 0.5s;
+}
+
+.sidebar::before {
+    content: '';
+    position: absolute;
+    inset: 0;              /* cobre toda a div */
+    background-image: url("/assets/flags/GlassTexture.svg"); 
+    background-size: fill;      /* Cobre toda a div */
+    background-position: center; /* Centraliza */
+    background-repeat: repeat; /* Não repete */
+    opacity: 0.7;          /* aqui controla a opacidade */
+    filter: brightness(0.9);
+    z-index: 0;            /* fica atrás do conteúdo */
+    border-radius: 50px;
 }
 
 /*Sidebar aberta*/
@@ -50,6 +63,7 @@
     color: #333;               /*Cor do texto*/
     font-weight: 500;
     font-size: clamp(14px, 1.25vw, 18px); 
+    z-index: 1;
 }
 
 /*Ao passar o moue sobre o link*/

@@ -120,7 +120,7 @@ function MethodSection({ method, moves }: { method: string; moves: PokemonMove[]
 
     return (
         <section className={styles.section}>
-            <h3 className={styles.sectionTitle}>{method}</h3>
+            <h3 className={styles.sectionTitle}>{method.replaceAll('-', ' ')}</h3>
 
             <div className={styles.tableWrapper}>
                 <table className={styles.table}>
@@ -150,12 +150,12 @@ function MethodSection({ method, moves }: { method: string; moves: PokemonMove[]
                                 <td className={`${styles.cell} ${styles.typeCell}`}>
                                     <TypeIconBadge type={pm.move.type} width={35} height={35} />
                                 </td>
-                                <td className={`${styles.cell} ${styles.capitalize}`}>
+                                <td className={`${styles.cell}`}>
                                     <Link href={`/moves/${pm.move.name}`}>
                                         {pm.move.name.replaceAll("-", " ")}
                                     </Link>
                                 </td>
-                                <td className={`${styles.cell} ${styles.categoryCell} ${styles.capitalize}`}>
+                                <td className={`${styles.cell} ${styles.categoryCell}`}>
                                     {pm.move.damage_class}
                                 </td>
                                 <td className={`${styles.cell} ${styles.numberCell}`}>

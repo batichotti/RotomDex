@@ -41,7 +41,7 @@ export default async function AbilitiesPage({ params }: { params: Promise<{ id: 
                     <span className={styles.genBadge}>{GENERATION_MAP[abilitie.generation_introduced as keyof typeof GENERATION_MAP]}</span>
                 </div>
 
-                <h1 className={styles.name}>{abilitie.name}</h1>
+                <h1 className={styles.name}>{abilitie.name.replaceAll('-', ' ')}</h1>
 
                 <p className={styles.tagline}>{abilitie.short_description}</p>
 

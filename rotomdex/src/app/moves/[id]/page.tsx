@@ -71,7 +71,7 @@ export default async function MovesPage({
           </div>
         </div>
 
-        <h1 className={styles.name}>{move.name}</h1>
+        <h1 className={styles.name}>{move.name.replaceAll('-', ' ')}</h1>
 
         <div className={styles.damageClass}>
           <Image

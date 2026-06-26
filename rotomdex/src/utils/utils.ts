@@ -10,3 +10,8 @@ export function capitalize(str: string){
 export function formatStat(value: number | null) {
   return (value == null || value == 0) ? '-' : String(value);
 }
+
+export function normalizePokemonName(name: string | undefined) {
+  if(!name) return false;
+  return (name.includes('mo-o')) ? name : name.replaceAll('-', ' ') ?? '—'
+}

@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from 'react'
 import type { Pokemon } from '@/types/pokemon'
 import styles from './PokemonNavigation.module.css'
 import { Beiruti } from 'next/font/google'
+import { normalizePokemonName } from '@/utils/utils'
 
 const beiruti = Beiruti({
   subsets: ['arabic', 'latin'],
@@ -67,7 +68,7 @@ export default function PokemonNavigation({
         <span className={styles.arrow}>←</span>
         <span className={styles.info}>
           <span className={styles.num}>#{String(prevPokemon?.id ?? 0).padStart(3, '0')}</span>
-          <span className={styles.name}>{prevPokemon?.name.replaceAll('-', ' ') ?? '—'}</span>
+          <span className={styles.name}>{normalizePokemonName(prevPokemon?.name)}</span>
         </span>
       </button>
 
@@ -107,7 +108,7 @@ export default function PokemonNavigation({
             )}
           </div>
         ) : (
-          <b>{pokemon.name.replaceAll('-', ' ')}</b>
+          <b>{normalizePokemonName(pokemon.name)}</b>
         )}
       </div>
 
@@ -119,7 +120,7 @@ export default function PokemonNavigation({
       >
         <span className={`${styles.info} ${styles.infoRight}`}>
           <span className={styles.num}>#{String(nextPokemon?.id ?? 0).padStart(3, '0')}</span>
-          <span className={styles.name}>{nextPokemon?.name.replaceAll('-', ' ') ?? '—'}</span>
+          <span className={styles.name}>{normalizePokemonName(nextPokemon?.name)}</span>
         </span>
         <span className={styles.arrow}>→</span>
       </button>

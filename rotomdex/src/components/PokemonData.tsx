@@ -20,10 +20,10 @@ export default async function PokemonData({ pokemon }: { pokemon: Pokemon }) {
         <>
             <div className={styles.container}>
                 <h3>INFO</h3>
-                { pokemon.egg_group_2 === "None" && (<p>Egg Group: {getEggGroup(pokemon.egg_group_1)}</p>) }
-                { pokemon.egg_group_2 !== "None" && (<p>Egg Groups: {getEggGroup(pokemon.egg_group_1)}, {getEggGroup(pokemon.egg_group_2)}</p>) }
-                <p>Height: { (pokemon.height / 100).toFixed(2) } m</p>
-                <p>Weight: { (pokemon.weight).toFixed(1) } kg</p>
+                { pokemon.egg_group_2 === "None" && (<p>egg group: {getEggGroup(pokemon.egg_group_1).toLowerCase()}</p>) }
+                { pokemon.egg_group_2 !== "None" && (<p>egg groups: {getEggGroup(pokemon.egg_group_1).toLowerCase()}, {getEggGroup(pokemon.egg_group_2).toLowerCase()}</p>) }
+                <p>height: { (pokemon.height / 100).toFixed(2) } m</p>
+                <p>weight: { (pokemon.weight).toFixed(1) } kg</p>
             </div>
 
             {abilities.length > 0 && (
@@ -34,10 +34,10 @@ export default async function PokemonData({ pokemon }: { pokemon: Pokemon }) {
                             .sort((a, b) => a.ability_slot - b.ability_slot)
                             .map((pa) => (
                                 <li key={pa.ability_id}>
-                                    <Link href={`/abilities/${pa.ability_name}`} ><span><b>{pa.ability.name}</b></span></Link>
+                                    <Link href={`/abilities/${pa.ability_name}`} ><span><b>{pa.ability.name.replaceAll('-', ' ')}</b></span></Link>
                                     {pa.is_hidden && <span>(hidden)</span>}
                                     {pa.ability.short_description && (
-                                        <p>{pa.ability.short_description}</p>
+                                        <p>{pa.ability.short_description.toLowerCase()}</p>
                                     )}
                                 </li>
                             ))}
