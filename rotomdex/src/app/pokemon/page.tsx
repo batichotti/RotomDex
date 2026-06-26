@@ -9,49 +9,69 @@ import PokemonErrorState from '@/components/PokemonErrorState'
 import OrderBar from '@/components/OrderBar'
 import { Suspense } from 'react'                         // Importar "Suspense" do React. Permite esperar algo carregar
 
-const FILTERS = ['type', 'type2', 'generation', 'eggGroup1', 'eggGroup2', 'fill', 'min', 'max', 'isLegendary', 'isMythical', 'isBaby', 'hasGenderDifference', 'formsSwitchable', 'isMega', 'isGmax', 'isRegionalForm'] as const;
+const FILTERS = ['type', 'type2', 'generation', 'eggGroup1', 'eggGroup2', 'fill', 'min', 'max', 'isLegendary', 'isMythical', 'isBaby', 'hasGenderDifferences', 'formsSwitchable', 'isMega', 'isGmax', 'isRegionalForm'] as const;
 
 // Funcão principal: PokemonPage
-export default async function PokemonPage({ searchParams }: { searchParams: Promise<Record<string, string>> }){
+export default async function PokemonPage({ searchParams }: { searchParams: Promise<Record<string, string>> }) {
   const filters = await searchParams;  // Recebe os Parâmetros assim que resolvidos
   const query = new URLSearchParams(); // Recebe a Query dos parâmetros
 
-  for (const key of FILTERS) {
-    const value = filters[key];
-    if (value) query.set(key, value);
-  }
-  
-  query.set('orderBy', filters.orderBy ?? 'species_id');   // Sempre envia, para a query, padrão 'id'
-  query.set('order',   filters.order   ?? 'ASC');  // Sempre envia, para a query, padrão 'ASC'  
+  const selectedGenerations = (filters.generation ?? '').split(',').filter(Boolean);
+  const genFilterFront = selectedGenerations.length > 1;
 
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/pokemon?${query}`, {cache: 'no-store'}); // Retorna a query do backend
+  let hasFilter = 'false';
+  for (const key of FILTERS) {
+    if (key === 'generation'){
+      if (selectedGenerations.length === 1){
+        query.set('generation', selectedGenerations[0]);
+        hasFilter = 'filter';
+      }
+      else if(selectedGenerations.length > 1) hasFilter = 'gen';
+      
+      continue;
+    }
+
+    const value = filters[key];
+    if (value) { query.set(key, value); 
+      if (key === 'formsSwitchable') hasFilter = 'formSwitch'
+      else hasFilter = 'filter' 
+    }
+  }
+
+  query.set('orderBy', filters.orderBy ?? 'species_id');   // Sempre envia, para a query, padrão 'id'
+  query.set('order', filters.order ?? 'ASC');  // Sempre envia, para a query, padrão 'ASC'  
+
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/pokemon?${query}`, { cache: 'no-store' }); // Retorna a query do backend
 
   // Trata erros da API
   if (!res.ok) {
     const err = await res.json();
     return <PokemonErrorState message={err.message} />;
   }
-  
-  const pokemon: Pokemon[] = await res.json(); // Converte a resposta da API em um json, e em array
+
+  let pokemon: Pokemon[] = await res.json(); // Converte a resposta da API em um json, e em array
+
+  if (genFilterFront) pokemon = pokemon.filter(p => selectedGenerations.includes(p.generation));
+
   const pokemonById = new Map<number, Pokemon>(pokemon.map(p => [p.id, p]));
-  
-  const hasFilter = !!(FILTERS);
+
+  // const hasFilter = !!(value);
   const shownPokemon = pokemon.filter(p => shouldShow(p, pokemonById.get(p.species_id), hasFilter));
 
   // HTML
-return (
-  <div className={styles.wrapper}>
-    <Suspense fallback={<div>Carregando filtros...</div>}>
-      <FilterBar advanced={<PokemonAdvancedFilters />} >
-        <PokemonFilters />
-      </FilterBar>
-    </Suspense>
+  return (
+    <div className={styles.wrapper}>
+      <Suspense fallback={<div>Carregando filtros...</div>}>
+        <FilterBar advanced={<PokemonAdvancedFilters />} >
+          <PokemonFilters />
+        </FilterBar>
+      </Suspense>
 
-    <Suspense fallback={null}>
-      <OrderBar path="/pokemon" total={shownPokemon.length} species={new Set(shownPokemon.map((p) => p.species_id)).size} />
-    </Suspense>
-    
-    <PokemonGrid pokemon={shownPokemon} />
-  </div>
+      <Suspense fallback={null}>
+        <OrderBar path="/pokemon" total={shownPokemon.length} species={new Set(shownPokemon.map((p) => p.species_id)).size} />
+      </Suspense>
+
+      <PokemonGrid pokemon={shownPokemon} />
+    </div>
   )
 }

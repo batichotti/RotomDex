@@ -18,29 +18,29 @@ function barColor(value: number, bst = false): string {
 
 export default function PokemonStats({ pokemon }: { pokemon: Pokemon }) {
   const stats = [
-    ['HP', pokemon.hp],
-    ['Attack', pokemon.attack],
-    ['Defense', pokemon.defense],
-    ['Special Attack', pokemon.special_attack],
-    ['Special Defense', pokemon.special_defense],
-    ['Speed', pokemon.speed],
-    ['BST', pokemon.bst]
+    ['hp', pokemon.hp],
+    ['attack', pokemon.attack],
+    ['defense', pokemon.defense],
+    ['special attack', pokemon.special_attack],
+    ['special defense', pokemon.special_defense],
+    ['speed', pokemon.speed],
+    ['bst', pokemon.bst]
   ] as const
 
   return(
     <div>
       {stats.map(([label, value]) => {
-        const color = (label === 'BST') ? barColor(value, true) : barColor(value);
+        const color = (label === 'bst') ? barColor(value, true) : barColor(value);
         return (
           <div key={label} style={{ marginBottom: 8 }}>
-            <div style={{ width: '90%', display: 'flex', justifyContent: 'space-between', fontSize: 15 }}>
+            <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', fontSize: 15 }}>
               <span>{label}</span>
               <span>{value}</span>
             </div>
-            <div style={{ width: '90%', height: 10, background: '#e0e0e0', borderRadius: 6, overflow: 'hidden' }}>
+            <div style={{ width: '100%', height: 10, background: '#c9c8c8', borderRadius: 6, overflow: 'hidden' }}>
               <div
                 style={{
-                  width: (label === 'BST') ? `${value*100/(255*6)}%` : `${value*100/255}%`,
+                  width: (label === 'bst') ? `${value*100/(255*6)}%` : `${value*100/255}%`,
                   height: '100%',
                   background: color,
                   transition: 'width 300ms ease'

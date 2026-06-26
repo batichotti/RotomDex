@@ -50,8 +50,8 @@ function EvolutionBranch({ node }: { node: EvolutionNode }) {
 }
 
 export default function PokemonEvolutionTree({ evolution }: { evolution: Evolution[] | null }) {
-    if (!evolution || evolution.length === 0) {
-        return <p>Nenhuma evolução encontrada.</p>
+    if (!evolution || evolution.length < 2) {
+        return <p></p>
     }
 
     const roots = buildTree(evolution)

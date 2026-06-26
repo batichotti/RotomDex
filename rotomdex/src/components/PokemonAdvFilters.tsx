@@ -1,29 +1,21 @@
 'use client'
 
+import EggGroupSelect from './EggGroupSelect'
+import FillFilter from './FillFilter'
 import { useRouter, useSearchParams } from "next/navigation"
-
-const GENERATIONS = ['generation-i', 'generation-ii', 'generation-iii', 'generation-iv', 'generation-v', 'generation-vi', 'generation-vii', 'generation-viii', 'generation-ix'] as const;
-const EGG_GROUPS = ['monster', 'water1', 'bug', 'flying', 'ground', 'fairy', 'plant', 'humanshape', 'water3', 'mineral', 'indeterminate', 'water2', 'ditto', 'dragon', 'no-eggs'] as const;
-
-const BOOL_FILTERS = [
-    { key: 'isLegendary',         label: 'Legendary'        },
-    { key: 'isMythical',          label: 'Mythical'         },
-    { key: 'isBaby',              label: 'Baby'             },
-    { key: 'isMega',              label: 'Mega'             },
-    { key: 'isGmax',              label: 'G-Max'             },
-    { key: 'isRegionalForm',      label: 'Regional'          },
-    { key: 'hasGenderDifferences', label: 'Gender Difference' },
-    { key: 'formsSwitchable',     label: 'Forms Switchable'  },
-]
+import styles from './PokemonAdvFilters.module.css'
+import { GENERATIONS, BOOL_FILTERS } from '@/utils/PokemonInfoMaps'
 
 export default function PokemonAdvancedFilters() {
     const router = useRouter()
     const params = useSearchParams()
 
+    const selectedGenerations = (params.get('generation') ?? '').split(',').filter(Boolean);
+
     function handle(key: string, value: string) {
         const current = new URLSearchParams(params.toString())
-        
-        if(value) current.set(key, value)
+
+        if (value) current.set(key, value)
         else current.delete(key)
         
         router.push(`/pokemon/?${current.toString()}`)
@@ -38,29 +30,60 @@ export default function PokemonAdvancedFilters() {
         router.push(`/pokemon/?${current.toString()}`)
     }
 
+    function handleGen(genKey: string){
+        const current = new URLSearchParams(params.toString());
+        const next = selectedGenerations.includes(genKey)
+            ? selectedGenerations.filter(g => g !== genKey)
+            : [...selectedGenerations, genKey];
+
+        if (next.length > 0) current.set('generation', next.join(','));
+        else current.delete('generation');
+
+        router.push(`/pokemon/?${current.toString()}`)
+    }
+
     return(
-        <div>
-        
-        <select value={params.get('generation') ?? ''} onChange={e => handle('generation', e.target.value)}>
-            <option value=''>Geração</option>
-            {GENERATIONS.map(g => <option key={g} value={g}>{g.replace('generation-', 'Gen ').toUpperCase()}</option>)}
-        </select>
+        <div className={styles.advancedContainer}>
 
-        <select value={params.get('eggGroup1') ?? ''} onChange={e => handle('eggGroup1', e.target.value)}>
-            <option value=''>Egg Group</option>
-            {EGG_GROUPS.map(g => <option key={g} value={g}>{g}</option>)}
-        </select>
+            <div className={styles.genGroup}>
+                {GENERATIONS.map(g => {
+                    const isActive = selectedGenerations.includes(g.key);
+                    return (
+                        <button
+                            key={g.key}
+                            className={`${styles.genBtn} ${isActive ? styles.genBtnActive : ''}`}
+                            onClick={() => handleGen(g.key)}
+                        >
+                            {g.label}
+                        </button>
+                    )
+                })}
+            </div>
 
-        {BOOL_FILTERS.map(({ key, label }) => {
-            return (
-                <span key={key}>
-                    <span>{label}</span>
+            <EggGroupSelect
+                value={params.get('eggGroup1') ?? ''}
+                onChange={(value) => handle('eggGroup1', value)}
+            />
 
-                    <button onClick={() => handleBool(key, 'true')}>✓</button>
-                    <button onClick={() => handleBool(key, 'false')}>✗</button>
-                </span>
-            )
-        })}
+            <div className={styles.boolRow}>
+                {BOOL_FILTERS.map(({ key, label }) => {
+                    const value = params.get(key)
+                    
+                    return (
+                        <span key={key} className={styles.boolGroup}>
+                            <span className={styles.boolLabel}>{label}:</span>
+                            <button
+                                className={`${styles.boolBtn} ${value === 'true' ? styles.boolBtnTrueActive : ''}`}
+                                onClick={() => handleBool(key, 'true')}
+                            >✓</button>
+                            <button
+                                className={`${styles.boolBtn} ${value === 'false' ? styles.boolBtnFalseActive : ''}`}
+                                onClick={() => handleBool(key, 'false')}
+                            >✗</button>
+                        </span>
+                    )
+                })}
+            </div>
 
         </div>
     )

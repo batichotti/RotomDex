@@ -2,7 +2,8 @@
 
 import { capitalize } from '@/utils/utils'
 import styles from './PokemonFilters.module.css'
-import { TYPE_COLORS } from './TypeIcon'
+import { TYPE_COLORS } from "@/utils/TypeColors"
+import { hexToRgb } from '@/utils/hexToGgb'
 
 const TYPES = ['bug','dark','dragon','electric','fairy','fighting','fire','flying','ghost','grass','ground','ice','normal','poison','psychic','rock','steel','water']
 
@@ -34,17 +35,6 @@ export default function TypeButtonGroup({ selectedType, selectedType2, onTypeCli
         if (bothSelected)        return `${t} (bloqueado)`
         if (selectedType)        return `${t} (definir como secundário)`
         return `${t} (definir como primário)`
-    }
-
-    function hexToRgb(hex: string) {
-        const normalized = hex.trim().replace(/^#/, '')
-        const fullHex = normalized.length === 3
-            ? normalized.split('').map(char => char + char).join('')
-            : normalized
-        const r = parseInt(fullHex.slice(0, 2), 16)
-        const g = parseInt(fullHex.slice(2, 4), 16)
-        const b = parseInt(fullHex.slice(4, 6), 16)
-        return `${r}, ${g}, ${b}`
     }
 
     function getCircleStyle(t: string) {

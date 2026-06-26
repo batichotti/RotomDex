@@ -1,22 +1,123 @@
-.pokemonContainer {
-  width: 50%;
+.global {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 12vh 1vw;
+}
+
+.twoCol {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  align-items: start;
+}
+
+.leftCol {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .imageHeaderContainer {
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
-}
-
-.pokemonContainer span {
-  padding-top: 0.5vh;
+  align-self: center;
+  align-items: center;
 }
 
 .pokemonImageDataContainer {
   display: flex;
+  gap: 0.5rem;
 }
 
 .pokemonData {
-  padding-left: 0.5vw;
   padding-top: 1vh;
+}
+
+.rightCol {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-self: center;
+  gap: 0.75rem;
+}
+
+
+/* ========================= */
+/* Mobile */
+/* ========================= */
+@media (max-width: 900px) {
+  .global {
+    padding: 9vh 1rem 2rem;
+    align-items: center;
+  }
+
+  .twoCol {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    width: 100%;
+  }
+
+  .leftCol,
+  .rightCol {
+    width: 100%;
+    max-width: 700px;
+    gap: 1rem;
+  }
+
+  .pokemonImageDataContainer {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    width: 100%;
+  }
+
+  .imageHeaderContainer {
+    align-items: center;
+    width: 100%;
+  }
+
+  .pokemonData {
+    width: 100%;
+    padding-top: 0;
+  }
+
+  .rightCol > * {
+    width: 100%;
+    max-width: 700px;
+  }
+}
+
+.notFound {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    min-height: 60vh;
+    color: #63574e;
+    text-align: center;
+}
+
+.notFound h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.notFound a {
+    padding: 8px 20px;
+    border-radius: 999px;
+    border: 1px solid rgba(99, 87, 78, 0.25);
+    background: rgba(99, 87, 78, 0.12);
+    color: #63574e;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.2s ease;
+}
+
+.notFound a:hover {
+    background: rgba(99, 87, 78, 0.22);
 }

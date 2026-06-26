@@ -15,6 +15,7 @@ const SORT_OPTIONS = [
   { label: 'BST',     value: 'bst',             defaultOrder: 'DESC' },
   { label: 'Height',  value: 'height',          defaultOrder: 'DESC' },
   { label: 'Weight',  value: 'weight',          defaultOrder: 'DESC' },
+  // { label: '?',       value: 'species_id',      defaultOrder: 'ASC'  }
 ]
 
 interface OrderBarProps {

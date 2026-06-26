@@ -2,6 +2,8 @@ import Image from 'next/image'
 import nav from './Navbar.module.css'
 import Sidebar from './Sidebar'
 import Link from 'next/link'
+import Search from './Search'
+import styles from './Navbar.module.css'
 
 export default function Navbar(){
     return(
@@ -18,6 +20,11 @@ export default function Navbar(){
                     />
             </Link>
             <span className={nav.logo}></span>
+
+                <div className={styles.searchWrapper}>
+                    <Search />
+                </div>
+
         </header>
     )
 }

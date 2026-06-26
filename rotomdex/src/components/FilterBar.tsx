@@ -37,7 +37,7 @@ export default function FilterBar({children, advanced}: FilterBarProps) {
           <div className={styles.buttonRow}>
             <button className={styles.advancedBtn}
               onClick={() => setOpen(prev => !prev)}>
-              Advanced Filters {open ? '▲' : '▼'}
+              {open ? '▲' : '▼'} Advanced Filters {open ? '▲' : '▼'}
             </button>
           </div>
         )}

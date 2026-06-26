@@ -1,0 +1,87 @@
+.advancedContainer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 1rem;
+  padding: 0.5rem 1rem 1rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* ---------- Gerações ---------- */
+
+.genGroup {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.genBtn {
+  composes: glassBase glassHover pillText from './Glass.module.css';
+  height: 4vh;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  border-radius: 20px;
+  padding: 0.3rem 0.6rem;
+}
+
+.genBtnActive {
+  composes: glassActive from './Glass.module.css';
+}
+
+/* ---------- Filtros booleanos ---------- */
+
+.boolRow {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.boolGroup {
+  composes: glassBase from './Glass.module.css';
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  border-radius: 20px;
+  padding: 0.3rem 0.6rem;
+}
+
+.boolLabel {
+  composes: pillText from './Glass.module.css';
+  white-space: nowrap;
+}
+
+.boolBtn {
+  composes: glassBase glassHover from './Glass.module.css';
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1 / 1;
+  height: 3vh;
+  border-radius: 50%;
+  flex-shrink: 0;
+  color: #63574E;
+}
+
+.boolBtnTrueActive {
+  background: rgba(14, 184, 23, 0.6);
+  color: white;
+}
+
+.boolBtnFalseActive {
+  background: rgba(213, 32, 19, 0.6);
+  color: white;
+}
+
+.fillAnchor {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}

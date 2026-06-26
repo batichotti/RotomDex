@@ -2,7 +2,7 @@
 .filterContainer {
   display: flex;
   flex-wrap: wrap;
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.75rem;
   margin-top: 0.25rem;
   width: 100%;
 }
@@ -89,7 +89,6 @@
   transform: scale(1.06) translateY(-2px); /* sobe um pouco */
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3),
   inset 0 0 8px rgba(255, 255, 255, 0.6);
-
 }
 
 .clearTypeButton:not(:disabled):hover .circle {

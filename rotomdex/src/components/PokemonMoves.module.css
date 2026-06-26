@@ -1,0 +1,126 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.section {
+  padding: 1.1rem 1.25rem;
+  background: #d5cfc4;
+  border: 4px solid rgb(99, 87, 78);
+  border-radius: 30px;
+  transition: box-shadow 0.2s ease;
+  box-shadow: 0 0 4px 0, inset 0 0 12px 0;
+  transition: box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.sectionTitle {
+  margin: 0 0 0.85rem;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #63574e;
+}
+
+.tableWrapper {
+  overflow-x: auto;
+  border-radius: 18px;
+}
+
+.table {
+  width: 100%;
+  font-size: 0.875rem;
+  border-collapse: collapse;
+}
+
+.tableHead tr {
+  text-align: left;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: rgba(99, 87, 78, 0.55);
+}
+
+.tableHead th {
+  padding: 0.4rem 0.65rem;
+  font-weight: 600;
+}
+
+.row {
+  border-top: none;
+  transition: background 0.2s ease;
+}
+
+.row:hover {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.cell {
+  padding: 0.5rem 0.65rem;
+  font-size: 1.1rem;
+  color: #63574e;
+  vertical-align: middle;
+}
+
+.capitalize {
+  text-transform: capitalize;
+}
+
+.levelCell {
+  font-weight: 600;
+  color: #8a7a6b;
+  width: 2.25rem;
+}
+
+.dash {
+  color: rgba(99, 87, 78, 0.4);
+}
+
+.typeCell {
+  width: 2.75rem;
+}
+
+.typeIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  box-shadow: 0 0 3px rgba(99, 87, 78, 0.15);
+}
+
+.typeIconImg {
+  object-fit: contain;
+}
+
+.categoryCell {
+  color: rgba(99, 87, 78, 0.75);
+}
+
+.numberCell {
+  color: rgba(99, 87, 78, 0.85);
+  font-variant-numeric: tabular-nums;
+}
+
+.sortableHeader {
+    cursor: pointer;
+    user-select: none;
+    white-space: nowrap;
+}
+
+.sortableHeader:hover {
+    opacity: 0.75;
+}
+
+.sortIcon {
+    display: inline-block;
+    margin-left: 4px;
+    font-size: 11px;
+}
+
+.sortIconInactive {
+    opacity: 0;
+}
