@@ -56,20 +56,14 @@
 
 /*Estilos dos links de navegação*/
 .navlink {
+    composes:  glassHover pillText from './Glass.module.css';
     padding: clamp(0.4rem, 0.6vw, 0.6rem) clamp(0.5rem, 0.8vw, 0.8rem);
-    border-radius: 8px;
+    border-radius: 16px;
     transition: background 0.5s; /*Animação de hover*/
     text-decoration: none;       /*Remove sublinhado do link*/
-    color: #333;               /*Cor do texto*/
-    font-weight: 500;
+    font-weight: 600;
     font-size: clamp(14px, 1.25vw, 18px); 
     z-index: 1;
-}
-
-/*Ao passar o moue sobre o link*/
-.navlink:hover {
-    background: rgba(248, 122, 140, 0.15);
-    color: #f87a8c;
 }
 
 /* O botão agora fica dentro da sidebar e se move com ela */

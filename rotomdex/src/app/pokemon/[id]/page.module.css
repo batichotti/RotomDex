@@ -90,3 +90,34 @@
     max-width: 700px;
   }
 }
+
+.notFound {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    min-height: 60vh;
+    color: #63574e;
+    text-align: center;
+}
+
+.notFound h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.notFound a {
+    padding: 8px 20px;
+    border-radius: 999px;
+    border: 1px solid rgba(99, 87, 78, 0.25);
+    background: rgba(99, 87, 78, 0.12);
+    color: #63574e;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.2s ease;
+}
+
+.notFound a:hover {
+    background: rgba(99, 87, 78, 0.22);
+}

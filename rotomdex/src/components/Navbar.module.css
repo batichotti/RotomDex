@@ -22,3 +22,11 @@
     height: clamp(40px, 9.5vh, 110px);
     object-fit: contain;
 }
+
+.searchWrapper {
+    position: fixed;
+    right: 6vh;
+    top: 6vh;
+    transform: translateY(-50%);
+    z-index: 10;
+}
