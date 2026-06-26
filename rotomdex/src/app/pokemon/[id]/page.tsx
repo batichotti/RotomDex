@@ -54,7 +54,7 @@ export default async function PokemonPage({ params }: { params: Promise<{ id: st
 
   const pokemonForms = [
     ...(altFormsData?.[0] ? [altFormsData[0]] : []),
-    ...(altFormsData?.filter((form) => getForm(form.name, pokemon.species_name)) ?? []),
+    ...(altFormsData?.slice(1)?.filter((form) => getForm(form.name, pokemon.species_name)) ?? [])
   ];
 
   return (
