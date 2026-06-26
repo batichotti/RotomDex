@@ -4,27 +4,36 @@
   justify-content: space-between;
   gap: 8px;
   width: 100%;
-  padding: 1.5vh;
+  padding: 1.5dvh;
   border-bottom: solid 4px #63574E;
   position: fixed;
-  z-index: 1;  
+  z-index: 1;
 }
 
 .navBar::after {
   content: '';
   position: absolute;
-  inset: 0;                 /* cobre toda a div */
-  background-image: url("/assets/flags/GlassTexture.svg"); 
-  background-size: auto; /* Cobre toda a div */
-  background-position: top; /* Centraliza */
-  background-repeat: no-repeat; /* Não repete */
-  opacity: 0.7;             /* aqui controla a opacidade */
+  inset: 0;
+  /* cobre toda a div */
+  background-image: url("/assets/flags/GlassTexture.svg");
+  background-size: auto;
+  /* Cobre toda a div */
+  background-position: top;
+  /* Centraliza */
+  background-repeat: no-repeat;
+  /* Não repete */
+  opacity: 0.7;
+  /* aqui controla a opacidade */
   filter: brightness(0.9);
-  z-index: 0;               /* fica atrás do conteúdo */
+  z-index: 0;
+  /* fica atrás do conteúdo */
 }
 
 .navBtn {
-  height: 6vh;
+  box-sizing: border-box;
+  height: 6dvh;
+  min-height: 44px;
+  /* alvo de toque mínimo recomendado */
   padding: 0 0.7rem;
   border-radius: 20px;
   color: #63574E;
@@ -32,6 +41,7 @@
   font-weight: 700;
   font-size: 14px;
   cursor: pointer;
+  touch-action: manipulation;
   transition: background 0.2s, transform 0.15s ease, color 0.15s;
 
   display: flex;
@@ -42,11 +52,11 @@
   border-radius: 20px;
   padding: 0.3rem 0.6rem;
 
-  box-shadow: 
+  box-shadow:
     0 2px 4px rgba(0, 0, 0, 0.25),
     0 1px 2px rgba(0, 0, 0, 0.15),
     inset 0 0 8px rgba(255, 255, 255, 0.6);
-  
+
   backdrop-filter: blur(6px);
   z-index: 1;
 }
@@ -54,7 +64,7 @@
 .navBtn:hover {
   transform: scale(1.06) translateY(-1px);
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3),
-  inset 0 0 8px rgba(255, 255, 255, 0.6);
+    inset 0 0 8px rgba(255, 255, 255, 0.6);
 }
 
 .navBtn:active:not(:disabled) {
@@ -110,12 +120,16 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 1px;
-  top: 15%;
-  left: 46.5%;
-  position: absolute;
-  z-index: 1;
   font-size: 2rem;
+
+  /* Fixar na tela, centralizado */
+  position: fixed;
+  top: 14.5dvh;
+  left: 41%;
+  width: 16.5%;
+  z-index: 1000;
 }
 
 .speciesNum {
@@ -129,6 +143,7 @@
   position: relative;
   display: flex;
   align-items: center;
+  max-width: 100%;
 }
 
 .formsTrigger {
@@ -141,8 +156,10 @@
   background: transparent;
   border: none;
   cursor: pointer;
+  touch-action: manipulation;
   border-radius: 14px;
   transition: background 0.2s;
+  max-width: 100%;
 }
 
 .formsTrigger:hover {
@@ -154,10 +171,18 @@
   outline-offset: 2px;
 }
 
+.formsTrigger b {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}
+
 .formsCaret {
   padding-top: 5px;
   font-size: 0.5em;
   color: rgb(99, 87, 78);
+  flex-shrink: 0;
 }
 
 .formsList {
@@ -166,6 +191,7 @@
   left: 50%;
   transform: translateX(-50%);
   min-width: 200px;
+  max-width: min(280px, calc(100vw - 32px));
   max-height: 280px;
   overflow-y: auto;
   list-style: none;
@@ -193,6 +219,7 @@
   font-weight: 700;
   color: rgb(40, 35, 30);
   cursor: pointer;
+  touch-action: manipulation;
   text-transform: lowercase;
   white-space: nowrap;
   transition: background 0.15s, color 0.15s;
@@ -207,11 +234,18 @@
   color: rgb(99, 87, 78);
 }
 
-@media (max-width: 768px) {
+/* ================= TABLET ================= */
+
+@media (max-width: 900px) {
+  .navBar {
+    padding: .75rem;
+  }
+
   .navBtn {
-    gap: 10px;
-    padding: 10px 16px;
-    border-width: 3px;
+    min-height: 42px;
+    height: 42px;
+    padding: 0 .75rem;
+    gap: .5rem;
   }
 
   .arrow {
@@ -219,50 +253,140 @@
   }
 
   .name {
-    font-size: 16px;
+    font-size: 1rem;
+    max-width: 90px;
   }
 
   .num {
-    font-size: 11px;
+    font-size: .9rem;
+  }
+
+  .pokemonInfo {
+    top: 10.5dvh;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 55%;
+    font-size: 1.6rem;
+  }
+
+  .speciesNum {
+    font-size: 1.2rem;
   }
 }
 
-@media (max-width: 480px) {
-  .navBar {
-    gap: 6px;
+/* ================= MOBILE ================= */
+@media (max-width: 600px) {
+
+  .navBar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:.4rem;
+    padding:.45rem;
+    box-sizing:border-box;
   }
 
+  .navBtn{
+    width:42px;
+    min-width:42px;
+    height:42px;
+    min-height:42px;
+    padding:0;
+    justify-content:center;
+    flex-shrink:0;
+  }
+
+  .info{
+    display:none;
+  }
+
+  .pokemonInfo{
+    position:static;
+    flex:1;
+    width:auto;
+    min-width:0;
+    transform:none;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:2px;
+  }
+
+  .speciesNum{
+    font-size:.85rem;
+  }
+
+  .formsDropdown{
+    width:100%;
+    min-width:0;
+  }
+
+  .formsTrigger{
+    width:100%;
+    min-width:0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:.25rem;
+    padding:0;
+  }
+
+  .formsTrigger b{
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    min-width:0;
+    flex:1;
+    text-align:center;
+  }
+
+  .formsList{
+    left:50%;
+    transform:translateX(-50%);
+    max-width:90vw;
+    z-index:999;
+  }
+
+  .arrow{
+    font-size:1.3rem;
+  }
+}
+/* ================= MOBILE PEQUENO ================= */
+
+@media (max-width: 380px) {
   .navBtn {
-    gap: 6px;
-    padding: 8px 10px;
-    border-radius: 14px;
-    border-width: 2px;
+    min-width: 40px;
+    padding: 0 .45rem;
   }
 
-  .arrow {
-    font-size: 1rem;
+  .pokemonInfo {
+    width: 82%;
+    font-size: 1.15rem;
   }
 
-  .name {
-    font-size: 13px;
-    max-width: 70px;
-  }
-
-  .num {
-    font-size: 9px;
+  .speciesNum {
+    font-size: .95rem;
   }
 
   .formsTrigger {
-    font-size: 1.3rem;
-  }
-
-  .formsList {
-    min-width: 160px;
+    font-size: 1rem;
   }
 }
 
-@media (max-width: 360px) {
-  .name {
-    display: none;
+/* ================= LANDSCAPE ================= */
+
+@media (max-height: 500px) and (orientation: landscape) {
+  .pokemonInfo {
+    top: 14dvh;
+  }
+
+  .navBar {
+    padding: .35rem .75rem;
+  }
+
+  .navBtn {
+    height: 38px;
+    min-height: 38px;
   }
 }

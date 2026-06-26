@@ -41,3 +41,52 @@
   align-self: center;
   gap: 0.75rem;
 }
+
+
+/* ========================= */
+/* Mobile */
+/* ========================= */
+@media (max-width: 900px) {
+  .global {
+    padding: 9vh 1rem 2rem;
+    align-items: center;
+  }
+
+  .twoCol {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    width: 100%;
+  }
+
+  .leftCol,
+  .rightCol {
+    width: 100%;
+    max-width: 700px;
+    gap: 1rem;
+  }
+
+  .pokemonImageDataContainer {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    width: 100%;
+  }
+
+  .imageHeaderContainer {
+    align-items: center;
+    width: 100%;
+  }
+
+  .pokemonData {
+    width: 100%;
+    padding-top: 0;
+  }
+
+  .rightCol > * {
+    width: 100%;
+    max-width: 700px;
+  }
+}

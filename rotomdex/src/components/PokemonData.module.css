@@ -3,6 +3,8 @@
     gap: 0.8rem;
     padding-left: 0.8rem;
     padding-bottom: 0.5rem;
+    padding-top: 0.2rem;
+    padding-right: 0.4rem;
     font-size: 1.1rem;
     background: #d5cfc4;
     border: 4px solid rgb(99, 87, 78);
@@ -13,4 +15,8 @@
 
 .container>ul {
     list-style-type: none;
+}
+
+.container p{
+    font-size: 1.2rem;
 }
