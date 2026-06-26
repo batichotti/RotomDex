@@ -44,6 +44,10 @@
     font-size: 1.5rem;
 }
 
+.ability p:hover {
+    scale: 1.05;
+}
+
 .movesLabel {
     font-size: 1.5rem;
     font-weight: 700;
@@ -69,6 +73,10 @@
     background: rgba(255, 255, 255, 0.3);
     border: 1px solid rgba(99, 87, 78, 0.1);
     border-radius: 30px;
+}
+
+.moves ul li:hover {
+    scale: 1.05;
 }
 
 .header {
