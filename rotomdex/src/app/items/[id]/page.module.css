@@ -31,54 +31,45 @@
   margin-bottom: 1.5rem;
 }
 
-.genBadge {
-  font-size: 1rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  padding: 0.3rem 0.7rem;
-  border-radius: 999px;
-  background: rgba(99, 87, 78, 0.12);
-  color: rgba(99, 87, 78, 0.65);
-}
-
-.categoryBadge {
-  font-size: 1rem;
-  font-weight: 600;
-  text-transform: capitalize;
-  letter-spacing: 0.03em;
-  padding: 0.3rem 0.7rem;
+.idBadge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  padding: 0.3rem 0.75rem;
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.4);
   border: 1px solid rgba(99, 87, 78, 0.15);
   color: rgba(99, 87, 78, 0.75);
 }
 
-/* ---- selo de tipo com halo suave na cor do tipo ---- */
-.iconWrap {
-  position: relative;
+.categoryBadge {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  letter-spacing: 0.03em;
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+  background: rgba(99, 87, 78, 0.12);
+  color: rgba(99, 87, 78, 0.65);
+}
+
+/* ---- mesma família visual do .cardImage da home: moldura quadrada
+   arredondada em vez do selo circular dos tipos, já que item não tem tipo ---- */
+.iconSlot {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 140px;
-  height: 140px;
+  width: 96px;
+  height: 96px;
   margin-bottom: 1rem;
+  background: rgba(213, 207, 196, 0.55);
+  border: 3px solid rgba(99, 87, 78, 0.35);
+  border-radius: 28px;
+  box-shadow: 0 0 4px rgba(99, 87, 78, 0.12), inset 0 0 10px rgba(255, 255, 255, 0.3);
 }
 
-.iconGlow {
-  position: absolute;
-  inset: -22px;
-  border-radius: 50%;
-  filter: blur(8px);
-  z-index: 0;
-}
-
-.iconBadge {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.iconImg {
+  object-fit: contain;
 }
 
 .name {
@@ -86,22 +77,11 @@
   font-size: 1.75rem;
   font-weight: 700;
   letter-spacing: 0.01em;
-  text-transform: lowercase;
+  text-transform: capitalize;
   color: #63574e;
 }
 
-.damageClass {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.85rem;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  text-transform: lowercase;
-  color: rgba(99, 87, 78, 0.8);
-}
-
-/* divisor pontilhado, igual ao usado na página de abilities */
+/* divisor pontilhado, igual ao resto das páginas de detalhe */
 .divider {
   height: 1px;
   width: 100%;
@@ -117,7 +97,7 @@
 
 .statsGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
   gap: 0.75rem;
   width: 100%;
 }
@@ -139,14 +119,14 @@
 }
 
 .statLabel {
-  font-size: 0.75rem;
+  font-size: 0.65rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   color: rgba(99, 87, 78, 0.6);
 }
 
 .statValue {
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: 700;
   color: #4a4038;
   font-variant-numeric: tabular-nums;
@@ -155,12 +135,11 @@
 .section {
   width: 100%;
   text-align: left;
-  margin-top: 1.25rem;
 }
 
 .sectionTitle {
   margin: 0 0 0.4rem;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -169,7 +148,7 @@
 
 .sectionText {
   margin: 0;
-  font-size: 1.1rem;
+  font-size: 0.95rem;
   line-height: 1.6;
   color: #63574e;
 }
@@ -205,8 +184,8 @@
     font-size: 1.4rem;
   }
 
-  .iconWrap {
-    width: 110px;
-    height: 110px;
+  .iconSlot {
+    width: 80px;
+    height: 80px;
   }
 }

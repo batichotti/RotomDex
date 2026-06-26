@@ -11,6 +11,20 @@ export const GENERATIONS = [
     { key: 'generation-ix',   label: 'Paldea'        },
 ] as const;
 
+export const GENERATION_MAP = {
+  "generation-i": "Kanto",
+  "generation-ii": "Johto",
+  "generation-iii": "Hoenn",
+  "generation-iv": "Sinnoh",
+  "generation-v": "Unova",
+  "generation-vi": "Kalos",
+  "generation-vii": "Alola",
+  "generation-viii": "Galar & Hisui",
+  "generation-ix": "Paldea",
+} as const;
+
+export type GenerationKey = keyof typeof GENERATION_MAP;
+
 export const EGG_GROUPS = [
     { key: 'indeterminate', label: 'Amorphous'    },
     { key: 'bug',           label: 'Bug'          }, 

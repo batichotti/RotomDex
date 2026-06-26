@@ -2,9 +2,7 @@
 
 import { useState, useCallback } from "react"
 import type { PokemonMove } from "@/types/moves"
-import Image from "next/image"
-import { capitalize } from "@/utils/utils"
-import { TYPE_COLORS } from "@/utils/TypeColors"
+import { redirect } from "next/navigation"
 import styles from "./PokemonMoves.module.css"
 import Link from "next/link"
 import { TypeIconBadge } from "./TypeIconBadge"
@@ -141,6 +139,8 @@ function MethodSection({ method, moves }: { method: string; moves: PokemonMove[]
                             <tr
                                 key={`${pm.move_id}-${pm.move_learn_method}`}
                                 className={styles.row}
+                                onClick={() => redirect(`/moves/${pm.move.name}`)}
+                                style={{ cursor: "pointer" }}
                             >
                                 {method === "level-up" && (
                                     <td className={`${styles.cell} ${styles.levelCell}`}>
@@ -148,7 +148,7 @@ function MethodSection({ method, moves }: { method: string; moves: PokemonMove[]
                                     </td>
                                 )}
                                 <td className={`${styles.cell} ${styles.typeCell}`}>
-                                    <TypeIconBadge type={pm.move.type} width={35} height={35}/>
+                                    <TypeIconBadge type={pm.move.type} width={35} height={35} />
                                 </td>
                                 <td className={`${styles.cell} ${styles.capitalize}`}>
                                     <Link href={`/moves/${pm.move.name}`}>
