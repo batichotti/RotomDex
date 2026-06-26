@@ -44,11 +44,11 @@ export default function HomePageClient({ initialData }: { initialData: TeamData 
                             <div className={styles.movesLabel}>MOVES</div>
                             <ul>
                                 {data.randomMoves[i].map(move => (
-                                    <Link href={`/moves/${move.move_name}`}>
-                                        <li key={move.move_id}>
+                                    <li key={move.move_id}>
+                                        <Link href={`/moves/${move.move_name}`}>
                                             {move.move_name.replaceAll("-", " ")}
-                                        </li>
-                                    </Link>
+                                        </Link>
+                                    </li>
                                 ))}
                             </ul>
                         </div>
