@@ -5,6 +5,7 @@ import { useState, useTransition } from "react";
 import PokemonCard from "@/components/PokemonCard";
 import { getRandomTeam, type TeamData } from "@/utils/getRandomTeam";
 import styles from "@/app/home/homePage.module.css";
+import Link from "next/link";
 
 export default function HomePageClient({ initialData }: { initialData: TeamData }) {
     const [data, setData] = useState<TeamData>(initialData);
@@ -36,13 +37,17 @@ export default function HomePageClient({ initialData }: { initialData: TeamData 
                         <div className={styles.moves}>
                             <div className={styles.ability}>
                                 <span>ABILITY</span>
-                                {data.randomAbility[i]?.ability_name.replaceAll("-", " ")}
+                                <Link href={`/abilities/${data.randomAbility[i]?.ability_name}`}>
+                                    <p>{data.randomAbility[i]?.ability_name.replaceAll("-", " ")}</p>
+                                </Link>
                             </div>
                             <div className={styles.movesLabel}>MOVES</div>
                             <ul>
                                 {data.randomMoves[i].map(move => (
                                     <li key={move.move_id}>
-                                        {move.move_name.replaceAll("-", " ")}
+                                        <Link href={`/moves/${move.move_name}`}>
+                                            {move.move_name.replaceAll("-", " ")}
+                                        </Link>
                                     </li>
                                 ))}
                             </ul>
